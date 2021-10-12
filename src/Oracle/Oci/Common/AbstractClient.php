@@ -1,19 +1,15 @@
 <?php
 
-namespace Oracle\Oci\ObjectStorage;
-
-use Oracle\Oci\Common\OciResponse;
+namespace Oracle\Oci\Common;
 
 use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
-use Oracle\Oci\Common\AuthProviderInterface;
-use Oracle\Oci\Common\RegionProvider;
 use InvalidArgumentException;
 
-class ObjectStorageClient 
+abstract class AbstractClient 
 {
     protected AuthProviderInterface $auth_provider;
     protected $region;
@@ -121,74 +117,6 @@ class ObjectStorageClient
             statusCode: $response->getStatusCode(),
             headers: $response->getHeaders(),
             body: $body);
-    }
-
-    // headObject
-    // deleteObject
-    // listObjects
-    // copyObject
-
-    public function putObject(
-        string $namespace,
-        string $bucket_name,
-        string $object_name,
-        $body
-    )
-    {
-        $response = $this->client->put("https://objectstorage.{$this->region}.oraclecloud.com/n/$namespace/b/$bucket_name/o/$object_name", [ "body" => $body, 'headers' => ['Content-Type' => 'application/json']]);
-        
-        return new OciResponse(
-            statusCode: $response->getStatusCode(),
-            headers: $response->getHeaders(),
-            body: $response->getBody());
-    }
-
-    public function getObject(
-        string $namespace,
-        string $bucket_name,
-        string $object_name
-    )
-    {
-        $response = $this->client->get("https://objectstorage.{$this->region}.oraclecloud.com/n/$namespace/b/$bucket_name/o/$object_name", [ 'headers' => ['Content-Type' => 'application/json']]);
-        
-        return new OciResponse(
-            statusCode: $response->getStatusCode(),
-            headers: $response->getHeaders(),
-            body: $response->getBody());
-    }
-
-    public function headObject(
-        string $namespace,
-        string $bucket_name,
-        string $object_name
-    )
-    {
-        $response = $this->client->head("https://objectstorage.{$this->region}.oraclecloud.com/n/$namespace/b/$bucket_name/o/$object_name", [ 'headers' => ['Content-Type' => 'application/json']]);
-        
-        return new OciResponse(
-            statusCode: $response->getStatusCode(),
-            headers: $response->getHeaders(),
-            body: $response->getBody());
-    }
-
-    public function listObjects(
-        string $namespace,
-        string $bucket_name,
-        string $prefix = null
-    )
-    {
-        $headers = ['Content-Type' => 'application/json'];
-        $query = [];
-        if ($prefix != null)
-        {
-            $query['prefix'] = $prefix;
-        }
-
-        $response = $this->client->get("https://objectstorage.{$this->region}.oraclecloud.com/n/$namespace/b/$bucket_name/o", [ 'headers' => $headers, 'query' => $query]);
-        return new OciResponse(
-            statusCode: $response->getStatusCode(),
-            headers: $response->getHeaders(),
-            json: json_decode($response->getBody()));
     }
 }
 ?>
