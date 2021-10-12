@@ -4,6 +4,7 @@ namespace Oracle\Oci\ObjectStorage;
 
 use Oracle\Oci\Common\OciResponse;
 
+use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
@@ -174,11 +175,18 @@ class ObjectStorageClient
 
     public function listObjects(
         string $namespace,
-        string $bucket_name
+        string $bucket_name,
+        string $prefix = null
     )
     {
-        $response = $this->client->get("https://objectstorage.{$this->region}.oraclecloud.com/n/$namespace/b/$bucket_name/o", [ 'headers' => ['Content-Type' => 'application/json']]);
-        
+        $headers = ['Content-Type' => 'application/json'];
+        $query = [];
+        if ($prefix != null)
+        {
+            $query['prefix'] = $prefix;
+        }
+
+        $response = $this->client->get("https://objectstorage.{$this->region}.oraclecloud.com/n/$namespace/b/$bucket_name/o", [ 'headers' => $headers, 'query' => $query]);
         return new OciResponse(
             statusCode: $response->getStatusCode(),
             headers: $response->getHeaders(),

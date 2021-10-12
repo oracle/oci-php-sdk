@@ -57,4 +57,8 @@ echo "----- listObjects -----".PHP_EOL;
 $response = $c->listObjects($namespace, $bucket_name);
 $response->print();
 
+echo "----- listObjects with prefix -----".PHP_EOL;
+$response = $c->listObjects(namespace: $namespace, bucket_name: $bucket_name, prefix: "dexreq-");
+$response->print();
+
 ?>
