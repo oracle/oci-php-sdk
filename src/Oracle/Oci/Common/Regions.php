@@ -9,12 +9,13 @@ class Realm
 
     protected static $wasInitialized = false;
     protected static $knownRealms = [];
+    protected static $unknownRegionRealm;
     
     public function __construct(
         string $realmId,
         string $realmDomainComponent)
     {
-        $this->realmId = $realmId;
+        $this->realmId = strtolower($realmId);
         $this->realmDomainComponent = $realmDomainComponent;
         Realm::$knownRealms[$realmId] = $this;
     }
@@ -28,6 +29,7 @@ class Realm
             $OC3 = new Realm("oc3", "oraclegovcloud.com");
             $OC4 = new Realm("oc4", "oraclegovcloud.uk");
             $OC8 = new Realm("oc8", "oraclecloud8.com");
+            Realm::$unknownRegionRealm = $OC1;
             Realm::$wasInitialized = true;
         }
     }
@@ -44,10 +46,21 @@ class Realm
 
     public static function getRealm(
         string $realmId
-    )
+    ) : ?Realm
     {
         Realm::__init();
-        return Realm::$knownRealms[strtolower($realmId)];
+        $id = strtolower($realmId);
+        if (array_key_exists($id, Realm::$knownRealms))
+        {
+            return Realm::$knownRealms[$id];
+        }
+        return null;
+    }
+
+    public static function getRealmForUnknownRegion() : Realm
+    {
+        Realm::__init();
+        return Realm::$unknownRegionRealm;
     }
 
     public function __toString()
@@ -71,8 +84,8 @@ class Region
         string $regionCode,
         Realm $realm)
     {
-        $this->regionId = $regionId;
-        $this->regionCode = $regionCode;
+        $this->regionId = strtolower($regionId);
+        $this->regionCode = strtolower($regionCode);
         $this->realm = $realm;
         Region::$knownRegions[$regionId] = $this;
         Region::$knownRegionsByCode[$regionCode] = $this;
@@ -146,7 +159,7 @@ class Region
 
     public static function getRegion(
         string $regionIdOrCode
-    )
+    ) : ?Region
     {
         $r = Region::getRegionById($regionIdOrCode);
         if ($r == null)
@@ -158,10 +171,15 @@ class Region
 
     public static function getRegionById(
         string $regionId
-    )
+    ) : ?Region
     {
         Region::__init();
-        return Region::$knownRegions[strtolower($regionId)];
+        $id = strtolower($regionId);
+        if (array_key_exists($id, Region::$knownRegions))
+        {
+            return Region::$knownRegions[$id];
+        }
+        return null;
     }
 
     public static function getRegionByCode(
@@ -169,7 +187,12 @@ class Region
     )
     {
         Region::__init();
-        return Region::$knownRegionsByCode[strtolower($regionCode)];
+        $code = strtolower($regionCode);
+        if (array_key_exists($code, Region::$knownRegionsByCode))
+        {
+            return Region::$knownRegionsByCode[$code];
+        }
+        return null;
     }
 
     public function __toString()

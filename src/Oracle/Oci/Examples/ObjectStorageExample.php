@@ -12,6 +12,7 @@ require 'src/Oracle/Oci/ObjectStorage/ObjectStorageClient.php';
 use Oracle\Oci\Common\UserAuthProviderInterface;
 use Oracle\Oci\Common\Region;
 use Oracle\Oci\ObjectStorage\ObjectStorageClient;
+use GuzzleHttp\Exception\ClientException;
 
 $region = Region::getRegion("us-phoenix-1");
 echo "Region: $region".PHP_EOL;
@@ -123,4 +124,21 @@ echo "----- listObjects with prefix -----".PHP_EOL;
 $response = $c->listObjects(namespaceName: $namespace, bucketName: $bucket_name, prefix: "dexreq-");
 $response->print();
 
+echo "----- headObject for missing file -----".PHP_EOL;
+try
+{
+    $response = $c->headObject($namespace, $bucket_name, "doesNotExist");
+    $response->print();
+    echo "ERROR: Object was supposed to not exist!".PHP_EOL;
+    die;
+}
+catch(ClientException $e)
+{
+    $statusCode = $e->getResponse()->getStatusCode();
+    if ($statusCode != 404)
+    {
+        echo "ERROR: Returned $statusCode instead of 404!".PHP_EOL;
+        die;
+    }
+}
 ?>

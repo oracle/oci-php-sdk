@@ -12,13 +12,14 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
 use Oracle\Oci\Common\OciResponse;
 use Oracle\Oci\Common\AuthProviderInterface;
+use Oracle\Oci\Common\Realm;
 use Oracle\Oci\Common\Region;
 use Oracle\Oci\Common\RegionProvider;
 
 class ObjectStorageClient
 {
     protected AuthProviderInterface $auth_provider;
-    protected Region $region;
+    protected ?Region $region;
 
     protected const endpointTemplate = "https://objectstorage.{region}.{secondLevelDomain}";
     protected string $endpoint;
@@ -42,7 +43,21 @@ class ObjectStorageClient
                 $this->region = $region;
             }
             else {
-                $this->region = Region::getRegion($region);
+                echo "Looking up region by name: $region".PHP_EOL;
+                $knownRegion = Region::getRegion($region);
+                if ($knownRegion == null)
+                {
+                    // forward-compatibility for unknown regions
+                    $realm = Realm::getRealmForUnknownRegion();
+                    $endpoint = str_replace('{region}', $region, ObjectStorageClient::endpointTemplate);
+                    $endpoint = str_replace('{secondLevelDomain}', $realm->getRealmDomainComponent(), $endpoint);
+                    $this->region = null;
+                    echo "Region $region is unknown, assuming it to be in realm $realm. Setting endpoint to $endpoint".PHP_EOL;
+                }
+                else
+                {
+                    $this->region = $knownRegion;
+                }
             }
         }
         if ($this->region == null && $endpoint == null)
@@ -57,6 +72,7 @@ class ObjectStorageClient
             $this->endpoint = str_replace('{region}', $this->region->getRegionId(), ObjectStorageClient::endpointTemplate);
             $this->endpoint = str_replace('{secondLevelDomain}', $this->region->getRealm()->getRealmDomainComponent(), $this->endpoint);
         }
+        echo "Final endpoint: {$this->endpoint}".PHP_EOL;
 
         $handler = new CurlHandler();
         $stack = HandlerStack::create($handler);
