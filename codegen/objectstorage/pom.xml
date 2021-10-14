@@ -17,11 +17,10 @@
     <codegen.artifactory.artifactId>casper-api-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>1.1.391</codegen.artifactory.version>
     <codegen.spec.name>source/casper-api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Objectstorage</codegen.package.name>
+    <codegen.package.name>ObjectStorage</codegen.package.name>
     <codegen.endpoint>objectstorage</codegen.endpoint>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>objectstorage</package.name.lower>
   </properties>
   <build>
     <plugins>

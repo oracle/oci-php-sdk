@@ -43,7 +43,6 @@ class ObjectStorageClient
                 $this->region = $region;
             }
             else {
-                echo "Looking up region by name: $region".PHP_EOL;
                 $knownRegion = Region::getRegion($region);
                 if ($knownRegion == null)
                 {
@@ -52,7 +51,7 @@ class ObjectStorageClient
                     $endpoint = str_replace('{region}', $region, ObjectStorageClient::endpointTemplate);
                     $endpoint = str_replace('{secondLevelDomain}', $realm->getRealmDomainComponent(), $endpoint);
                     $this->region = null;
-                    echo "Region $region is unknown, assuming it to be in realm $realm. Setting endpoint to $endpoint".PHP_EOL;
+                    // echo "Region $region is unknown, assuming it to be in realm $realm. Setting endpoint to $endpoint".PHP_EOL;
                 }
                 else
                 {
@@ -72,7 +71,7 @@ class ObjectStorageClient
             $this->endpoint = str_replace('{region}', $this->region->getRegionId(), ObjectStorageClient::endpointTemplate);
             $this->endpoint = str_replace('{secondLevelDomain}', $this->region->getRealm()->getRealmDomainComponent(), $this->endpoint);
         }
-        echo "Final endpoint: {$this->endpoint}".PHP_EOL;
+        // echo "Final endpoint: {$this->endpoint}".PHP_EOL;
 
         $handler = new CurlHandler();
         $stack = HandlerStack::create($handler);

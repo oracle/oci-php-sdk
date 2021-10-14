@@ -186,22 +186,22 @@
               <configuration>
                 <target>
                   <delete failonerror="false" verbose="true">
-                    <fileset dir="../../${codegen.target.package.dir}/" includes="**/*.php">
+                    <fileset dir="../../src/Oracle/Oci/${codegen.target.package.dir}/" includes="**/*.php">
                       <contains text="OracleSDKGenerator" />
                     </fileset>
                   </delete>
-                  <copy overwrite="true" todir="../../${codegen.target.package.dir}">
-                    <fileset dir="target/generated-sources/oracle-php-sdk-sources/oracle/oci/${package.name.lower}" includes="**/*.php">
+                  <copy overwrite="true" todir="../../src/Oracle/Oci/${codegen.target.package.dir}">
+                    <fileset dir="target/generated-sources/oracle-php-sdk-sources/Oracle/Oci/${codegen.package.name}" includes="**/*.php">
                       <contains text="OracleSDKGenerator" />
                     </fileset>
                   </copy>
                   <delete failonerror="false" verbose="true">
-                    <fileset dir="../../Integtests/${codegen.target.package.dir}" includes="**/*.php">
+                    <fileset dir="../../src/Oracle/Oci/Integtests/${codegen.target.package.dir}" includes="**/*.php">
                       <contains text="OracleSDKTestGenerator" />
                     </fileset>
                   </delete>
-                  <copy overwrite="true" todir="../../Integtests/${codegen.target.package.dir}">
-                    <fileset dir="target/generated-sources/oracle-php-sdk-sources/oci/${package.name.lower}" includes="**/*.php">
+                  <copy overwrite="true" todir="../../src/Oracle/Oci/Integtests/${codegen.target.package.dir}">
+                    <fileset dir="target/generated-sources/oracle-php-sdk-sources/Oracle/Oci/${codegen.package.name}" includes="**/*.php">
                       <contains text="OracleSDKTestGenerator" />
                     </fileset>
                   </copy>
