@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>management-dashboard-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>1.0.319</codegen.artifactory.version>
     <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Managementdashboard</codegen.package.name>
+    <codegen.package.name>ManagementDashboard</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>managementdashboard</package.name.lower>
   </properties>
   <build>
     <plugins>

@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>customer-controlled-access-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>1.1.113</codegen.artifactory.version>
     <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Operatoraccesscontrol</codegen.package.name>
+    <codegen.package.name>OperatorAccessControl</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>operatoraccesscontrol</package.name.lower>
   </properties>
   <build>
     <plugins>

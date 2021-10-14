@@ -21,7 +21,6 @@
     <codegen.endpoint>identity</codegen.endpoint>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>identity</package.name.lower>
   </properties>
   <build>
     <plugins>

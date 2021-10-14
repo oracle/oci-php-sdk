@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>apm-config-api</codegen.artifactory.artifactId>
     <codegen.artifactory.version>0.1.114</codegen.artifactory.version>
     <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Apmconfig</codegen.package.name>
+    <codegen.package.name>ApmConfig</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>apmconfig</package.name.lower>
   </properties>
   <build>
     <plugins>

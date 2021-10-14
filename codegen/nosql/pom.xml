@@ -17,10 +17,9 @@
     <codegen.artifactory.artifactId>ndcs-control-plane-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>0.1.9</codegen.artifactory.version>
     <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Nosql</codegen.package.name>
+    <codegen.package.name>NoSql</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>nosql</package.name.lower>
   </properties>
   <build>
     <plugins>

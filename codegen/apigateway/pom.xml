@@ -17,10 +17,9 @@
     <codegen.artifactory.artifactId>public-api-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>1.11.79</codegen.artifactory.version>
     <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Apigateway</codegen.package.name>
+    <codegen.package.name>ApiGateway</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>apigateway</package.name.lower>
   </properties>
   <build>
     <plugins>

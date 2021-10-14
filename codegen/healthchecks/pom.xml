@@ -17,7 +17,7 @@
         <codegen.artifactory.artifactId>healthchecks-api-spec</codegen.artifactory.artifactId>
         <codegen.artifactory.version>1.2.0-20190917.134531-2</codegen.artifactory.version>
         <codegen.spec.name>health-checks-api-spec-20180501.cond.yaml</codegen.spec.name>
-        <codegen.package.name>Healthchecks</codegen.package.name>
+        <codegen.package.name>HealthChecks</codegen.package.name>
         <codegen.endpoint>healthchecks</codegen.endpoint>
         <codegen.generate.waiters>true</codegen.generate.waiters>
         <codegen.generate.paginators>true</codegen.generate.paginators>

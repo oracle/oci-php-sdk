@@ -18,7 +18,6 @@
     <codegen.package.name>Optimizer</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>optimizer</package.name.lower>
   </properties>
   <build>
     <plugins>

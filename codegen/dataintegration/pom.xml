@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>dis-sdk-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>1.0.0-162</codegen.artifactory.version>
     <codegen.spec.name>source/dis-api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Dataintegration</codegen.package.name>
+    <codegen.package.name>DataIntegration</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>dataintegration</package.name.lower>
   </properties>
   <build>
     <plugins>

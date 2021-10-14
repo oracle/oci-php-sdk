@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>apm-dataserver-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>20200630.4.83</codegen.artifactory.version>
     <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Apmtraces</codegen.package.name>
+    <codegen.package.name>ApmTraces</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>apmtraces</package.name.lower>
   </properties>
   <build>
     <plugins>

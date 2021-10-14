@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>dls-data-plane-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>0.1.106</codegen.artifactory.version>
     <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Datalabelingservicedataplane</codegen.package.name>
+    <codegen.package.name>DataLabelingServiceDataPlane</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>datalabelingservicedataplane</package.name.lower>
   </properties>
   <build>
     <plugins>

@@ -17,11 +17,10 @@
     <codegen.artifactory.artifactId>announcements-service-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>1.0.33</codegen.artifactory.version>
     <codegen.spec.name>source/announcement-service.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Announcementsservice</codegen.package.name>
+    <codegen.package.name>AnnouncementsService</codegen.package.name>
     <codegen.endpoint>announcements</codegen.endpoint>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>announcementsservice</package.name.lower>
   </properties>
   <build>
     <plugins>

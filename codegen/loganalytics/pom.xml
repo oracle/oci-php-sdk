@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>logan-api-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>0.1.303</codegen.artifactory.version>
     <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Loganalytics</codegen.package.name>
+    <codegen.package.name>LogAnalytics</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>loganalytics</package.name.lower>
   </properties>
   <build>
     <plugins>

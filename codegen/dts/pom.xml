@@ -20,7 +20,6 @@
     <codegen.package.name>Dts</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>dts</package.name.lower>
   </properties>
   <build>
     <plugins>

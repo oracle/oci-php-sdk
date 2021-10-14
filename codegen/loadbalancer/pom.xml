@@ -17,11 +17,10 @@
     <codegen.artifactory.artifactId>oralb-api-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>195</codegen.artifactory.version>
     <codegen.spec.name>source/spec-20170115.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Loadbalancer</codegen.package.name>
+    <codegen.package.name>LoadBalancer</codegen.package.name>
     <codegen.endpoint>iaas</codegen.endpoint>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>loadbalancer</package.name.lower>
   </properties>
   <build>
     <plugins>

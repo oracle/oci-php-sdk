@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>usage-api-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>1.9</codegen.artifactory.version>
     <codegen.spec.name>source/usage-api.api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Usageapi</codegen.package.name>
+    <codegen.package.name>UsageApi</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>usageapi</package.name.lower>
   </properties>
   <build>
     <plugins>

@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>dbmgmt-dbadmin-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>20201101.82</codegen.artifactory.version>
     <codegen.spec.name>source/dbmgmt-dbadmin-api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Databasemanagement</codegen.package.name>
+    <codegen.package.name>DatabaseManagement</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>databasemanagement</package.name.lower>
   </properties>
   <build>
     <plugins>

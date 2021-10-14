@@ -17,11 +17,10 @@
     <codegen.artifactory.artifactId>clusters-api-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>1.2.8</codegen.artifactory.version>
     <codegen.spec.name>source/clusters-api-spec.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Containerengine</codegen.package.name>
+    <codegen.package.name>ContainerEngine</codegen.package.name>
     <codegen.endpoint>containerengine</codegen.endpoint>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>containerengine</package.name.lower>
   </properties>
   <build>
     <plugins>

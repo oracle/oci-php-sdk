@@ -15,10 +15,9 @@
     <codegen.artifactory.artifactId>mgmtagent-cloud-services-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>1.2.203</codegen.artifactory.version>
     <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Managementagent</codegen.package.name>
+    <codegen.package.name>ManagementAgent</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>managementagent</package.name.lower>
   </properties>
   <build>
     <plugins>

@@ -20,7 +20,6 @@
     <codegen.package.name>Oda</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>oda</package.name.lower>
   </properties>
   <build>
     <plugins>

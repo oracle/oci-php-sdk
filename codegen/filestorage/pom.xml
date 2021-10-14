@@ -17,11 +17,10 @@
     <codegen.artifactory.artifactId>fss-api-spec</codegen.artifactory.artifactId>
     <codegen.artifactory.version>0.0.30</codegen.artifactory.version>
     <codegen.spec.name>source/fss-api-spec-20171215.cond.yaml</codegen.spec.name>
-    <codegen.package.name>Filestorage</codegen.package.name>
+    <codegen.package.name>FileStorage</codegen.package.name>
     <codegen.endpoint>filestorage</codegen.endpoint>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>filestorage</package.name.lower>
   </properties>
   <build>
     <plugins>

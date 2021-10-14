@@ -18,7 +18,6 @@
     <codegen.package.name>Opsi</codegen.package.name>
     <codegen.generate.waiters>true</codegen.generate.waiters>
     <codegen.generate.paginators>true</codegen.generate.paginators>
-    <package.name.lower>opsi</package.name.lower>
   </properties>
   <build>
     <plugins>
