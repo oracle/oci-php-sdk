@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.oracle.oci.sdk</groupId>
+    <artifactId>oci-php-sdk-codegen</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
+  <artifactId>oci-php-sdk-aianomalydetection-codegen</artifactId>
+  <name>Oracle Cloud Infrastructure PHP SDK - Ai Anomaly Detection Service Codegen</name>
+  <description>This project contains the SDK used for Oracle Cloud Infrastructure Ai Anomaly Detection</description>
+  <properties>
+    <codegen.artifactory.groupId>com.oracle.pic.ocas</codegen.artifactory.groupId>
+    <codegen.artifactory.artifactId>ad-control-plane-spec</codegen.artifactory.artifactId>
+    <codegen.artifactory.version>1.0.14-preview</codegen.artifactory.version>
+    <codegen.spec.name>source/api.cond.yaml</codegen.spec.name>
+    <codegen.package.name>Aianomalydetection</codegen.package.name>
+    <codegen.generate.waiters>true</codegen.generate.waiters>
+    <codegen.generate.paginators>true</codegen.generate.paginators>
+    <package.name.lower>aianomalydetection</package.name.lower>
+  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.commonjava.maven.plugins</groupId>
+        <artifactId>directory-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.oracle.oci.sdk.utilities</groupId>
+        <artifactId>dex-get-spec-artifact-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.oracle.oci.sdk.utilities</groupId>
+        <artifactId>spec-conditionals-preprocessor-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.oracle.bmc.sdk</groupId>
+        <artifactId>bmc-sdk-swagger-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

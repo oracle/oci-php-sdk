@@ -6,10 +6,15 @@ require 'vendor/autoload.php';
 
 require 'src/Oracle/Oci/Common/AuthProviderInterface.php';
 require 'src/Oracle/Oci/Common/OciResponse.php';
+require 'src/Oracle/Oci/Common/Regions.php';
 require 'src/Oracle/Oci/ObjectStorage/ObjectStorageClient.php';
 
 use Oracle\Oci\Common\UserAuthProviderInterface;
+use Oracle\Oci\Common\Region;
 use Oracle\Oci\ObjectStorage\ObjectStorageClient;
+
+$region = Region::getRegion("us-phoenix-1");
+echo "Region: $region".PHP_EOL;
 
 $auth_provider = new UserAuthProviderInterface(
     tenancy_id: 'ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq',
@@ -20,13 +25,15 @@ $auth_provider = new UserAuthProviderInterface(
 
 $c = new ObjectStorageClient(
     auth_provider: $auth_provider,
-    region: 'us-phoenix-1'
+    region: $region
 );
 
 echo "----- getNamespace -----".PHP_EOL;
 $response = $c->getNamespace();
 $response->print();
-$namespace = $response->getBody();
+$namespace = $response->getJson();
+
+echo "Namespace = '{$namespace}'".PHP_EOL;
 
 $bucket_name = "mricken-test";
 $object_name = "php-test.txt";
@@ -44,7 +51,12 @@ $retrieved_body = $response->getBody();
 
 if ($body != $retrieved_body)
 {
-    echo "Retrieved body does not uploaded body!";
+    echo "ERROR: Retrieved body does not equal uploaded body!".PHP_EOL;
+    die;
+}
+else
+{
+    echo "Retrieved body equals uploaded body!".PHP_EOL;
 }
 
 echo "----- headObject -----".PHP_EOL;
@@ -58,12 +70,57 @@ $file_handle = fopen("composer.json", "rb");
 $response = $c->putObject($namespace, $bucket_name, $object_name2, $file_handle);
 $response->print();
 
+echo "----- headObject of uploaded file -----".PHP_EOL;
+$file_handle = fopen("composer.json", "rb");
+$response = $c->headObject($namespace, $bucket_name, $object_name2);
+$response->print();
+$retrieved_filesize = $response->getHeaders()['Content-Length'][0];
+$size = filesize("composer.json");
+if ($size != $retrieved_filesize)
+{
+    echo "ERROR: Retrieved file size ($retrieved_filesize) does not equal uploaded file size ($size)!".PHP_EOL;
+    die;
+}
+else
+{
+    echo "Retrieved file size ($retrieved_filesize) equals uploaded file size ($size)!".PHP_EOL;
+}
+
+echo "----- copyObject -----".PHP_EOL;
+
+$object_name3 = "php-test3.txt";
+$copy_object_details = [
+    'sourceObjectName' => $object_name2,
+    'destinationRegion' => $region->getRegionId(),
+    'destinationNamespace' => $namespace,
+    'destinationBucket' => $bucket_name,
+    'destinationObjectName' => $object_name3
+];
+$response = $c->copyObject($namespace, $bucket_name, $copy_object_details);
+$response->print();
+
+echo "----- headObject of copied file -----".PHP_EOL;
+$file_handle = fopen("composer.json", "rb");
+$response = $c->headObject($namespace, $bucket_name, $object_name3);
+$response->print();
+$retrieved_filesize = $response->getHeaders()['Content-Length'][0];
+$size = filesize("composer.json");
+if ($size != $retrieved_filesize)
+{
+    echo "ERROR: Retrieved file size ($retrieved_filesize) does not equal uploaded file size ($size)!".PHP_EOL;
+    die;
+}
+else
+{
+    echo "Retrieved file size ($retrieved_filesize) equals uploaded file size ($size)!".PHP_EOL;
+}
+
 echo "----- listObjects -----".PHP_EOL;
 $response = $c->listObjects($namespace, $bucket_name);
 $response->print();
 
 echo "----- listObjects with prefix -----".PHP_EOL;
-$response = $c->listObjects(namespace: $namespace, bucket_name: $bucket_name, prefix: "dexreq-");
+$response = $c->listObjects(namespaceName: $namespace, bucketName: $bucket_name, prefix: "dexreq-");
 $response->print();
 
 ?>

@@ -11,7 +11,7 @@ interface AuthProviderInterface
 
 interface RegionProvider
 {
-    public function getRegion() : string;
+    public function getRegion() : Region;
 }
 
 class UserAuthProviderInterface implements AuthProviderInterface
