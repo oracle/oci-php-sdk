@@ -15,6 +15,7 @@ use Oracle\Oci\Common\AuthProviderInterface;
 use Oracle\Oci\Common\Realm;
 use Oracle\Oci\Common\Region;
 use Oracle\Oci\Common\RegionProvider;
+use Oracle\Oci\Common\UserAgent;
 
 class ObjectStorageClient
 {
@@ -156,7 +157,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -190,7 +191,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -224,7 +225,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -277,7 +278,7 @@ class ObjectStorageClient
         $opcSseKmsKeyId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -337,7 +338,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -375,7 +376,7 @@ class ObjectStorageClient
         $opcSseKmsKeyId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -432,7 +433,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -465,7 +466,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -498,7 +499,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -531,7 +532,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -568,7 +569,7 @@ class ObjectStorageClient
         $versionId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -608,7 +609,7 @@ class ObjectStorageClient
         $ifMatch = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -643,7 +644,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -675,7 +676,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -708,7 +709,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -746,7 +747,7 @@ class ObjectStorageClient
         $fields = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -787,7 +788,7 @@ class ObjectStorageClient
         $compartmentId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -818,7 +819,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -861,7 +862,7 @@ class ObjectStorageClient
         $httpResponseExpires = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -944,7 +945,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -975,7 +976,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1007,7 +1008,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1039,7 +1040,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1069,7 +1070,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1100,7 +1101,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -1145,7 +1146,7 @@ class ObjectStorageClient
         $opcSseCustomerKeySha256 = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -1203,7 +1204,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1252,7 +1253,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1297,7 +1298,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1343,7 +1344,7 @@ class ObjectStorageClient
         $page = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1412,7 +1413,7 @@ class ObjectStorageClient
         $startAfter = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1473,7 +1474,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1517,7 +1518,7 @@ class ObjectStorageClient
         $limit = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1557,7 +1558,7 @@ class ObjectStorageClient
         $limit = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1595,7 +1596,7 @@ class ObjectStorageClient
         $page = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
 
         $__query = [];
         if ($page != null)
@@ -1626,7 +1627,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1664,7 +1665,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1702,7 +1703,7 @@ class ObjectStorageClient
         $limit = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1742,7 +1743,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1790,7 +1791,7 @@ class ObjectStorageClient
         $opcMeta = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -1890,7 +1891,7 @@ class ObjectStorageClient
         $ifNoneMatch = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1930,7 +1931,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -1963,7 +1964,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -2001,7 +2002,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -2034,7 +2035,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -2068,7 +2069,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -2104,7 +2105,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -2136,7 +2137,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;
@@ -2171,7 +2172,7 @@ class ObjectStorageClient
         $opcClientRequestId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
             $__headers['ifMatch'] = $ifMatch;
@@ -2221,7 +2222,7 @@ class ObjectStorageClient
         $opcSseKmsKeyId = null,
     )
     {
-        $__headers = ['Content-Type' => 'application/json'];
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
             $__headers['opcClientRequestId'] = $opcClientRequestId;

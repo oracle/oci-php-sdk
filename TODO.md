@@ -1,22 +1,51 @@
 # Oracle Cloud Infrastructure SDK for PHP TODO
 
-## Regions and Realms
+## For Kaltura
+
+### Requests
+- encode path parameters
+- encode header parameters
+- encode path parameters
+- signing strategy
+- customRequestInterceptor?
+
+### Data Types
+- enums
+- top-level enums
+- enum-refs
+- inline enums
+
+### Major Features
+- Upload Manager (uploads automatically broken into smaller parts)
+- Paginator (multi-page lists retrieved transparently to the customer)
+- Instance Principals authentication
+- PHP stream wrapper
+
+### Test
+- Multipart upload operations
+- Work request operations
+- PreAuthenticatedRequest (PAR) operations
+
+## Later
+
+### Regions and Realms
 - IMDS
 - config file
 - environment variable
 
-## Requests
-- encode path parameters
-- encode header parameters
-- encode path parameters
+### Data Types
+- models (?)
 
-## Clients
+### Clients
 - factor out common code into Oracle\Oci\Common\AbstractClient
 
-## Documentation
+### Convenience
+- waiters
+- retries
+- circuit breakers
+- config file
+
+### Documentation
 - installation
 - examples
 - help
-
-## Codegen
-- make codegen put files in correct directories

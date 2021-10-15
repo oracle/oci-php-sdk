@@ -7,12 +7,23 @@ require 'vendor/autoload.php';
 require 'src/Oracle/Oci/Common/AuthProviderInterface.php';
 require 'src/Oracle/Oci/Common/OciResponse.php';
 require 'src/Oracle/Oci/Common/Regions.php';
+require 'src/Oracle/Oci/Common/UserAgent.php';
 require 'src/Oracle/Oci/ObjectStorage/ObjectStorageClient.php';
 
 use Oracle\Oci\Common\UserAuthProviderInterface;
 use Oracle\Oci\Common\Region;
+use Oracle\Oci\Common\UserAgent;
 use Oracle\Oci\ObjectStorage\ObjectStorageClient;
 use GuzzleHttp\Exception\ClientException;
+
+echo "UserAgent: " . UserAgent::getUserAgent() . PHP_EOL;
+// UserAgent::setAdditionalClientUserAgent("Oracle-CloudShell");
+// echo "UserAgent: " . UserAgent::getUserAgent() . PHP_EOL;
+// putenv("OCI_SDK_APPEND_USER_AGENT=Oracle-CloudDevelopmentKit");
+// UserAgent::init();
+// echo "UserAgent: " . UserAgent::getUserAgent() . PHP_EOL;
+// UserAgent::setAdditionalClientUserAgent("");
+// echo "UserAgent: " . UserAgent::getUserAgent() . PHP_EOL;
 
 $region = Region::getRegion("us-phoenix-1");
 echo "Region: $region".PHP_EOL;
@@ -141,4 +152,27 @@ catch(ClientException $e)
         die;
     }
 }
+
+echo "----- putObject with file into subdirectory -----".PHP_EOL;
+$object_name4 = "php-test/php-test4.txt";
+$file_handle = fopen("composer.json", "rb");
+$response = $c->putObject($namespace, $bucket_name, $object_name4, $file_handle);
+$response->print();
+
+echo "----- headObject of uploaded file -----".PHP_EOL;
+$file_handle = fopen("composer.json", "rb");
+$response = $c->headObject($namespace, $bucket_name, $object_name4);
+$response->print();
+$retrieved_filesize = $response->getHeaders()['Content-Length'][0];
+$size = filesize("composer.json");
+if ($size != $retrieved_filesize)
+{
+    echo "ERROR: Retrieved file size ($retrieved_filesize) does not equal uploaded file size ($size)!".PHP_EOL;
+    die;
+}
+else
+{
+    echo "Retrieved file size ($retrieved_filesize) equals uploaded file size ($size)!".PHP_EOL;
+}
+
 ?>
