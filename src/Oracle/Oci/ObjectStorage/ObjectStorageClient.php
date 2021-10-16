@@ -10,8 +10,9 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
-use Oracle\Oci\Common\OciResponse;
 use Oracle\Oci\Common\AuthProviderInterface;
+use Oracle\Oci\Common\HttpUtils;
+use Oracle\Oci\Common\OciResponse;
 use Oracle\Oci\Common\Realm;
 use Oracle\Oci\Common\Region;
 use Oracle\Oci\Common\RegionProvider;
@@ -764,7 +765,7 @@ class ObjectStorageClient
         $__query = [];
         if ($fields != null)
         {
-            $__query['fields'] = $fields;
+            $__query['fields'] = HttpUtils::encodeArray("fields", $fields, "csv");
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/";
@@ -1225,7 +1226,7 @@ class ObjectStorageClient
         }
         if ($fields != null)
         {
-            $__query['fields'] = $fields;
+            $__query['fields'] = HttpUtils::encodeArray("fields", $fields, "csv");
         }
 
         $__path = "/n/{namespaceName}/b/";

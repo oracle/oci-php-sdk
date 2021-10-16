@@ -8,6 +8,7 @@ require 'src/Oracle/Oci/Common/AuthProviderInterface.php';
 require 'src/Oracle/Oci/Common/OciResponse.php';
 require 'src/Oracle/Oci/Common/Regions.php';
 require 'src/Oracle/Oci/Common/UserAgent.php';
+require 'src/Oracle/Oci/Common/HttpUtils.php';
 require 'src/Oracle/Oci/ObjectStorage/ObjectStorageClient.php';
 
 use Oracle\Oci\Common\UserAuthProviderInterface;
@@ -174,5 +175,13 @@ else
 {
     echo "Retrieved file size ($retrieved_filesize) equals uploaded file size ($size)!".PHP_EOL;
 }
+
+echo "----- listBuckets -----".PHP_EOL;
+$response = $c->listBuckets(
+    $namespace,
+    compartmentId: "ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq",
+    fields: ["tags", "tags"]);
+$response->print();
+
 
 ?>
