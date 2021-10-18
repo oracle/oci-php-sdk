@@ -80,6 +80,7 @@ class ObjectStorageClient
 
         // place signing middleware after prepare-body so it can access Content-Length header
         $stack->after('prepare_body', Middleware::mapRequest(function (RequestInterface $request) {
+            // echo "Request URI: " . $request->getUri() . PHP_EOL;
             // headers required for all HTTP verbs
             $headers = "date (request-target) host";
 
@@ -112,17 +113,17 @@ class ObjectStorageClient
                 $signing_string = $signing_string . "\ncontent-length: $content_length\ncontent-type: $content_type\nx-content-sha256: $content_sha256";
             }
 
-            # echo "Signing string:\n$signing_string".PHP_EOL;
+            // echo "Signing string:\n$signing_string".PHP_EOL;
 
             $signature = $this->sign_string($signing_string, $this->auth_provider->getKeyFilename(), $this->auth_provider->getKeyPassphrase());
 
             $authorization_header = "Signature version=\"1\",keyId=\"{$this->auth_provider->getKeyId()}\",algorithm=\"rsa-sha256\",headers=\"$headers\",signature=\"$signature\"";
             $request = $request->withHeader('Authorization', $authorization_header);
 
-            # echo "\nRequest headers:".PHP_EOL;
-            # foreach ($request->getHeaders() as $name => $values) {
-            #     echo $name . ': ' . implode(', ', $values) . "\n";
-            # }
+            // echo "\nRequest headers:".PHP_EOL;
+            // foreach ($request->getHeaders() as $name => $values) {
+            //     echo $name . ': ' . implode(', ', $values) . "\n";
+            // }
 
             return $request;
         }));
@@ -765,7 +766,7 @@ class ObjectStorageClient
         $__query = [];
         if ($fields != null)
         {
-            $__query['fields'] = HttpUtils::encodeArray("fields", $fields, "csv");
+            HttpUtils::encodeArray($__query, "fields", $fields, "csv");
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/";
@@ -1226,7 +1227,7 @@ class ObjectStorageClient
         }
         if ($fields != null)
         {
-            $__query['fields'] = HttpUtils::encodeArray("fields", $fields, "csv");
+            HttpUtils::encodeArray($__query, "fields", $fields, "csv");
         }
 
         $__path = "/n/{namespaceName}/b/";

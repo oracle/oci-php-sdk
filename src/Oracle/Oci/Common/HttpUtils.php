@@ -6,13 +6,30 @@ use DateTime;
 
 class HttpUtils 
 {
-    public static function encodeArray(string $paramName, $array, string $collectionFormat) : string
+    public static function addToArray(&$queryMap, $paramName, string $value)
+    {
+        if (array_key_exists($paramName, $queryMap)) {
+            $oldValue = $queryMap[$paramName];
+            if (is_array($oldValue)) {
+                $oldValue[] = $value;
+                $queryMap[$paramName] = $oldValue;
+            }
+            else {
+                $queryMap[$paramName] = [$oldValue, $value];
+            }
+        }
+        else
+        {
+            $queryMap[$paramName] = $value;
+        }
+    }
+
+    public static function encodeArray(&$queryMap, string $paramName, $array, string $collectionFormat)
     {
         if ($array == null || empty($array))
         {
-            return "";
+            return;
         }
-        $sep = "&" . $paramName . "=";
         switch($collectionFormat)
         {
             case "csv":
@@ -27,45 +44,56 @@ class HttpUtils
             case "pipes":
                 $sep = '|';
                 break;
+            default:
+                $collectionFormat = "multi";
+                break;
         }
-        $result = "";
-        foreach($array as $item)
+        if ($collectionFormat == "multi") 
         {
-            if (strlen($result) > 0)
+            foreach($array as $item)
             {
-                $result = $result . $sep;
-            }
-            $result = $result . HttpUtils::attemptEncodeQueryParam($item);
+                HttpUtils::addToArray($queryMap, $paramName, HttpUtils::attemptEncodeQueryParam($item));
+            }    
         }
-        return $paramName . "=" . $result;
+        else 
+        {
+            $result = "";
+            foreach($array as $item)
+            {
+                if (strlen($result) > 0)
+                {
+                    $result = $result . $sep;
+                }
+                $result = $result . HttpUtils::attemptEncodeQueryParam($item);
+            }
+            HttpUtils::addToArray($queryMap, $paramName, $result);
+        }
     }
 
-    public static function encodeMap(string $paramName, string $prefix, $map) : string
+    public static function encodeMap(&$queryMap, string $paramName, ?string $prefix, $map)
     {
         if ($prefix == null) {
             $prefix = "";
         }
-        $result = "";
         if ($map != null) {
             foreach ($map as $key => $value) {
-                $result = $result . "&" . HttpUtils::encodeMapQueryParamValue($prefix . $key, $value);
+                HttpUtils::encodeMapQueryParamValue($queryMap, $prefix . $key, $value);
             }
-            $result = substr($result, 1);   
         }
-        return $result;
     }
 
-    public static function encodeMapQueryParamValue(string $prefixedKey, $value) : string
+    public static function encodeMapQueryParamValue(&$queryMap, string $prefixedKey, $value)
     {
         if (is_array($value)) {
-            $result = "";
             foreach($value as $item)
             {
-                $result = $result . "&" . $prefixedKey . "=" . HttpUtils::attemptEncodeQueryParam($item);
+                HttpUtils::addToArray($queryMap, $prefixedKey, HttpUtils::attemptEncodeQueryParam($item));
             }
-            return substr($result, 1);
         }
-        return $prefixedKey . "=" . HttpUtils::attemptEncodeQueryParam($value);
+        else
+        {
+            HttpUtils::addToArray($queryMap, $prefixedKey, HttpUtils::attemptEncodeQueryParam($value));
+        }
     }
 
     public static function attemptEncodeQueryParam($value) : string
