@@ -3,10 +3,11 @@
 namespace Oracle\Oci\Common;
 
 use DateTime;
+use InvalidArgumentException;
 
 class HttpUtils 
 {
-    public static function addToArray(&$queryMap, $paramName, string $value)
+    public static function addToArray(&$queryMap, $paramName, /*string*/ $value)
     {
         if (array_key_exists($paramName, $queryMap)) {
             $oldValue = $queryMap[$paramName];
@@ -24,7 +25,7 @@ class HttpUtils
         }
     }
 
-    public static function encodeArray(&$queryMap, string $paramName, $array, string $collectionFormat)
+    public static function encodeArray(&$queryMap, /*string*/ $paramName, $array, /*string*/ $collectionFormat)
     {
         if ($array == null || empty($array))
         {
@@ -70,7 +71,7 @@ class HttpUtils
         }
     }
 
-    public static function encodeMap(&$queryMap, string $paramName, ?string $prefix, $map)
+    public static function encodeMap(&$queryMap, /*string*/ $paramName, /*?string*/ $prefix, $map)
     {
         if ($prefix == null) {
             $prefix = "";
@@ -82,7 +83,7 @@ class HttpUtils
         }
     }
 
-    public static function encodeMapQueryParamValue(&$queryMap, string $prefixedKey, $value)
+    public static function encodeMapQueryParamValue(&$queryMap, /*string*/ $prefixedKey, $value)
     {
         if (is_array($value)) {
             foreach($value as $item)
@@ -96,13 +97,28 @@ class HttpUtils
         }
     }
 
-    public static function attemptEncodeQueryParam($value) : string
+    public static function attemptEncodeQueryParam($value) // : string
     {
         if ($value instanceof DateTime)
         {
-            return $value->format(DateTime::RFC3339_EXTENDED);
+            return $value->format(HttpUtils::$RFC3339_EXTENDED);
         }
         return strval($value);
+    }
+    
+    public static $RFC3339_EXTENDED = "Y-m-d\TH:i:s.vP";
+
+    public static function orNull($params=[], $paramName, $required = false)
+    {
+        if (array_key_exists($paramName, $params))
+        {
+            return $params[$paramName];
+        }
+        if ($required)
+        {
+            throw new InvalidArgumentException("The parameter '$paramName' is required");
+        }
+        return null;
     }
 }
 ?>

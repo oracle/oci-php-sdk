@@ -11,14 +11,14 @@ use InvalidArgumentException;
 
 abstract class AbstractClient 
 {
-    protected AuthProviderInterface $auth_provider;
+    protected /*AuthProviderInterface*/ $auth_provider;
     protected $region;
 
     protected $client;
     
     public function __construct(
         AuthProviderInterface $auth_provider,
-        string $region=null)
+        /*string*/ $region=null)
     {
         $this->auth_provider = $auth_provider;
 
@@ -114,9 +114,10 @@ abstract class AbstractClient
         }
 
         return new OciResponse(
-            statusCode: $response->getStatusCode(),
-            headers: $response->getHeaders(),
-            body: $body);
+            $response->getStatusCode(),
+            $response->getHeaders(),
+            $body,
+            null);
     }
 }
 ?>

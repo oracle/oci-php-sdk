@@ -4,16 +4,16 @@ namespace Oracle\Oci\Common;
 
 class OciResponse 
 {
-    protected int $statusCode;
+    protected /*int*/ $statusCode;
     protected $headers;
     protected $body;
-    protected mixed $json;
+    protected /*mixed*/ $json;
     
     public function __construct(
-        int $statusCode,
+        /*int*/ $statusCode,
         $headers,
         $body = null,
-        mixed $json = null)
+        /*mixed*/ $json = null)
     {
         $this->statusCode = $statusCode;
         $this->headers = $headers;
@@ -21,7 +21,7 @@ class OciResponse
         $this->json = $json;
     }
 
-    public function getStatusCode()
+    public function getStatusCode() // : int
     {
         return $this->statusCode;
     }
@@ -41,7 +41,7 @@ class OciResponse
         return $this->json;
     }
 
-    public function print()
+    public function echoResponse()
     {
         echo "Status code: " . $this->getStatusCode() . PHP_EOL;
         echo "Headers    : " . PHP_EOL;

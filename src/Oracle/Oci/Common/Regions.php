@@ -4,16 +4,16 @@ namespace Oracle\Oci\Common;
 
 class Realm 
 {
-    protected string $realmId;
-    protected string $realmDomainComponent;
+    protected /*string*/ $realmId;
+    protected /*string*/ $realmDomainComponent;
 
     protected static $wasInitialized = false;
     protected static $knownRealms = [];
     protected static $unknownRegionRealm;
     
     public function __construct(
-        string $realmId,
-        string $realmDomainComponent)
+        /*string*/ $realmId,
+        /*string*/ $realmDomainComponent)
     {
         $this->realmId = strtolower($realmId);
         $this->realmDomainComponent = $realmDomainComponent;
@@ -34,19 +34,19 @@ class Realm
         }
     }
 
-    public function getRealmId() : string
+    public function getRealmId() // : string
     {
         return $this->realmId;
     }
 
-    public function getRealmDomainComponent() : string
+    public function getRealmDomainComponent() // : string
     {
         return $this->realmDomainComponent;
     }
 
     public static function getRealm(
-        string $realmId
-    ) : ?Realm
+        /*string*/ $realmId
+    ) // : ?Realm
     {
         Realm::__init();
         $id = strtolower($realmId);
@@ -57,7 +57,7 @@ class Realm
         return null;
     }
 
-    public static function getRealmForUnknownRegion() : Realm
+    public static function getRealmForUnknownRegion() // : Realm
     {
         Realm::__init();
         return Realm::$unknownRegionRealm;
@@ -71,17 +71,17 @@ class Realm
 
 class Region
 {
-    protected string $regionId;
-    protected string $regionCode;
-    protected Realm $realm;
+    protected /*string*/ $regionId;
+    protected /*string*/ $regionCode;
+    protected /*Realm*/ $realm;
 
     protected static $wasInitialized = false;
     protected static $knownRegions = [];
     protected static $knownRegionsByCode = [];
     
     public function __construct(
-        string $regionId,
-        string $regionCode,
+        /*string*/ $regionId,
+        /*string*/ $regionCode,
         Realm $realm)
     {
         $this->regionId = strtolower($regionId);
@@ -142,24 +142,24 @@ class Region
         }
     }
 
-    public function getRegionId() : string
+    public function getRegionId() // : string
     {
         return $this->regionId;
     }
 
-    public function getRegionCode() : string
+    public function getRegionCode() // : string
     {
         return $this->regionCode;
     }
 
-    public function getRealm() : Realm
+    public function getRealm() // : Realm
     {
         return $this->realm;
     }
 
     public static function getRegion(
-        string $regionIdOrCode
-    ) : ?Region
+        /*string*/ $regionIdOrCode
+    ) // : ?Region
     {
         $r = Region::getRegionById($regionIdOrCode);
         if ($r == null)
@@ -170,8 +170,8 @@ class Region
     }
 
     public static function getRegionById(
-        string $regionId
-    ) : ?Region
+        /*string*/ $regionId
+    ) // : ?Region
     {
         Region::__init();
         $id = strtolower($regionId);
@@ -183,8 +183,8 @@ class Region
     }
 
     public static function getRegionByCode(
-        string $regionCode
-    )
+        /*string*/ $regionCode
+    ) // : ?Region
     {
         Region::__init();
         $code = strtolower($regionCode);

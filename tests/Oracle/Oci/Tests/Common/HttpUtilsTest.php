@@ -39,7 +39,7 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals("1", HttpUtils::attemptEncodeQueryParam(1));
 
         $dt = new DateTime(); // now
-        $this->assertEquals($dt->format(DateTime::RFC3339_EXTENDED), HttpUtils::attemptEncodeQueryParam($dt));
+        $this->assertEquals($dt->format(HttpUtils::$RFC3339_EXTENDED), HttpUtils::attemptEncodeQueryParam($dt));
     }
 
     public function testEncodeArray_null() {
@@ -139,7 +139,7 @@ class HttpUtilsTest extends TestCase
     public function testEncodeArray_singleDateTime() {
         $dt = new DateTime(); // now
         $array = [$dt];
-        $expected = $dt->format(DateTime::RFC3339_EXTENDED);
+        $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
         $expectedQueryMap = ["paramName" => $expected];
 
         $queryMap = [];
@@ -166,7 +166,7 @@ class HttpUtilsTest extends TestCase
     public function testEncodeArray_multiple() {
         $dt = new DateTime(); // now
         $array = ["abc", $dt, 1];
-        $expected = $dt->format(DateTime::RFC3339_EXTENDED);
+        $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
 
         $queryMap = [];
         HttpUtils::encodeArray($queryMap, "paramName", $array, "csv");
@@ -192,7 +192,7 @@ class HttpUtilsTest extends TestCase
     public function testEncodeArray_multiple_withExistingKey() {
         $dt = new DateTime(); // now
         $array = ["abc", $dt, 1];
-        $expected = $dt->format(DateTime::RFC3339_EXTENDED);
+        $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
 
         $queryMap = ["paramName" => "old"];
         HttpUtils::encodeArray($queryMap, "paramName", $array, "csv");
@@ -242,7 +242,7 @@ class HttpUtilsTest extends TestCase
     public function testEncodeMap_singleDateTime() {
         $dt = new DateTime(); // now
         $map = ["key" => $dt];
-        $expected = $dt->format(DateTime::RFC3339_EXTENDED);
+        $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
 
         $queryMap = [];
         HttpUtils::encodeMap($queryMap, "paramName", "prefix.", $map);
@@ -260,7 +260,7 @@ class HttpUtilsTest extends TestCase
     public function testEncodeMap_singleDateTime_nullPrefix() {
         $dt = new DateTime(); // now
         $map = ["key" => $dt];
-        $expected = $dt->format(DateTime::RFC3339_EXTENDED);
+        $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
 
         $queryMap = [];
         HttpUtils::encodeMap($queryMap, "paramName", (string) null, $map);
@@ -274,7 +274,7 @@ class HttpUtilsTest extends TestCase
             "key2" => $dt,
             "key3" => 1,
             "key4" => ["abc", $dt, 1]];
-        $expected = $dt->format(DateTime::RFC3339_EXTENDED);
+        $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
 
         $queryMap = [];
         HttpUtils::encodeMap($queryMap, "paramName", "prefix.", $map);
@@ -304,7 +304,7 @@ class HttpUtilsTest extends TestCase
             "key2" => $dt,
             "key3" => 1,
             "key4" => ["abc", $dt, 1]];
-        $expected = $dt->format(DateTime::RFC3339_EXTENDED);
+        $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
 
         $queryMap = [];
         HttpUtils::encodeMap($queryMap, "paramName", (string) null, $map);

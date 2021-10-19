@@ -4,19 +4,19 @@ namespace Oracle\Oci\Common;
 
 class UserAgent
 {
-    protected const ociPhpSdkVersion = "0.0.1";
-    protected const userAgentTemplate = "Oracle-PhpSDK/{ociPhpSdkVersion} (PHP/{phpVersion}; {os}){additionalClientUserAgent}{additionalUserAgentFromEnvVar}";
-    protected static ?string $additionalClientUserAgent = null;
-    protected static string $userAgent;
-    protected static bool $wasInitialized = false;
+    static protected $ociPhpSdkVersion = "0.0.1";
+    static protected $userAgentTemplate = "Oracle-PhpSDK/{ociPhpSdkVersion} (PHP/{phpVersion}; {os}){additionalClientUserAgent}{additionalUserAgentFromEnvVar}";
+    protected static /*?string*/ $additionalClientUserAgent = null;
+    protected static /*string*/ $userAgent;
+    protected static /*bool*/ $wasInitialized = false;
 
-    public static function getUserAgent() : string
+    public static function getUserAgent() // : string
     {
         UserAgent::init(false);
         return UserAgent::$userAgent;
     }
 
-    public static function init(bool $initializeAnyway = true)
+    public static function init(/*bool*/ $initializeAnyway = true)
     {
         if (UserAgent::$wasInitialized && !$initializeAnyway)
         {
@@ -25,7 +25,7 @@ class UserAgent
 
         UserAgent::$wasInitialized = true;
 
-        $str = str_replace("{ociPhpSdkVersion}", UserAgent::ociPhpSdkVersion, UserAgent::userAgentTemplate);
+        $str = str_replace("{ociPhpSdkVersion}", UserAgent::$ociPhpSdkVersion, UserAgent::$userAgentTemplate);
         $str = str_replace("{phpVersion}", phpversion(), $str);
         $str = str_replace("{os}", php_uname("s") . " " . php_uname("r") . " " . php_uname("m"), $str);
         $value = "";

@@ -30,20 +30,20 @@ $region = Region::getRegion("us-phoenix-1");
 echo "Region: $region".PHP_EOL;
 
 $auth_provider = new UserAuthProviderInterface(
-    tenancy_id: 'ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq',
-    user_id: 'ocid1.user.oc1..aaaaaaaabiszhenencetzhewboxb3fimi4izpxzsatigo7cqrmbdlitzngza',
-    fingerprint: '83:f3:27:6b:bf:0d:50:7b:09:d0:92:49:6f:1f:89:32',
-    key_filename: 'file:///Users/mricken/.oci/bmcs_api_key.pem'
+    'ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq',
+    'ocid1.user.oc1..aaaaaaaabiszhenencetzhewboxb3fimi4izpxzsatigo7cqrmbdlitzngza',
+    '83:f3:27:6b:bf:0d:50:7b:09:d0:92:49:6f:1f:89:32',
+    'file:///Users/mricken/.oci/bmcs_api_key.pem'
 );
 
 $c = new ObjectStorageClient(
-    auth_provider: $auth_provider,
-    region: $region
+    $auth_provider,
+    $region
 );
 
 echo "----- getNamespace -----".PHP_EOL;
 $response = $c->getNamespace();
-$response->print();
+$response->echoResponse();
 $namespace = $response->getJson();
 
 echo "Namespace = '{$namespace}'".PHP_EOL;
@@ -53,12 +53,19 @@ $object_name = "php-test.txt";
 $body = "This is a test of Object Storage from PHP.";
 
 echo "----- putObject -----".PHP_EOL;
-$response = $c->putObject($namespace, $bucket_name, $object_name, $body);
-$response->print();
+$response = $c->putObject([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'objectName' => $object_name,
+    'putObjectBody' => $body]);
+$response->echoResponse();
 
 echo "----- getObject -----".PHP_EOL;
-$response = $c->getObject($namespace, $bucket_name, $object_name);
-$response->print();
+$response = $c->getObject([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'objectName' => $object_name]);
+$response->echoResponse();
 
 $retrieved_body = $response->getBody();
 
@@ -73,20 +80,30 @@ else
 }
 
 echo "----- headObject -----".PHP_EOL;
-$response = $c->headObject($namespace, $bucket_name, $object_name);
-$response->print();
+$response = $c->headObject([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'objectName' => $object_name]);
+$response->echoResponse();
 
 $object_name2 = "php-test2.txt";
 
 echo "----- putObject with file -----".PHP_EOL;
 $file_handle = fopen("composer.json", "rb");
-$response = $c->putObject($namespace, $bucket_name, $object_name2, $file_handle);
-$response->print();
+$response = $c->putObject([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'objectName' => $object_name2,
+    'putObjectBody' => $file_handle]);
+$response->echoResponse();
 
 echo "----- headObject of uploaded file -----".PHP_EOL;
 $file_handle = fopen("composer.json", "rb");
-$response = $c->headObject($namespace, $bucket_name, $object_name2);
-$response->print();
+$response = $c->headObject([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'objectName' => $object_name2]);
+$response->echoResponse();
 $retrieved_filesize = $response->getHeaders()['Content-Length'][0];
 $size = filesize("composer.json");
 if ($size != $retrieved_filesize)
@@ -109,13 +126,19 @@ $copy_object_details = [
     'destinationBucket' => $bucket_name,
     'destinationObjectName' => $object_name3
 ];
-$response = $c->copyObject($namespace, $bucket_name, $copy_object_details);
-$response->print();
+$response = $c->copyObject([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'copyObjectDetails' => $copy_object_details]);
+$response->echoResponse();
 
 echo "----- headObject of copied file -----".PHP_EOL;
 $file_handle = fopen("composer.json", "rb");
-$response = $c->headObject($namespace, $bucket_name, $object_name3);
-$response->print();
+$response = $c->headObject([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'objectName' => $object_name3]);
+$response->echoResponse();
 $retrieved_filesize = $response->getHeaders()['Content-Length'][0];
 $size = filesize("composer.json");
 if ($size != $retrieved_filesize)
@@ -129,18 +152,26 @@ else
 }
 
 echo "----- listObjects -----".PHP_EOL;
-$response = $c->listObjects($namespace, $bucket_name);
-$response->print();
+$response = $c->listObjects([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name]);
+$response->echoResponse();
 
 echo "----- listObjects with prefix -----".PHP_EOL;
-$response = $c->listObjects(namespaceName: $namespace, bucketName: $bucket_name, prefix: "dexreq-");
-$response->print();
+$response = $c->listObjects([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'prefix' => "dexreq-"]);
+$response->echoResponse();
 
 echo "----- headObject for missing file -----".PHP_EOL;
 try
 {
-    $response = $c->headObject($namespace, $bucket_name, "doesNotExist");
-    $response->print();
+    $response = $c->headObject([
+        'namespaceName' => $namespace,
+        'bucketName' => $bucket_name,
+        'objectName' => "doesNotExist"]);
+    $response->echoResponse();
     echo "ERROR: Object was supposed to not exist!".PHP_EOL;
     die;
 }
@@ -157,13 +188,20 @@ catch(ClientException $e)
 echo "----- putObject with file into subdirectory -----".PHP_EOL;
 $object_name4 = "php-test/php-test4.txt";
 $file_handle = fopen("composer.json", "rb");
-$response = $c->putObject($namespace, $bucket_name, $object_name4, $file_handle);
-$response->print();
+$response = $c->putObject([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'objectName' => $object_name4,
+    'putObjectBody' => $file_handle]);
+$response->echoResponse();
 
 echo "----- headObject of uploaded file -----".PHP_EOL;
 $file_handle = fopen("composer.json", "rb");
-$response = $c->headObject($namespace, $bucket_name, $object_name4);
-$response->print();
+$response = $c->headObject([
+    'namespaceName' => $namespace,
+    'bucketName' => $bucket_name,
+    'objectName' => $object_name4]);
+$response->echoResponse();
 $retrieved_filesize = $response->getHeaders()['Content-Length'][0];
 $size = filesize("composer.json");
 if ($size != $retrieved_filesize)
@@ -177,10 +215,10 @@ else
 }
 
 echo "----- listBuckets -----".PHP_EOL;
-$response = $c->listBuckets(
-    namespaceName: $namespace,
-    compartmentId: "ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq",
-    fields: ["tags", "tags"]);
-$response->print();
+$response = $c->listBuckets([
+    'namespaceName' => $namespace,
+    'compartmentId' => "ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq",
+    'fields' => ["tags", "tags"]]);
+$response->echoResponse();
 
 ?>

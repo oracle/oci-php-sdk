@@ -4,30 +4,30 @@ namespace Oracle\Oci\Common;
 
 interface AuthProviderInterface
 {
-    public function getKeyFilename() : string;
-    public function getKeyPassphrase() : ?string;
-    public function getKeyId() : string;
+    public function getKeyFilename(); //  : string;
+    public function getKeyPassphrase(); // : ?string;
+    public function getKeyId(); // : string;
 }
 
 interface RegionProvider
 {
-    public function getRegion() : Region;
+    public function getRegion(); // : Region;
 }
 
 class UserAuthProviderInterface implements AuthProviderInterface
 {
-    protected string $tenancy_id;
-    protected string $user_id;
-    protected string $fingerprint;
-    protected string $key_filename;
-    protected ?string $key_passphrase;
+    protected /*string*/ $tenancy_id;
+    protected /*string*/ $user_id;
+    protected /*string*/ $fingerprint;
+    protected /*string*/ $key_filename;
+    protected /*?string*/ $key_passphrase;
 
     public function __construct(
-        string $tenancy_id,
-        string $user_id,
-        string $fingerprint,
-        string $key_filename,
-        string $key_passphrase = null)
+        /*string*/ $tenancy_id,
+        /*string*/ $user_id,
+        /*string*/ $fingerprint,
+        /*string*/ $key_filename,
+        /*string*/ $key_passphrase = null)
     {
         $this->tenancy_id = $tenancy_id;
         $this->user_id = $user_id;
@@ -36,30 +36,30 @@ class UserAuthProviderInterface implements AuthProviderInterface
         $this->key_passphrase = $key_passphrase;
     }
 
-    public function getTenancyId() : string
+    public function getTenancyId() // : string
     {
         return $this->tenancy_id;
     }
-    public function getUserId() : string
+    public function getUserId() // : string
     {
         return $this->user_id;
     }
-    public function getFingerprint() : string
+    public function getFingerprint() // : string
     {
         return $this->fingerprint;
     }
 
-    public function getKeyFilename() : string
+    public function getKeyFilename() // : string
     {
         return $this->key_filename;
     }
 
-    public function getKeyPassphrase() : ?string
+    public function getKeyPassphrase() // : ?string
     {
         return $this->key_passphrase;
     }
 
-    public function getKeyId() : string
+    public function getKeyId() // : string
     {
         return "{$this->tenancy_id}/{$this->user_id}/{$this->fingerprint}";
     }
