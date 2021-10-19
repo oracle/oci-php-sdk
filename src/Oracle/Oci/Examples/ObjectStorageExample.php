@@ -11,12 +11,13 @@ require 'src/Oracle/Oci/Common/UserAgent.php';
 require 'src/Oracle/Oci/Common/HttpUtils.php';
 require 'src/Oracle/Oci/ObjectStorage/ObjectStorageClient.php';
 
-use Oracle\Oci\Common\UserAuthProviderInterface;
+use Oracle\Oci\Common\ConfigFile;
 use Oracle\Oci\Common\Region;
 use Oracle\Oci\Common\UserAgent;
 use Oracle\Oci\ObjectStorage\ObjectStorageClient;
 use GuzzleHttp\Exception\ClientException;
 use DateTime;
+use Oracle\Oci\Common\ConfigFileAuthProvider;
 
 date_default_timezone_set('Europe/Istanbul');
 
@@ -32,12 +33,18 @@ echo "UserAgent: " . UserAgent::getUserAgent() . PHP_EOL;
 $region = Region::getRegion("us-phoenix-1");
 echo "Region: $region".PHP_EOL;
 
-$auth_provider = new UserAuthProviderInterface(
-    'ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq',
-    'ocid1.user.oc1..aaaaaaaabiszhenencetzhewboxb3fimi4izpxzsatigo7cqrmbdlitzngza',
-    '83:f3:27:6b:bf:0d:50:7b:09:d0:92:49:6f:1f:89:32',
-    'file:///Users/mricken/.oci/bmcs_api_key.pem'
-);
+$auth_provider = new ConfigFileAuthProvider();
+
+// $auth_provider = new UserAuthProvider(
+//     'ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq',
+//     'ocid1.user.oc1..aaaaaaaabiszhenencetzhewboxb3fimi4izpxzsatigo7cqrmbdlitzngza',
+//     '83:f3:27:6b:bf:0d:50:7b:09:d0:92:49:6f:1f:89:32',
+//     'file:///Users/mricken/.oci/bmcs_api_key.pem'
+// );
+
+// $auth_provider = new ConfigFileAuthProvider(ConfigFile::loadDefault("OTHER"));
+
+// $auth_provider = new ConfigFileAuthProvider(ConfigFile::loadFromFile(ConfigFile::getUserHome() . "/.oci/config_dex-us-phoenix-1-manual", "OTHER"));
 
 $c = new ObjectStorageClient(
     $auth_provider,
