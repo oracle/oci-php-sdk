@@ -72,14 +72,16 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/u/{objectName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{objectName}', $objectName, $__path);
 
         $__response = $this->client->delete(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -116,12 +118,14 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/workRequests/{workRequestId}";
         $__path = str_replace('{workRequestId}', $workRequestId, $__path);
 
         $__response = $this->client->delete(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -183,6 +187,8 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/u/{objectName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -191,8 +197,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($commitMultipartUploadDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -275,6 +281,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/actions/copyObject";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -282,8 +290,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($copyObjectDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -322,14 +330,16 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
 
         $__body = json_encode($createBucketDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -406,6 +416,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/u";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -413,8 +425,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($createMultipartUploadDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -455,6 +467,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/p/";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -462,8 +476,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($createPreauthenticatedRequestDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -504,6 +518,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/replicationPolicies";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -511,8 +527,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($createReplicationPolicyDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -553,6 +569,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/retentionRules";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -560,8 +578,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($createRetentionRuleDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -606,13 +624,15 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->delete(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -666,14 +686,16 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/o/{objectName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{objectName}', $objectName, $__path);
 
         $__response = $this->client->delete(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -718,13 +740,15 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/l";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->delete(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -765,14 +789,16 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/p/{parId}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{parId}', $parId, $__path);
 
         $__response = $this->client->delete(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -813,14 +839,16 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/replicationPolicies/{replicationId}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{replicationId}', $replicationId, $__path);
 
         $__response = $this->client->delete(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -867,14 +895,16 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{retentionRuleId}', $retentionRuleId, $__path);
 
         $__response = $this->client->delete(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -932,13 +962,15 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::encodeArray($__query, "fields", $fields, "csv");
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -980,11 +1012,13 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeQueryParam($compartmentId));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/";
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1021,12 +1055,14 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1152,14 +1188,16 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "httpResponseExpires", HttpUtils::attemptEncodeQueryParam($httpResponseExpires));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/o/{objectName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{objectName}', $objectName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1198,13 +1236,15 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/l";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1245,14 +1285,16 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/p/{parId}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{parId}', $parId, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1293,14 +1335,16 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/replicationPolicies/{replicationId}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{replicationId}', $replicationId, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1341,14 +1385,16 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{retentionRuleId}', $retentionRuleId, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1385,12 +1431,14 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/workRequests/{workRequestId}";
         $__path = str_replace('{workRequestId}', $workRequestId, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1441,13 +1489,15 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->head(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1525,14 +1575,16 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/o/{objectName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{objectName}', $objectName, $__path);
 
         $__response = $this->client->head(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1597,12 +1649,14 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::encodeArray($__query, "fields", $fields, "csv");
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1664,14 +1718,16 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/u/{objectName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
         $__path = str_replace('{objectName}', $objectName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1724,13 +1780,15 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/u";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1825,13 +1883,15 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/objectversions";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1919,13 +1979,15 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "startAfter", HttpUtils::attemptEncodeQueryParam($startAfter));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/o";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -1985,13 +2047,15 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/p/";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2044,13 +2108,15 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/replicationPolicies";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2103,13 +2169,15 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/replicationSources";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2149,13 +2217,15 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/retentionRules";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2206,12 +2276,14 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/workRequests/{workRequestId}/errors";
         $__path = str_replace('{workRequestId}', $workRequestId, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2262,12 +2334,14 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/workRequests/{workRequestId}/logs";
         $__path = str_replace('{workRequestId}', $workRequestId, $__path);
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2323,11 +2397,13 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/workRequests";
 
         $__response = $this->client->get(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2366,13 +2442,15 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/actions/makeBucketWritable";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2511,6 +2589,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/o/{objectName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -2519,8 +2599,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = $putObjectBody;
 
         $__response = $this->client->put(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2573,6 +2653,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/l";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -2580,8 +2662,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($putObjectLifecyclePolicyDetails);
 
         $__response = $this->client->put(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2620,13 +2702,15 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/actions/reencrypt";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2676,6 +2760,8 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/actions/reencrypt/{objectName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -2684,8 +2770,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($reencryptObjectDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2726,6 +2812,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/actions/renameObject";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -2733,8 +2821,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($renameObjectDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2775,6 +2863,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/actions/restoreObjects";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -2782,8 +2872,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($restoreObjectsDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2830,6 +2920,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -2837,8 +2929,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($updateBucketDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2877,14 +2969,16 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
 
         $__body = json_encode($updateNamespaceMetadataDetails);
 
         $__response = $this->client->put(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2925,6 +3019,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/actions/updateObjectStorageTier";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -2932,8 +3028,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($updateObjectStorageTierDetails);
 
         $__response = $this->client->post(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -2982,6 +3078,8 @@ class ObjectStorageClient extends AbstractClient
 
         $__query = [];
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -2990,8 +3088,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = json_encode($updateRetentionRuleDetails);
 
         $__response = $this->client->put(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),
@@ -3102,6 +3200,8 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::addToArray($__query, "uploadPartNum", HttpUtils::attemptEncodeQueryParam($uploadPartNum));
         }
 
+        $__queryStr = HttpUtils::queryMapToString($__query);
+
         $__path = "/n/{namespaceName}/b/{bucketName}/u/{objectName}";
         $__path = str_replace('{namespaceName}', $namespaceName, $__path);
         $__path = str_replace('{bucketName}', $bucketName, $__path);
@@ -3110,8 +3210,8 @@ class ObjectStorageClient extends AbstractClient
         $__body = $uploadPartBody;
 
         $__response = $this->client->put(
-            "{$this->endpoint}{$__path}",
-            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+            "{$this->endpoint}{$__path}{$__queryStr}",
+            [ 'headers' => $__headers, 'body' => $__body ]
         );
         return new OciResponse(
             $__response->getStatusCode(),

@@ -120,5 +120,24 @@ class HttpUtils
         }
         return null;
     }
+
+    public static function queryMapToString($queryMap) // : string
+    {
+        $str = '';
+        foreach ($queryMap as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $item) {
+                    $str .= '&' . $key . '=' . $item;
+                }
+            } else {
+                $str .= '&' . $key . '=' . $value;
+            }
+        }
+        if (strlen($str) > 0)
+        {
+            $str[0] = '?';
+        }
+        return $str;
+    }
 }
 ?>

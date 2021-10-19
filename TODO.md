@@ -2,10 +2,12 @@
 
 ## For Kaltura
 
+### Misc
+- debug logging
+
 ### Requests
 - encode path parameters
 - encode header parameters
-- encode path parameters
 - signing strategy
 - customRequestInterceptor?
 

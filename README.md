@@ -6,6 +6,10 @@ oci-php-sdk provides an SDK for PHP that you can use to manage your Oracle Cloud
 
 The project is open source and maintained by Oracle Corp. The home page for the project is [here](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdks.htm).
 
+## Requirements
+
+* PHP 5.6
+
 ## Installation
 
 TODO

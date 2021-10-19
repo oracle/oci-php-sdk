@@ -41,6 +41,10 @@ $c = new ObjectStorageClient(
     $region
 );
 
+// $c->listExternal([
+//     'mapOfListOfExternal' => ['a' => 1, 'b' => [2, 3]]
+// ]);
+
 echo "----- getNamespace -----".PHP_EOL;
 $response = $c->getNamespace();
 $response->echoResponse();

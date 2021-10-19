@@ -71,7 +71,7 @@ abstract class AbstractClient
 
         // place signing middleware after prepare-body so it can access Content-Length header
         $stack->after('prepare_body', Middleware::mapRequest(function (RequestInterface $request) {
-            // echo "Request URI: " . $request->getUri() . PHP_EOL;
+            echo "Request URI: " . $request->getUri() . PHP_EOL;
 
             // headers required for all HTTP verbs
             $headers = "date (request-target) host";

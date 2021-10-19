@@ -314,6 +314,26 @@ class HttpUtilsTest extends TestCase
             "key3" => "1",
             "key4" => ["abc", $expected, "1"]], $queryMap);
     }
+
+    public function testOrNull() {
+        $this->assertEquals(null, HttpUtils::orNull([], "paramName"));
+        $this->assertEquals("paramValue", HttpUtils::orNull(["paramName" => "paramValue"], "paramName"));
+    }
+
+    public function testOrNull_required() {
+        $this->assertEquals("paramValue", HttpUtils::orNull(["paramName" => "paramValue"], "paramName", true));
+        try {
+            HttpUtils::orNull([], "paramName", true);
+            $this->fail("Should have thrown");
+        } catch(InvalidArgumentException $e) {
+            // expected
+        }
+    }
+
+    public function testQueryMapToString() {
+        $this->assertEquals("", HttpUtils::queryMapToString([]));
+        $this->assertEquals("?a=1&b=2&b=3", HttpUtils::queryMapToString(["a" => 1, "b" => [2, 3]]));
+    }
 }
 
 ?>
