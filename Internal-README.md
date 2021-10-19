@@ -60,3 +60,14 @@ php composer-setup.php
 php -r "unlink('composer-setup.php');"
 sudo mv composer.phar /usr/local/bin/composer
 ```
+
+Once you have the OCI PHP SDK checked out, you can install all the vendor packages using:
+
+```
+composer update
+composer install
+```
+
+## PHPUnit
+
+We require [PHPUnit 5.7](https://phpunit.de/manual/5.7/en/installation.html).
