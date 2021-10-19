@@ -16,6 +16,9 @@ use Oracle\Oci\Common\Region;
 use Oracle\Oci\Common\UserAgent;
 use Oracle\Oci\ObjectStorage\ObjectStorageClient;
 use GuzzleHttp\Exception\ClientException;
+use DateTime;
+
+date_default_timezone_set('Europe/Istanbul');
 
 echo "UserAgent: " . UserAgent::getUserAgent() . PHP_EOL;
 // UserAgent::setAdditionalClientUserAgent("Oracle-CloudShell");
@@ -40,10 +43,6 @@ $c = new ObjectStorageClient(
     $auth_provider,
     $region
 );
-
-// $c->listExternal([
-//     'mapOfListOfExternal' => ['a' => 1, 'b' => [2, 3]]
-// ]);
 
 echo "----- getNamespace -----".PHP_EOL;
 $response = $c->getNamespace();
@@ -196,7 +195,11 @@ $response = $c->putObject([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name,
     'objectName' => $object_name4,
-    'putObjectBody' => $file_handle]);
+    'putObjectBody' => $file_handle,
+    'opcMeta' => [
+        'header1' => new DateTime(),
+        'header2' => ["2", "3"]
+    ]]);
 $response->echoResponse();
 
 echo "----- headObject of uploaded file -----".PHP_EOL;

@@ -29,17 +29,17 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals(["paramName" => ["old1", "old2", $value]], $queryMap);
     }
 
-    public function testAttemptEncodeQueryParam()
+    public function testattemptEncodeParam()
     {
-        $this->assertEquals("abc", HttpUtils::attemptEncodeQueryParam("abc"));
+        $this->assertEquals("abc", HttpUtils::attemptEncodeParam("abc"));
         
         // TODO: check if this is required, or if Guzzle escapes it
-        // $this->assertEquals("%251%253D%253F%2540%255B%255D%2541%20aaaa", HttpUtils::attemptEncodeQueryParam("%1%3D%3F%40%5B%5D%41 aaaa"));
+        // $this->assertEquals("%251%253D%253F%2540%255B%255D%2541%20aaaa", HttpUtils::attemptEncodeParam("%1%3D%3F%40%5B%5D%41 aaaa"));
 
-        $this->assertEquals("1", HttpUtils::attemptEncodeQueryParam(1));
+        $this->assertEquals("1", HttpUtils::attemptEncodeParam(1));
 
         $dt = new DateTime(); // now
-        $this->assertEquals($dt->format(HttpUtils::$RFC3339_EXTENDED), HttpUtils::attemptEncodeQueryParam($dt));
+        $this->assertEquals($dt->format(HttpUtils::$RFC3339_EXTENDED), HttpUtils::attemptEncodeParam($dt));
     }
 
     public function testEncodeArray_null() {

@@ -62,14 +62,13 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($uploadId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
+            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeParam($uploadId));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -113,7 +112,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -169,22 +168,21 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($ifNoneMatch != null)
         {
-            $__headers['ifNoneMatch'] = $ifNoneMatch;
+            HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($uploadId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
+            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeParam($uploadId));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -248,35 +246,35 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
         if ($opcSseCustomerAlgorithm != null)
         {
-            $__headers['opcSseCustomerAlgorithm'] = $opcSseCustomerAlgorithm;
+            HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
         if ($opcSseCustomerKey != null)
         {
-            $__headers['opcSseCustomerKey'] = $opcSseCustomerKey;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
         if ($opcSseCustomerKeySha256 != null)
         {
-            $__headers['opcSseCustomerKeySha256'] = $opcSseCustomerKeySha256;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
         if ($opcSourceSseCustomerAlgorithm != null)
         {
-            $__headers['opcSourceSseCustomerAlgorithm'] = $opcSourceSseCustomerAlgorithm;
+            HttpUtils::addToArray($__headers, "opcSourceSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSourceSseCustomerAlgorithm));
         }
         if ($opcSourceSseCustomerKey != null)
         {
-            $__headers['opcSourceSseCustomerKey'] = $opcSourceSseCustomerKey;
+            HttpUtils::addToArray($__headers, "opcSourceSseCustomerKey", HttpUtils::attemptEncodeParam($opcSourceSseCustomerKey));
         }
         if ($opcSourceSseCustomerKeySha256 != null)
         {
-            $__headers['opcSourceSseCustomerKeySha256'] = $opcSourceSseCustomerKeySha256;
+            HttpUtils::addToArray($__headers, "opcSourceSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSourceSseCustomerKeySha256));
         }
         if ($opcSseKmsKeyId != null)
         {
-            $__headers['opcSseKmsKeyId'] = $opcSseKmsKeyId;
+            HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
 
         $__query = [];
@@ -325,7 +323,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -387,31 +385,31 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($ifNoneMatch != null)
         {
-            $__headers['ifNoneMatch'] = $ifNoneMatch;
+            HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
         if ($opcSseCustomerAlgorithm != null)
         {
-            $__headers['opcSseCustomerAlgorithm'] = $opcSseCustomerAlgorithm;
+            HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
         if ($opcSseCustomerKey != null)
         {
-            $__headers['opcSseCustomerKey'] = $opcSseCustomerKey;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
         if ($opcSseCustomerKeySha256 != null)
         {
-            $__headers['opcSseCustomerKeySha256'] = $opcSseCustomerKeySha256;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
         if ($opcSseKmsKeyId != null)
         {
-            $__headers['opcSseKmsKeyId'] = $opcSseKmsKeyId;
+            HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
 
         $__query = [];
@@ -462,7 +460,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -513,7 +511,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -564,7 +562,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -615,11 +613,11 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -672,18 +670,17 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($versionId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
+            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeParam($versionId));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -731,11 +728,11 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
 
         $__query = [];
@@ -784,7 +781,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -834,7 +831,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -886,11 +883,11 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -944,21 +941,20 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($ifNoneMatch != null)
         {
-            $__headers['ifNoneMatch'] = $ifNoneMatch;
+            HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($fields != null)
         {
-            // isMap? false
             HttpUtils::encodeArray($__query, "fields", $fields, "csv");
         }
 
@@ -1002,14 +998,13 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($compartmentId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeQueryParam($compartmentId));
+            HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeParam($compartmentId));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -1050,7 +1045,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -1124,68 +1119,61 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($ifNoneMatch != null)
         {
-            $__headers['ifNoneMatch'] = $ifNoneMatch;
+            HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
         if ($range != null)
         {
-            $__headers['range'] = $range;
+            HttpUtils::addToArray($__headers, "range", HttpUtils::attemptEncodeParam($range));
         }
         if ($opcSseCustomerAlgorithm != null)
         {
-            $__headers['opcSseCustomerAlgorithm'] = $opcSseCustomerAlgorithm;
+            HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
         if ($opcSseCustomerKey != null)
         {
-            $__headers['opcSseCustomerKey'] = $opcSseCustomerKey;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
         if ($opcSseCustomerKeySha256 != null)
         {
-            $__headers['opcSseCustomerKeySha256'] = $opcSseCustomerKeySha256;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
 
         $__query = [];
         if ($versionId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
+            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeParam($versionId));
         }
         if ($httpResponseContentDisposition != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "httpResponseContentDisposition", HttpUtils::attemptEncodeQueryParam($httpResponseContentDisposition));
+            HttpUtils::addToArray($__query, "httpResponseContentDisposition", HttpUtils::attemptEncodeParam($httpResponseContentDisposition));
         }
         if ($httpResponseCacheControl != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "httpResponseCacheControl", HttpUtils::attemptEncodeQueryParam($httpResponseCacheControl));
+            HttpUtils::addToArray($__query, "httpResponseCacheControl", HttpUtils::attemptEncodeParam($httpResponseCacheControl));
         }
         if ($httpResponseContentType != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "httpResponseContentType", HttpUtils::attemptEncodeQueryParam($httpResponseContentType));
+            HttpUtils::addToArray($__query, "httpResponseContentType", HttpUtils::attemptEncodeParam($httpResponseContentType));
         }
         if ($httpResponseContentLanguage != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "httpResponseContentLanguage", HttpUtils::attemptEncodeQueryParam($httpResponseContentLanguage));
+            HttpUtils::addToArray($__query, "httpResponseContentLanguage", HttpUtils::attemptEncodeParam($httpResponseContentLanguage));
         }
         if ($httpResponseContentEncoding != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "httpResponseContentEncoding", HttpUtils::attemptEncodeQueryParam($httpResponseContentEncoding));
+            HttpUtils::addToArray($__query, "httpResponseContentEncoding", HttpUtils::attemptEncodeParam($httpResponseContentEncoding));
         }
         if ($httpResponseExpires != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "httpResponseExpires", HttpUtils::attemptEncodeQueryParam($httpResponseExpires));
+            HttpUtils::addToArray($__query, "httpResponseExpires", HttpUtils::attemptEncodeParam($httpResponseExpires));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -1231,7 +1219,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -1280,7 +1268,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -1330,7 +1318,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -1380,7 +1368,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -1426,7 +1414,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -1476,15 +1464,15 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($ifNoneMatch != null)
         {
-            $__headers['ifNoneMatch'] = $ifNoneMatch;
+            HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -1545,34 +1533,33 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($ifNoneMatch != null)
         {
-            $__headers['ifNoneMatch'] = $ifNoneMatch;
+            HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
         if ($opcSseCustomerAlgorithm != null)
         {
-            $__headers['opcSseCustomerAlgorithm'] = $opcSseCustomerAlgorithm;
+            HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
         if ($opcSseCustomerKey != null)
         {
-            $__headers['opcSseCustomerKey'] = $opcSseCustomerKey;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
         if ($opcSseCustomerKeySha256 != null)
         {
-            $__headers['opcSseCustomerKeySha256'] = $opcSseCustomerKeySha256;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
 
         $__query = [];
         if ($versionId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
+            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeParam($versionId));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -1624,28 +1611,24 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($compartmentId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeQueryParam($compartmentId));
+            HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeParam($compartmentId));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
         if ($fields != null)
         {
-            // isMap? false
             HttpUtils::encodeArray($__query, "fields", $fields, "csv");
         }
 
@@ -1698,24 +1681,21 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($uploadId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
+            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeParam($uploadId));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -1765,19 +1745,17 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -1838,49 +1816,41 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($prefix != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "prefix", HttpUtils::attemptEncodeQueryParam($prefix));
+            HttpUtils::addToArray($__query, "prefix", HttpUtils::attemptEncodeParam($prefix));
         }
         if ($start != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "start", HttpUtils::attemptEncodeQueryParam($start));
+            HttpUtils::addToArray($__query, "start", HttpUtils::attemptEncodeParam($start));
         }
         if ($end != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "end", HttpUtils::attemptEncodeQueryParam($end));
+            HttpUtils::addToArray($__query, "end", HttpUtils::attemptEncodeParam($end));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
         if ($delimiter != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "delimiter", HttpUtils::attemptEncodeQueryParam($delimiter));
+            HttpUtils::addToArray($__query, "delimiter", HttpUtils::attemptEncodeParam($delimiter));
         }
         if ($fields != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "fields", HttpUtils::attemptEncodeQueryParam($fields));
+            HttpUtils::addToArray($__query, "fields", HttpUtils::attemptEncodeParam($fields));
         }
         if ($startAfter != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "startAfter", HttpUtils::attemptEncodeQueryParam($startAfter));
+            HttpUtils::addToArray($__query, "startAfter", HttpUtils::attemptEncodeParam($startAfter));
         }
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -1939,44 +1909,37 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($prefix != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "prefix", HttpUtils::attemptEncodeQueryParam($prefix));
+            HttpUtils::addToArray($__query, "prefix", HttpUtils::attemptEncodeParam($prefix));
         }
         if ($start != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "start", HttpUtils::attemptEncodeQueryParam($start));
+            HttpUtils::addToArray($__query, "start", HttpUtils::attemptEncodeParam($start));
         }
         if ($end != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "end", HttpUtils::attemptEncodeQueryParam($end));
+            HttpUtils::addToArray($__query, "end", HttpUtils::attemptEncodeParam($end));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
         if ($delimiter != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "delimiter", HttpUtils::attemptEncodeQueryParam($delimiter));
+            HttpUtils::addToArray($__query, "delimiter", HttpUtils::attemptEncodeParam($delimiter));
         }
         if ($fields != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "fields", HttpUtils::attemptEncodeQueryParam($fields));
+            HttpUtils::addToArray($__query, "fields", HttpUtils::attemptEncodeParam($fields));
         }
         if ($startAfter != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "startAfter", HttpUtils::attemptEncodeQueryParam($startAfter));
+            HttpUtils::addToArray($__query, "startAfter", HttpUtils::attemptEncodeParam($startAfter));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2027,24 +1990,21 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($objectNamePrefix != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "objectNamePrefix", HttpUtils::attemptEncodeQueryParam($objectNamePrefix));
+            HttpUtils::addToArray($__query, "objectNamePrefix", HttpUtils::attemptEncodeParam($objectNamePrefix));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2093,19 +2053,17 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2154,19 +2112,17 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2213,8 +2169,7 @@ class ObjectStorageClient extends AbstractClient
         $__query = [];
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2261,19 +2216,17 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2319,19 +2272,17 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2377,24 +2328,21 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($compartmentId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeQueryParam($compartmentId));
+            HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeParam($compartmentId));
         }
         if ($page != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
         if ($limit != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2437,7 +2385,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -2520,71 +2468,71 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($ifNoneMatch != null)
         {
-            $__headers['ifNoneMatch'] = $ifNoneMatch;
+            HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
         if ($expect != null)
         {
-            $__headers['expect'] = $expect;
+            HttpUtils::addToArray($__headers, "expect", HttpUtils::attemptEncodeParam($expect));
         }
         if ($contentLength != null)
         {
-            $__headers['contentLength'] = $contentLength;
+            HttpUtils::addToArray($__headers, "contentLength", HttpUtils::attemptEncodeParam($contentLength));
         }
         if ($contentMD5 != null)
         {
-            $__headers['contentMD5'] = $contentMD5;
+            HttpUtils::addToArray($__headers, "contentMD5", HttpUtils::attemptEncodeParam($contentMD5));
         }
         if ($contentType != null)
         {
-            $__headers['contentType'] = $contentType;
+            HttpUtils::addToArray($__headers, "contentType", HttpUtils::attemptEncodeParam($contentType));
         }
         if ($contentLanguage != null)
         {
-            $__headers['contentLanguage'] = $contentLanguage;
+            HttpUtils::addToArray($__headers, "contentLanguage", HttpUtils::attemptEncodeParam($contentLanguage));
         }
         if ($contentEncoding != null)
         {
-            $__headers['contentEncoding'] = $contentEncoding;
+            HttpUtils::addToArray($__headers, "contentEncoding", HttpUtils::attemptEncodeParam($contentEncoding));
         }
         if ($contentDisposition != null)
         {
-            $__headers['contentDisposition'] = $contentDisposition;
+            HttpUtils::addToArray($__headers, "contentDisposition", HttpUtils::attemptEncodeParam($contentDisposition));
         }
         if ($cacheControl != null)
         {
-            $__headers['cacheControl'] = $cacheControl;
+            HttpUtils::addToArray($__headers, "cacheControl", HttpUtils::attemptEncodeParam($cacheControl));
         }
         if ($opcSseCustomerAlgorithm != null)
         {
-            $__headers['opcSseCustomerAlgorithm'] = $opcSseCustomerAlgorithm;
+            HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
         if ($opcSseCustomerKey != null)
         {
-            $__headers['opcSseCustomerKey'] = $opcSseCustomerKey;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
         if ($opcSseCustomerKeySha256 != null)
         {
-            $__headers['opcSseCustomerKeySha256'] = $opcSseCustomerKeySha256;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
         if ($opcSseKmsKeyId != null)
         {
-            $__headers['opcSseKmsKeyId'] = $opcSseKmsKeyId;
+            HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
         if ($storageTier != null)
         {
-            $__headers['storageTier'] = $storageTier;
+            HttpUtils::addToArray($__headers, "storageTier", HttpUtils::attemptEncodeParam($storageTier));
         }
         if ($opcMeta != null)
         {
-            $__headers['opcMeta'] = $opcMeta;
+            HttpUtils::encodeMap($__headers, "opcMeta", "", $opcMeta);
         }
 
         $__query = [];
@@ -2640,15 +2588,15 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($ifNoneMatch != null)
         {
-            $__headers['ifNoneMatch'] = $ifNoneMatch;
+            HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
 
         $__query = [];
@@ -2697,7 +2645,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -2750,14 +2698,13 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
         if ($versionId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
+            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeParam($versionId));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2807,7 +2754,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -2858,7 +2805,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -2911,11 +2858,11 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -2964,7 +2911,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -3014,7 +2961,7 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -3069,11 +3016,11 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
@@ -3149,55 +3096,53 @@ class ObjectStorageClient extends AbstractClient
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
         if ($opcClientRequestId != null)
         {
-            $__headers['opcClientRequestId'] = $opcClientRequestId;
+            HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
         if ($ifMatch != null)
         {
-            $__headers['ifMatch'] = $ifMatch;
+            HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
         if ($ifNoneMatch != null)
         {
-            $__headers['ifNoneMatch'] = $ifNoneMatch;
+            HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
         if ($expect != null)
         {
-            $__headers['expect'] = $expect;
+            HttpUtils::addToArray($__headers, "expect", HttpUtils::attemptEncodeParam($expect));
         }
         if ($contentLength != null)
         {
-            $__headers['contentLength'] = $contentLength;
+            HttpUtils::addToArray($__headers, "contentLength", HttpUtils::attemptEncodeParam($contentLength));
         }
         if ($contentMD5 != null)
         {
-            $__headers['contentMD5'] = $contentMD5;
+            HttpUtils::addToArray($__headers, "contentMD5", HttpUtils::attemptEncodeParam($contentMD5));
         }
         if ($opcSseCustomerAlgorithm != null)
         {
-            $__headers['opcSseCustomerAlgorithm'] = $opcSseCustomerAlgorithm;
+            HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
         if ($opcSseCustomerKey != null)
         {
-            $__headers['opcSseCustomerKey'] = $opcSseCustomerKey;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
         if ($opcSseCustomerKeySha256 != null)
         {
-            $__headers['opcSseCustomerKeySha256'] = $opcSseCustomerKeySha256;
+            HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
         if ($opcSseKmsKeyId != null)
         {
-            $__headers['opcSseKmsKeyId'] = $opcSseKmsKeyId;
+            HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
 
         $__query = [];
         if ($uploadId != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
+            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeParam($uploadId));
         }
         if ($uploadPartNum != null)
         {
-            // isMap? false
-            HttpUtils::addToArray($__query, "uploadPartNum", HttpUtils::attemptEncodeQueryParam($uploadPartNum));
+            HttpUtils::addToArray($__query, "uploadPartNum", HttpUtils::attemptEncodeParam($uploadPartNum));
         }
 
         $__queryStr = HttpUtils::queryMapToString($__query);

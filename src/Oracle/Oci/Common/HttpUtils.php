@@ -53,7 +53,7 @@ class HttpUtils
         {
             foreach($array as $item)
             {
-                HttpUtils::addToArray($queryMap, $paramName, HttpUtils::attemptEncodeQueryParam($item));
+                HttpUtils::addToArray($queryMap, $paramName, HttpUtils::attemptEncodeParam($item));
             }    
         }
         else 
@@ -65,7 +65,7 @@ class HttpUtils
                 {
                     $result = $result . $sep;
                 }
-                $result = $result . HttpUtils::attemptEncodeQueryParam($item);
+                $result = $result . HttpUtils::attemptEncodeParam($item);
             }
             HttpUtils::addToArray($queryMap, $paramName, $result);
         }
@@ -78,26 +78,26 @@ class HttpUtils
         }
         if ($map != null) {
             foreach ($map as $key => $value) {
-                HttpUtils::encodeMapQueryParamValue($queryMap, $prefix . $key, $value);
+                HttpUtils::encodeMapParamValue($queryMap, $prefix . $key, $value);
             }
         }
     }
 
-    public static function encodeMapQueryParamValue(&$queryMap, /*string*/ $prefixedKey, $value)
+    public static function encodeMapParamValue(&$queryMap, /*string*/ $prefixedKey, $value)
     {
         if (is_array($value)) {
             foreach($value as $item)
             {
-                HttpUtils::addToArray($queryMap, $prefixedKey, HttpUtils::attemptEncodeQueryParam($item));
+                HttpUtils::addToArray($queryMap, $prefixedKey, HttpUtils::attemptEncodeParam($item));
             }
         }
         else
         {
-            HttpUtils::addToArray($queryMap, $prefixedKey, HttpUtils::attemptEncodeQueryParam($value));
+            HttpUtils::addToArray($queryMap, $prefixedKey, HttpUtils::attemptEncodeParam($value));
         }
     }
 
-    public static function attemptEncodeQueryParam($value) // : string
+    public static function attemptEncodeParam($value) // : string
     {
         if ($value instanceof DateTime)
         {
@@ -105,11 +105,12 @@ class HttpUtils
         }
         return strval($value);
     }
-    
-    public static $RFC3339_EXTENDED = "Y-m-d\TH:i:s.vP";
+
+    public static $RFC3339_EXTENDED = "Y-m-d\TH:i:s.uP";
 
     public static function orNull($params=[], $paramName, $required = false)
     {
+        // PHP 5.6 does not have the ?? operator
         if (array_key_exists($paramName, $params))
         {
             return $params[$paramName];
@@ -123,6 +124,12 @@ class HttpUtils
 
     public static function queryMapToString($queryMap) // : string
     {
+        // It is not straight-forward to get repeated query parameters to work in the OCI way using Guzzle.
+        // Instead of
+        //     ?key=value&key=other
+        // Guzzle by default produces
+        //     ?key[0]=value&key[1]=other
+        // Instead, we build our own query string.
         $str = '';
         foreach ($queryMap as $key => $value) {
             if (is_array($value)) {

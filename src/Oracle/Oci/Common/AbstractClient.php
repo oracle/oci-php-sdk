@@ -113,10 +113,18 @@ abstract class AbstractClient
             $authorization_header = "Signature version=\"1\",keyId=\"{$this->auth_provider->getKeyId()}\",algorithm=\"rsa-sha256\",headers=\"$headers\",signature=\"$signature\"";
             $request = $request->withHeader('Authorization', $authorization_header);
 
-            // echo "\nRequest headers:".PHP_EOL;
-            // foreach ($request->getHeaders() as $name => $values) {
-            //     echo $name . ': ' . implode(', ', $values) . "\n";
-            // }
+            echo "\nRequest headers:".PHP_EOL;
+            foreach ($request->getHeaders() as $name => $values) {
+                if (is_array($values))
+                {
+                    foreach($values as $item)
+                    {
+                        echo $name . ': ' . $item . "\n";
+                    }
+                } else {
+                    echo $name . ': ' . $values . "\n";
+                }
+            }
 
             return $request;
         }));
