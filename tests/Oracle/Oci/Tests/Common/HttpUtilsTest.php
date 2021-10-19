@@ -285,6 +285,18 @@ class HttpUtilsTest extends TestCase
             "prefix.key4" => ["abc", $expected, "1"]], $queryMap);
     }
 
+    public function testEncodeMap_multiple2() {
+        $map = [
+            "a" => "1", 
+            "b" => ["2", "3"]];
+
+        $queryMap = [];
+        HttpUtils::encodeMap($queryMap, "paramName", "prefix.", $map);
+        $this->assertEquals([
+            "prefix.a" => "1",
+            "prefix.b" => ["2", "3"]], $queryMap);
+    }
+
     public function testEncodeMap_multiple_nullPrefix() {
         $dt = new DateTime(); // now
         $map = [

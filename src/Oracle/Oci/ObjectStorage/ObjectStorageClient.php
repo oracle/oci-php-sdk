@@ -80,7 +80,8 @@ class ObjectStorageClient
 
         // place signing middleware after prepare-body so it can access Content-Length header
         $stack->after('prepare_body', Middleware::mapRequest(function (RequestInterface $request) {
-            // echo "Request URI: " . $request->getUri() . PHP_EOL;
+            echo "Request URI: " . $request->getUri() . PHP_EOL;
+
             // headers required for all HTTP verbs
             $headers = "date (request-target) host";
 
@@ -113,17 +114,17 @@ class ObjectStorageClient
                 $signing_string = $signing_string . "\ncontent-length: $content_length\ncontent-type: $content_type\nx-content-sha256: $content_sha256";
             }
 
-            // echo "Signing string:\n$signing_string".PHP_EOL;
+            # echo "Signing string:\n$signing_string".PHP_EOL;
 
             $signature = $this->sign_string($signing_string, $this->auth_provider->getKeyFilename(), $this->auth_provider->getKeyPassphrase());
 
             $authorization_header = "Signature version=\"1\",keyId=\"{$this->auth_provider->getKeyId()}\",algorithm=\"rsa-sha256\",headers=\"$headers\",signature=\"$signature\"";
             $request = $request->withHeader('Authorization', $authorization_header);
 
-            // echo "\nRequest headers:".PHP_EOL;
-            // foreach ($request->getHeaders() as $name => $values) {
-            //     echo $name . ': ' . implode(', ', $values) . "\n";
-            // }
+            # echo "\nRequest headers:".PHP_EOL;
+            # foreach ($request->getHeaders() as $name => $values) {
+            #     echo $name . ': ' . implode(', ', $values) . "\n";
+            # }
 
             return $request;
         }));
@@ -168,7 +169,7 @@ class ObjectStorageClient
         $__query = [];
         if ($uploadId != null)
         {
-            $__query['uploadId'] = $uploadId;
+            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/u/{objectName}";
@@ -244,7 +245,7 @@ class ObjectStorageClient
         $__query = [];
         if ($uploadId != null)
         {
-            $__query['uploadId'] = $uploadId;
+            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/u/{objectName}";
@@ -584,7 +585,7 @@ class ObjectStorageClient
         $__query = [];
         if ($versionId != null)
         {
-            $__query['versionId'] = $versionId;
+            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/o/{objectName}";
@@ -799,7 +800,7 @@ class ObjectStorageClient
         $__query = [];
         if ($compartmentId != null)
         {
-            $__query['compartmentId'] = $compartmentId;
+            HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeQueryParam($compartmentId));
         }
 
         $__path = "/n/";
@@ -897,31 +898,31 @@ class ObjectStorageClient
         $__query = [];
         if ($versionId != null)
         {
-            $__query['versionId'] = $versionId;
+            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
         }
         if ($httpResponseContentDisposition != null)
         {
-            $__query['httpResponseContentDisposition'] = $httpResponseContentDisposition;
+            HttpUtils::addToArray($__query, "httpResponseContentDisposition", HttpUtils::attemptEncodeQueryParam($httpResponseContentDisposition));
         }
         if ($httpResponseCacheControl != null)
         {
-            $__query['httpResponseCacheControl'] = $httpResponseCacheControl;
+            HttpUtils::addToArray($__query, "httpResponseCacheControl", HttpUtils::attemptEncodeQueryParam($httpResponseCacheControl));
         }
         if ($httpResponseContentType != null)
         {
-            $__query['httpResponseContentType'] = $httpResponseContentType;
+            HttpUtils::addToArray($__query, "httpResponseContentType", HttpUtils::attemptEncodeQueryParam($httpResponseContentType));
         }
         if ($httpResponseContentLanguage != null)
         {
-            $__query['httpResponseContentLanguage'] = $httpResponseContentLanguage;
+            HttpUtils::addToArray($__query, "httpResponseContentLanguage", HttpUtils::attemptEncodeQueryParam($httpResponseContentLanguage));
         }
         if ($httpResponseContentEncoding != null)
         {
-            $__query['httpResponseContentEncoding'] = $httpResponseContentEncoding;
+            HttpUtils::addToArray($__query, "httpResponseContentEncoding", HttpUtils::attemptEncodeQueryParam($httpResponseContentEncoding));
         }
         if ($httpResponseExpires != null)
         {
-            $__query['httpResponseExpires'] = $httpResponseExpires;
+            HttpUtils::addToArray($__query, "httpResponseExpires", HttpUtils::attemptEncodeQueryParam($httpResponseExpires));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/o/{objectName}";
@@ -1177,7 +1178,7 @@ class ObjectStorageClient
         $__query = [];
         if ($versionId != null)
         {
-            $__query['versionId'] = $versionId;
+            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/o/{objectName}";
@@ -1215,15 +1216,15 @@ class ObjectStorageClient
         $__query = [];
         if ($compartmentId != null)
         {
-            $__query['compartmentId'] = $compartmentId;
+            HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeQueryParam($compartmentId));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
         if ($fields != null)
         {
@@ -1264,15 +1265,15 @@ class ObjectStorageClient
         $__query = [];
         if ($uploadId != null)
         {
-            $__query['uploadId'] = $uploadId;
+            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/u/{objectName}";
@@ -1309,11 +1310,11 @@ class ObjectStorageClient
         $__query = [];
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/u";
@@ -1355,35 +1356,35 @@ class ObjectStorageClient
         $__query = [];
         if ($prefix != null)
         {
-            $__query['prefix'] = $prefix;
+            HttpUtils::addToArray($__query, "prefix", HttpUtils::attemptEncodeQueryParam($prefix));
         }
         if ($start != null)
         {
-            $__query['start'] = $start;
+            HttpUtils::addToArray($__query, "start", HttpUtils::attemptEncodeQueryParam($start));
         }
         if ($end != null)
         {
-            $__query['end'] = $end;
+            HttpUtils::addToArray($__query, "end", HttpUtils::attemptEncodeQueryParam($end));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
         if ($delimiter != null)
         {
-            $__query['delimiter'] = $delimiter;
+            HttpUtils::addToArray($__query, "delimiter", HttpUtils::attemptEncodeQueryParam($delimiter));
         }
         if ($fields != null)
         {
-            $__query['fields'] = $fields;
+            HttpUtils::addToArray($__query, "fields", HttpUtils::attemptEncodeQueryParam($fields));
         }
         if ($startAfter != null)
         {
-            $__query['startAfter'] = $startAfter;
+            HttpUtils::addToArray($__query, "startAfter", HttpUtils::attemptEncodeQueryParam($startAfter));
         }
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/objectversions";
@@ -1424,31 +1425,31 @@ class ObjectStorageClient
         $__query = [];
         if ($prefix != null)
         {
-            $__query['prefix'] = $prefix;
+            HttpUtils::addToArray($__query, "prefix", HttpUtils::attemptEncodeQueryParam($prefix));
         }
         if ($start != null)
         {
-            $__query['start'] = $start;
+            HttpUtils::addToArray($__query, "start", HttpUtils::attemptEncodeQueryParam($start));
         }
         if ($end != null)
         {
-            $__query['end'] = $end;
+            HttpUtils::addToArray($__query, "end", HttpUtils::attemptEncodeQueryParam($end));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
         if ($delimiter != null)
         {
-            $__query['delimiter'] = $delimiter;
+            HttpUtils::addToArray($__query, "delimiter", HttpUtils::attemptEncodeQueryParam($delimiter));
         }
         if ($fields != null)
         {
-            $__query['fields'] = $fields;
+            HttpUtils::addToArray($__query, "fields", HttpUtils::attemptEncodeQueryParam($fields));
         }
         if ($startAfter != null)
         {
-            $__query['startAfter'] = $startAfter;
+            HttpUtils::addToArray($__query, "startAfter", HttpUtils::attemptEncodeQueryParam($startAfter));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/o";
@@ -1485,15 +1486,15 @@ class ObjectStorageClient
         $__query = [];
         if ($objectNamePrefix != null)
         {
-            $__query['objectNamePrefix'] = $objectNamePrefix;
+            HttpUtils::addToArray($__query, "objectNamePrefix", HttpUtils::attemptEncodeQueryParam($objectNamePrefix));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/p/";
@@ -1529,11 +1530,11 @@ class ObjectStorageClient
         $__query = [];
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/replicationPolicies";
@@ -1569,11 +1570,11 @@ class ObjectStorageClient
         $__query = [];
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/replicationSources";
@@ -1603,7 +1604,7 @@ class ObjectStorageClient
         $__query = [];
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/retentionRules";
@@ -1638,11 +1639,11 @@ class ObjectStorageClient
         $__query = [];
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
         $__path = "/workRequests/{workRequestId}/errors";
@@ -1676,11 +1677,11 @@ class ObjectStorageClient
         $__query = [];
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
         $__path = "/workRequests/{workRequestId}/logs";
@@ -1714,15 +1715,15 @@ class ObjectStorageClient
         $__query = [];
         if ($compartmentId != null)
         {
-            $__query['compartmentId'] = $compartmentId;
+            HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeQueryParam($compartmentId));
         }
         if ($page != null)
         {
-            $__query['page'] = $page;
+            HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeQueryParam($page));
         }
         if ($limit != null)
         {
-            $__query['limit'] = $limit;
+            HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeQueryParam($limit));
         }
 
         $__path = "/workRequests";
@@ -1975,7 +1976,7 @@ class ObjectStorageClient
         $__query = [];
         if ($versionId != null)
         {
-            $__query['versionId'] = $versionId;
+            HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeQueryParam($versionId));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/actions/reencrypt/{objectName}";
@@ -2269,11 +2270,11 @@ class ObjectStorageClient
         $__query = [];
         if ($uploadId != null)
         {
-            $__query['uploadId'] = $uploadId;
+            HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeQueryParam($uploadId));
         }
         if ($uploadPartNum != null)
         {
-            $__query['uploadPartNum'] = $uploadPartNum;
+            HttpUtils::addToArray($__query, "uploadPartNum", HttpUtils::attemptEncodeQueryParam($uploadPartNum));
         }
 
         $__path = "/n/{namespaceName}/b/{bucketName}/u/{objectName}";
@@ -2293,5 +2294,34 @@ class ObjectStorageClient
             json: json_decode($__response->getBody()));
     }
 
+    // Operation 'postExternalWrapped':
+    // path /external
+    public function postExternalWrapped(
+        $mapOfListOfExternal = null,
+        $wrappedExternal = null,
+    )
+    {
+        $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
+
+        $__query = [];
+        if ($mapOfListOfExternal != null)
+        {
+            // isMap? true
+            HttpUtils::encodeMap($__query, "mapOfListOfExternal", "mapOfListOfExternal.", $mapOfListOfExternal);
+        }
+
+        $__path = "/external";
+
+        $__body = json_encode($wrappedExternal);
+
+        $__response = $this->client->post(
+            "{$this->endpoint}{$__path}",
+            [ 'headers' => $__headers, 'query' => $__query, 'body' => $__body ]
+        );
+        return new OciResponse(
+            statusCode: $__response->getStatusCode(),
+            headers: $__response->getHeaders(),
+            json: json_decode($__response->getBody()));
+    }
 }
 ?>

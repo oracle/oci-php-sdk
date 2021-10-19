@@ -178,10 +178,9 @@ else
 
 echo "----- listBuckets -----".PHP_EOL;
 $response = $c->listBuckets(
-    $namespace,
+    namespaceName: $namespace,
     compartmentId: "ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq",
     fields: ["tags", "tags"]);
 $response->print();
-
 
 ?>
