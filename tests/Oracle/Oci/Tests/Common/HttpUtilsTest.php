@@ -32,7 +32,7 @@ class HttpUtilsTest extends TestCase
     public function testattemptEncodeParam()
     {
         $this->assertEquals("abc", HttpUtils::attemptEncodeParam("abc"));
-        
+
         // TODO: check if this is required, or if Guzzle escapes it
         // $this->assertEquals("%251%253D%253F%2540%255B%255D%2541%20aaaa", HttpUtils::attemptEncodeParam("%1%3D%3F%40%5B%5D%41 aaaa"));
 
@@ -42,7 +42,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals($dt->format(HttpUtils::$RFC3339_EXTENDED), HttpUtils::attemptEncodeParam($dt));
     }
 
-    public function testEncodeArray_null() {
+    public function testEncodeArray_null()
+    {
         $array = null;
         $queryMap = [];
         HttpUtils::encodeArray($queryMap, "paramName", $array, "csv");
@@ -65,7 +66,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals([], $queryMap);
     }
 
-    public function testEncodeArray_empty() {
+    public function testEncodeArray_empty()
+    {
         $array = [];
         $queryMap = [];
         HttpUtils::encodeArray($queryMap, "paramName", $array, "csv");
@@ -88,7 +90,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals([], $queryMap);
     }
 
-    public function testEncodeArray_single() {
+    public function testEncodeArray_single()
+    {
         $array = ["abc"];
         $expectedQueryMap = ["paramName" => "abc"];
         $queryMap = [];
@@ -112,7 +115,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals($expectedQueryMap, $queryMap);
     }
 
-    public function testEncodeArray_single_withExistingKey() {
+    public function testEncodeArray_single_withExistingKey()
+    {
         $array = ["abc"];
         $expectedQueryMap = ["paramName" => ["old", "abc"]];
         $queryMap = ["paramName" => "old"];
@@ -136,7 +140,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals($expectedQueryMap, $queryMap);
     }
 
-    public function testEncodeArray_singleDateTime() {
+    public function testEncodeArray_singleDateTime()
+    {
         $dt = new DateTime(); // now
         $array = [$dt];
         $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
@@ -163,7 +168,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals($expectedQueryMap, $queryMap);
     }
 
-    public function testEncodeArray_multiple() {
+    public function testEncodeArray_multiple()
+    {
         $dt = new DateTime(); // now
         $array = ["abc", $dt, 1];
         $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
@@ -189,7 +195,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals(["paramName" => ["abc", $expected, "1"]], $queryMap);
     }
 
-    public function testEncodeArray_multiple_withExistingKey() {
+    public function testEncodeArray_multiple_withExistingKey()
+    {
         $dt = new DateTime(); // now
         $array = ["abc", $dt, 1];
         $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
@@ -215,7 +222,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals(["paramName" => ["old", "abc", $expected, "1"]], $queryMap);
     }
 
-    public function testEncodeMap_null() {
+    public function testEncodeMap_null()
+    {
         $map = null;
 
         $queryMap = [];
@@ -223,7 +231,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals([], $queryMap);
     }
 
-    public function testEncodeMap_empty() {
+    public function testEncodeMap_empty()
+    {
         $map = [];
 
         $queryMap = [];
@@ -231,7 +240,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals([], $queryMap);
     }
 
-    public function testEncodeMap_single() {
+    public function testEncodeMap_single()
+    {
         $map = ["key" => "value"];
 
         $queryMap = [];
@@ -239,7 +249,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals(["prefix.key" => "value"], $queryMap);
     }
 
-    public function testEncodeMap_singleDateTime() {
+    public function testEncodeMap_singleDateTime()
+    {
         $dt = new DateTime(); // now
         $map = ["key" => $dt];
         $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
@@ -249,7 +260,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals(["prefix.key" => $expected], $queryMap);
     }
 
-    public function testEncodeMap_single_nullPrefix() {
+    public function testEncodeMap_single_nullPrefix()
+    {
         $map = ["key" => "value"];
 
         $queryMap = [];
@@ -257,7 +269,8 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals(["key" => "value"], $queryMap);
     }
 
-    public function testEncodeMap_singleDateTime_nullPrefix() {
+    public function testEncodeMap_singleDateTime_nullPrefix()
+    {
         $dt = new DateTime(); // now
         $map = ["key" => $dt];
         $expected = $dt->format(HttpUtils::$RFC3339_EXTENDED);
@@ -267,10 +280,11 @@ class HttpUtilsTest extends TestCase
         $this->assertEquals(["key" => $expected], $queryMap);
     }
 
-    public function testEncodeMap_multiple() {
+    public function testEncodeMap_multiple()
+    {
         $dt = new DateTime(); // now
         $map = [
-            "key1" => "abc", 
+            "key1" => "abc",
             "key2" => $dt,
             "key3" => 1,
             "key4" => ["abc", $dt, 1]];
@@ -285,9 +299,10 @@ class HttpUtilsTest extends TestCase
             "prefix.key4" => ["abc", $expected, "1"]], $queryMap);
     }
 
-    public function testEncodeMap_multiple2() {
+    public function testEncodeMap_multiple2()
+    {
         $map = [
-            "a" => "1", 
+            "a" => "1",
             "b" => ["2", "3"]];
 
         $queryMap = [];
@@ -297,10 +312,11 @@ class HttpUtilsTest extends TestCase
             "prefix.b" => ["2", "3"]], $queryMap);
     }
 
-    public function testEncodeMap_multiple_nullPrefix() {
+    public function testEncodeMap_multiple_nullPrefix()
+    {
         $dt = new DateTime(); // now
         $map = [
-            "key1" => "abc", 
+            "key1" => "abc",
             "key2" => $dt,
             "key3" => 1,
             "key4" => ["abc", $dt, 1]];
@@ -315,25 +331,26 @@ class HttpUtilsTest extends TestCase
             "key4" => ["abc", $expected, "1"]], $queryMap);
     }
 
-    public function testOrNull() {
+    public function testOrNull()
+    {
         $this->assertEquals(null, HttpUtils::orNull([], "paramName"));
         $this->assertEquals("paramValue", HttpUtils::orNull(["paramName" => "paramValue"], "paramName"));
     }
 
-    public function testOrNull_required() {
+    public function testOrNull_required()
+    {
         $this->assertEquals("paramValue", HttpUtils::orNull(["paramName" => "paramValue"], "paramName", true));
         try {
             HttpUtils::orNull([], "paramName", true);
             $this->fail("Should have thrown");
-        } catch(InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             // expected
         }
     }
 
-    public function testQueryMapToString() {
+    public function testQueryMapToString()
+    {
         $this->assertEquals("", HttpUtils::queryMapToString([]));
         $this->assertEquals("?a=1&b=2&b=3", HttpUtils::queryMapToString(["a" => 1, "b" => [2, 3]]));
     }
 }
-
-?>

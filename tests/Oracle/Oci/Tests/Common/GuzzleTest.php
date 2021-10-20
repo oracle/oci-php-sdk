@@ -57,5 +57,3 @@ class GuzzleTest extends TestCase
         return substr($r->getUri(), strlen($prefix));
     }
 }
-
-?>

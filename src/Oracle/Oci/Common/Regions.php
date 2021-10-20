@@ -2,18 +2,21 @@
 
 namespace Oracle\Oci\Common;
 
-class Realm 
+class Realm
 {
-    protected /*string*/ $realmId;
-    protected /*string*/ $realmDomainComponent;
+    /*string*/ protected $realmId;
+    /*string*/ protected $realmDomainComponent;
 
     protected static $wasInitialized = false;
     protected static $knownRealms = [];
     protected static $unknownRegionRealm;
-    
+
     public function __construct(
-        /*string*/ $realmId,
-        /*string*/ $realmDomainComponent)
+        /*string*/ 
+        $realmId,
+        /*string*/ 
+        $realmDomainComponent
+    )
     {
         $this->realmId = strtolower($realmId);
         $this->realmDomainComponent = $realmDomainComponent;
@@ -22,8 +25,7 @@ class Realm
 
     public static function __init()
     {
-        if (!Realm::$wasInitialized)
-        {
+        if (!Realm::$wasInitialized) {
             $OC1 = new Realm("oc1", "oraclecloud.com");
             $OC2 = new Realm("oc2", "oraclegovcloud.com");
             $OC3 = new Realm("oc3", "oraclegovcloud.com");
@@ -45,13 +47,13 @@ class Realm
     }
 
     public static function getRealm(
-        /*string*/ $realmId
+        /*string*/ 
+        $realmId
     ) // : ?Realm
     {
         Realm::__init();
         $id = strtolower($realmId);
-        if (array_key_exists($id, Realm::$knownRealms))
-        {
+        if (array_key_exists($id, Realm::$knownRealms)) {
             return Realm::$knownRealms[$id];
         }
         return null;
@@ -71,18 +73,21 @@ class Realm
 
 class Region
 {
-    protected /*string*/ $regionId;
-    protected /*string*/ $regionCode;
-    protected /*Realm*/ $realm;
+    /*string*/ protected $regionId;
+    /*string*/ protected $regionCode;
+    /*Realm*/ protected $realm;
 
     protected static $wasInitialized = false;
     protected static $knownRegions = [];
     protected static $knownRegionsByCode = [];
-    
+
     public function __construct(
-        /*string*/ $regionId,
-        /*string*/ $regionCode,
-        Realm $realm)
+        /*string*/ 
+        $regionId,
+        /*string*/ 
+        $regionCode,
+        Realm $realm
+    )
     {
         $this->regionId = strtolower($regionId);
         $this->regionCode = strtolower($regionCode);
@@ -93,8 +98,7 @@ class Region
 
     public static function __init()
     {
-        if (!Region::$wasInitialized)
-        {
+        if (!Region::$wasInitialized) {
             // OC1
             $AP_CHUNCHEON_1 = new Region("ap-chuncheon-1", "yny", Realm::getRealm("oc1"));
             $AP_MELBOURNE_1 = new Region("ap-melbourne-1", "mel", Realm::getRealm("oc1"));
@@ -137,7 +141,7 @@ class Region
             // OC8
             $AP_CHIYODA_1 = new Region("ap-chiyoda-1", "nja", Realm::getRealm("oc8"));
             $AP_IBARAKI_1 = new Region("ap-ibaraki-1", "ukb", Realm::getRealm("oc8"));
-            
+
             Region::$wasInitialized = true;
         }
     }
@@ -158,38 +162,38 @@ class Region
     }
 
     public static function getRegion(
-        /*string*/ $regionIdOrCode
+        /*string*/ 
+        $regionIdOrCode
     ) // : ?Region
     {
         $r = Region::getRegionById($regionIdOrCode);
-        if ($r == null)
-        {
+        if ($r == null) {
             $r = Region::getRegionByCode($regionIdOrCode);
         }
         return $r;
     }
 
     public static function getRegionById(
-        /*string*/ $regionId
+        /*string*/ 
+        $regionId
     ) // : ?Region
     {
         Region::__init();
         $id = strtolower($regionId);
-        if (array_key_exists($id, Region::$knownRegions))
-        {
+        if (array_key_exists($id, Region::$knownRegions)) {
             return Region::$knownRegions[$id];
         }
         return null;
     }
 
     public static function getRegionByCode(
-        /*string*/ $regionCode
+        /*string*/ 
+        $regionCode
     ) // : ?Region
     {
         Region::__init();
         $code = strtolower($regionCode);
-        if (array_key_exists($code, Region::$knownRegionsByCode))
-        {
+        if (array_key_exists($code, Region::$knownRegionsByCode)) {
             return Region::$knownRegionsByCode[$code];
         }
         return null;
@@ -200,5 +204,3 @@ class Region
         return "{$this->regionId} / {$this->regionCode} in realm {$this->realm}";
     }
 }
-        
-?>

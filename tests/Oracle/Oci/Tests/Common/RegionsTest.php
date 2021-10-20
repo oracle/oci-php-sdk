@@ -47,7 +47,4 @@ class RegionsTest extends TestCase
     {
         $this->assertEquals(null, Region::getRegion("sp-mars-1"));
     }
-
 }
-
-?>

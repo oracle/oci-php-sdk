@@ -11,39 +11,35 @@ use InvalidArgumentException;
 use Oracle\Oci\Common\Logging\LogAdapterInterface;
 use Oracle\Oci\Common\Logging\NoOpLogAdapter;
 
-abstract class AbstractClient 
+abstract class AbstractClient
 {
-    protected static /*LogAdapterInterface*/ $globalLogAdapter;
-    protected /*LogAdapterInterface*/ $logAdapter;
+    /*LogAdapterInterface*/ protected static $globalLogAdapter;
+    /*LogAdapterInterface*/ protected $logAdapter;
 
-    protected /*AuthProviderInterface*/ $auth_provider;
-    protected /*?Region*/ $region;
+    /*AuthProviderInterface*/ protected $auth_provider;
+    /*?Region*/ protected $region;
 
-    protected /*string*/ $endpoint;
+    /*string*/ protected $endpoint;
     protected $client;
 
     public function __construct(
         $endpointTemplate,
         AuthProviderInterface $auth_provider,
         $region=null,
-        $endpoint=null)
+        $endpoint=null
+    )
     {
         $this->auth_provider = $auth_provider;
 
-        if ($auth_provider instanceof RegionProvider)
-        {
+        if ($auth_provider instanceof RegionProvider) {
             $this->region = $auth_provider->getRegion();
         }
-        if ($region != null)
-        {
-            if ($region instanceof Region)
-            {
+        if ($region != null) {
+            if ($region instanceof Region) {
                 $this->region = $region;
-            }
-            else {
+            } else {
                 $knownRegion = Region::getRegion($region);
-                if ($knownRegion == null)
-                {
+                if ($knownRegion == null) {
                     // forward-compatibility for unknown regions
                     $realm = Realm::getRealmForUnknownRegion();
                     $endpoint = str_replace('{region}', $region, $endpointTemplate);
@@ -55,22 +51,18 @@ abstract class AbstractClient
                         [],
                         static::class
                     );
-                }
-                else
-                {
+                } else {
                     $this->region = $knownRegion;
                 }
             }
         }
-        if ($this->region == null && $endpoint == null)
-        {
+        if ($this->region == null && $endpoint == null) {
             throw new InvalidArgumentException('Neither region nor endpoint is set.');
         }
 
         if ($endpoint != null) {
             $this->endpoint = $endpoint;
-        }
-        else {
+        } else {
             $this->endpoint = str_replace('{region}', $this->region->getRegionId(), $endpointTemplate);
             $this->endpoint = str_replace('{secondLevelDomain}', $this->region->getRealm()->getRealmDomainComponent(), $this->endpoint);
         }
@@ -78,7 +70,8 @@ abstract class AbstractClient
             "Final endpoint: {$this->endpoint}",
             LOG_DEBUG,
             [],
-            static::class);
+            static::class
+        );
 
         $handler = new CurlHandler();
         $stack = HandlerStack::create($handler);
@@ -140,10 +133,8 @@ abstract class AbstractClient
             if ($this->getLogAdapter()->isLogEnabled(LOG_DEBUG, static::class . "\\middleware\\requestHeaders")) {
                 $str = "Request headers:";
                 foreach ($request->getHeaders() as $name => $values) {
-                    if (is_array($values))
-                    {
-                        foreach($values as $item)
-                        {
+                    if (is_array($values)) {
+                        foreach ($values as $item) {
                             $str .= PHP_EOL . $name . ': ' . $item;
                         }
                     } else {
@@ -166,7 +157,8 @@ abstract class AbstractClient
         ]);
     }
 
-    protected function sign_string($data, $key_path, $passphrase){
+    protected function sign_string($data, $key_path, $passphrase)
+    {
         $pkeyid = openssl_pkey_get_private($key_path, $passphrase);
         if (!$pkeyid) {
             exit('Error reading private key');
@@ -179,30 +171,27 @@ abstract class AbstractClient
 
     public static function getGlobalLogAdapter() // : LogAdapterInterface
     {
-        if (AbstractClient::$globalLogAdapter == null)
-        {
+        if (AbstractClient::$globalLogAdapter == null) {
             AbstractClient::setGlobalLogAdapter(new NoOpLogAdapter());
         }
         return AbstractClient::$globalLogAdapter;
     }
 
-    public static function setGlobalLogAdapter(LogAdapterInterface $logAdapter) 
+    public static function setGlobalLogAdapter(LogAdapterInterface $logAdapter)
     {
         AbstractClient::$globalLogAdapter = $logAdapter;
     }
 
     public function getLogAdapter() // : LogAdapterInterface
     {
-        if ($this->logAdapter != null)
-        {
+        if ($this->logAdapter != null) {
             return $this->logAdapter;
         }
         return AbstractClient::getGlobalLogAdapter();
     }
 
-    public function setLogAdapter(LogAdapterInterface $logAdapter) 
+    public function setLogAdapter(LogAdapterInterface $logAdapter)
     {
         $this->globalLogAdapter = $logAdapter;
     }
 }
-?>

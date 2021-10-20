@@ -13,12 +13,13 @@ use Oracle\Oci\Common\AbstractClient;
 
 class ObjectStorageClient extends AbstractClient
 {
-    static protected /*const*/ $endpointTemplate = "https://objectstorage.{region}.{secondLevelDomain}";
+    /*const*/ protected static $endpointTemplate = "https://objectstorage.{region}.{secondLevelDomain}";
 
     public function __construct(
         AuthProviderInterface $auth_provider,
         $region=null,
-        $endpoint=null)
+        $endpoint=null
+    )
     {
         parent::__construct(
             ObjectStorageClient::$endpointTemplate,
@@ -37,8 +38,7 @@ class ObjectStorageClient extends AbstractClient
     // path /n/{namespaceName}/b/{bucketName}/u/{objectName}
     public function abortMultipartUpload($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -57,17 +57,14 @@ class ObjectStorageClient extends AbstractClient
         $objectName,
         $uploadId,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($uploadId != null)
-        {
+        if ($uploadId != null) {
             HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeParam($uploadId));
         }
 
@@ -86,15 +83,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'cancelWorkRequest':
     // path /workRequests/{workRequestId}
     public function cancelWorkRequest($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -107,11 +104,9 @@ class ObjectStorageClient extends AbstractClient
     public function cancelWorkRequest_Helper(
         $workRequestId,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -130,15 +125,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'commitMultipartUpload':
     // path /n/{namespaceName}/b/{bucketName}/u/{objectName}
     public function commitMultipartUpload($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -163,25 +158,20 @@ class ObjectStorageClient extends AbstractClient
         $ifMatch = null,
         $ifNoneMatch = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($ifNoneMatch != null)
-        {
+        if ($ifNoneMatch != null) {
             HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($uploadId != null)
-        {
+        if ($uploadId != null) {
             HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeParam($uploadId));
         }
 
@@ -202,15 +192,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'copyObject':
     // path /n/{namespaceName}/b/{bucketName}/actions/copyObject
     public function copyObject($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -241,39 +231,30 @@ class ObjectStorageClient extends AbstractClient
         $opcSourceSseCustomerKey = null,
         $opcSourceSseCustomerKeySha256 = null,
         $opcSseKmsKeyId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
-        if ($opcSseCustomerAlgorithm != null)
-        {
+        if ($opcSseCustomerAlgorithm != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
-        if ($opcSseCustomerKey != null)
-        {
+        if ($opcSseCustomerKey != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
-        if ($opcSseCustomerKeySha256 != null)
-        {
+        if ($opcSseCustomerKeySha256 != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
-        if ($opcSourceSseCustomerAlgorithm != null)
-        {
+        if ($opcSourceSseCustomerAlgorithm != null) {
             HttpUtils::addToArray($__headers, "opcSourceSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSourceSseCustomerAlgorithm));
         }
-        if ($opcSourceSseCustomerKey != null)
-        {
+        if ($opcSourceSseCustomerKey != null) {
             HttpUtils::addToArray($__headers, "opcSourceSseCustomerKey", HttpUtils::attemptEncodeParam($opcSourceSseCustomerKey));
         }
-        if ($opcSourceSseCustomerKeySha256 != null)
-        {
+        if ($opcSourceSseCustomerKeySha256 != null) {
             HttpUtils::addToArray($__headers, "opcSourceSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSourceSseCustomerKeySha256));
         }
-        if ($opcSseKmsKeyId != null)
-        {
+        if ($opcSseKmsKeyId != null) {
             HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
 
@@ -295,15 +276,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'createBucket':
     // path /n/{namespaceName}/b/
     public function createBucket($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -318,11 +299,9 @@ class ObjectStorageClient extends AbstractClient
         $namespaceName,
         $createBucketDetails,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -343,15 +322,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'createMultipartUpload':
     // path /n/{namespaceName}/b/{bucketName}/u
     public function createMultipartUpload($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -380,35 +359,27 @@ class ObjectStorageClient extends AbstractClient
         $opcSseCustomerKey = null,
         $opcSseCustomerKeySha256 = null,
         $opcSseKmsKeyId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($ifNoneMatch != null)
-        {
+        if ($ifNoneMatch != null) {
             HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
-        if ($opcSseCustomerAlgorithm != null)
-        {
+        if ($opcSseCustomerAlgorithm != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
-        if ($opcSseCustomerKey != null)
-        {
+        if ($opcSseCustomerKey != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
-        if ($opcSseCustomerKeySha256 != null)
-        {
+        if ($opcSseCustomerKeySha256 != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
-        if ($opcSseKmsKeyId != null)
-        {
+        if ($opcSseKmsKeyId != null) {
             HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
 
@@ -430,15 +401,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'createPreauthenticatedRequest':
     // path /n/{namespaceName}/b/{bucketName}/p/
     public function createPreauthenticatedRequest($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -455,11 +426,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $createPreauthenticatedRequestDetails,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -481,15 +450,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'createReplicationPolicy':
     // path /n/{namespaceName}/b/{bucketName}/replicationPolicies
     public function createReplicationPolicy($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -506,11 +475,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $createReplicationPolicyDetails,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -532,15 +499,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'createRetentionRule':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules
     public function createRetentionRule($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -557,11 +524,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $createRetentionRuleDetails,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -583,15 +548,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'deleteBucket':
     // path /n/{namespaceName}/b/{bucketName}/
     public function deleteBucket($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -608,15 +573,12 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $ifMatch = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -636,15 +598,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'deleteObject':
     // path /n/{namespaceName}/b/{bucketName}/o/{objectName}
     public function deleteObject($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -665,21 +627,17 @@ class ObjectStorageClient extends AbstractClient
         $ifMatch = null,
         $opcClientRequestId = null,
         $versionId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($versionId != null)
-        {
+        if ($versionId != null) {
             HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeParam($versionId));
         }
 
@@ -698,15 +656,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'deleteObjectLifecyclePolicy':
     // path /n/{namespaceName}/b/{bucketName}/l
     public function deleteObjectLifecyclePolicy($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -723,15 +681,12 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $opcClientRequestId = null,
         $ifMatch = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
 
@@ -751,15 +706,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'deletePreauthenticatedRequest':
     // path /n/{namespaceName}/b/{bucketName}/p/{parId}
     public function deletePreauthenticatedRequest($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -776,11 +731,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $parId,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -801,15 +754,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'deleteReplicationPolicy':
     // path /n/{namespaceName}/b/{bucketName}/replicationPolicies/{replicationId}
     public function deleteReplicationPolicy($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -826,11 +779,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $replicationId,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -851,15 +802,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'deleteRetentionRule':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}
     public function deleteRetentionRule($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -878,15 +829,12 @@ class ObjectStorageClient extends AbstractClient
         $retentionRuleId,
         $ifMatch = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -907,15 +855,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'getBucket':
     // path /n/{namespaceName}/b/{bucketName}/
     public function getBucket($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -936,25 +884,20 @@ class ObjectStorageClient extends AbstractClient
         $ifNoneMatch = null,
         $opcClientRequestId = null,
         $fields = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($ifNoneMatch != null)
-        {
+        if ($ifNoneMatch != null) {
             HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($fields != null)
-        {
+        if ($fields != null) {
             HttpUtils::encodeArray($__query, "fields", $fields, "csv");
         }
 
@@ -972,15 +915,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'getNamespace':
     // path /n/
     public function getNamespace($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -993,17 +936,14 @@ class ObjectStorageClient extends AbstractClient
     public function getNamespace_Helper(
         $opcClientRequestId = null,
         $compartmentId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($compartmentId != null)
-        {
+        if ($compartmentId != null) {
             HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeParam($compartmentId));
         }
 
@@ -1019,15 +959,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'getNamespaceMetadata':
     // path /n/{namespaceName}
     public function getNamespaceMetadata($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1040,11 +980,9 @@ class ObjectStorageClient extends AbstractClient
     public function getNamespaceMetadata_Helper(
         $namespaceName,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -1063,15 +1001,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'getObject':
     // path /n/{namespaceName}/b/{bucketName}/o/{objectName}
     public function getObject($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1114,65 +1052,50 @@ class ObjectStorageClient extends AbstractClient
         $httpResponseContentLanguage = null,
         $httpResponseContentEncoding = null,
         $httpResponseExpires = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($ifNoneMatch != null)
-        {
+        if ($ifNoneMatch != null) {
             HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
-        if ($range != null)
-        {
+        if ($range != null) {
             HttpUtils::addToArray($__headers, "range", HttpUtils::attemptEncodeParam($range));
         }
-        if ($opcSseCustomerAlgorithm != null)
-        {
+        if ($opcSseCustomerAlgorithm != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
-        if ($opcSseCustomerKey != null)
-        {
+        if ($opcSseCustomerKey != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
-        if ($opcSseCustomerKeySha256 != null)
-        {
+        if ($opcSseCustomerKeySha256 != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
 
         $__query = [];
-        if ($versionId != null)
-        {
+        if ($versionId != null) {
             HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeParam($versionId));
         }
-        if ($httpResponseContentDisposition != null)
-        {
+        if ($httpResponseContentDisposition != null) {
             HttpUtils::addToArray($__query, "httpResponseContentDisposition", HttpUtils::attemptEncodeParam($httpResponseContentDisposition));
         }
-        if ($httpResponseCacheControl != null)
-        {
+        if ($httpResponseCacheControl != null) {
             HttpUtils::addToArray($__query, "httpResponseCacheControl", HttpUtils::attemptEncodeParam($httpResponseCacheControl));
         }
-        if ($httpResponseContentType != null)
-        {
+        if ($httpResponseContentType != null) {
             HttpUtils::addToArray($__query, "httpResponseContentType", HttpUtils::attemptEncodeParam($httpResponseContentType));
         }
-        if ($httpResponseContentLanguage != null)
-        {
+        if ($httpResponseContentLanguage != null) {
             HttpUtils::addToArray($__query, "httpResponseContentLanguage", HttpUtils::attemptEncodeParam($httpResponseContentLanguage));
         }
-        if ($httpResponseContentEncoding != null)
-        {
+        if ($httpResponseContentEncoding != null) {
             HttpUtils::addToArray($__query, "httpResponseContentEncoding", HttpUtils::attemptEncodeParam($httpResponseContentEncoding));
         }
-        if ($httpResponseExpires != null)
-        {
+        if ($httpResponseExpires != null) {
             HttpUtils::addToArray($__query, "httpResponseExpires", HttpUtils::attemptEncodeParam($httpResponseExpires));
         }
 
@@ -1191,15 +1114,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             $__response->getBody(),
-            null);
+            null
+        );
     }
 
     // Operation 'getObjectLifecyclePolicy':
     // path /n/{namespaceName}/b/{bucketName}/l
     public function getObjectLifecyclePolicy($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1214,11 +1137,9 @@ class ObjectStorageClient extends AbstractClient
         $namespaceName,
         $bucketName,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -1238,15 +1159,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'getPreauthenticatedRequest':
     // path /n/{namespaceName}/b/{bucketName}/p/{parId}
     public function getPreauthenticatedRequest($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1263,11 +1184,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $parId,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -1288,15 +1207,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'getReplicationPolicy':
     // path /n/{namespaceName}/b/{bucketName}/replicationPolicies/{replicationId}
     public function getReplicationPolicy($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1313,11 +1232,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $replicationId,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -1338,15 +1255,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'getRetentionRule':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}
     public function getRetentionRule($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1363,11 +1280,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $retentionRuleId,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -1388,15 +1303,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'getWorkRequest':
     // path /workRequests/{workRequestId}
     public function getWorkRequest($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1409,11 +1324,9 @@ class ObjectStorageClient extends AbstractClient
     public function getWorkRequest_Helper(
         $workRequestId,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -1432,15 +1345,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'headBucket':
     // path /n/{namespaceName}/b/{bucketName}/
     public function headBucket($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1459,19 +1372,15 @@ class ObjectStorageClient extends AbstractClient
         $ifMatch = null,
         $ifNoneMatch = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($ifNoneMatch != null)
-        {
+        if ($ifNoneMatch != null) {
             HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -1491,15 +1400,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'headObject':
     // path /n/{namespaceName}/b/{bucketName}/o/{objectName}
     public function headObject($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1528,37 +1437,29 @@ class ObjectStorageClient extends AbstractClient
         $opcSseCustomerAlgorithm = null,
         $opcSseCustomerKey = null,
         $opcSseCustomerKeySha256 = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($ifNoneMatch != null)
-        {
+        if ($ifNoneMatch != null) {
             HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
-        if ($opcSseCustomerAlgorithm != null)
-        {
+        if ($opcSseCustomerAlgorithm != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
-        if ($opcSseCustomerKey != null)
-        {
+        if ($opcSseCustomerKey != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
-        if ($opcSseCustomerKeySha256 != null)
-        {
+        if ($opcSseCustomerKeySha256 != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
 
         $__query = [];
-        if ($versionId != null)
-        {
+        if ($versionId != null) {
             HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeParam($versionId));
         }
 
@@ -1577,15 +1478,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listBuckets':
     // path /n/{namespaceName}/b/
     public function listBuckets($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1606,29 +1507,23 @@ class ObjectStorageClient extends AbstractClient
         $page = null,
         $fields = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($compartmentId != null)
-        {
+        if ($compartmentId != null) {
             HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeParam($compartmentId));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
-        if ($fields != null)
-        {
+        if ($fields != null) {
             HttpUtils::encodeArray($__query, "fields", $fields, "csv");
         }
 
@@ -1645,15 +1540,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listMultipartUploadParts':
     // path /n/{namespaceName}/b/{bucketName}/u/{objectName}
     public function listMultipartUploadParts($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1676,25 +1571,20 @@ class ObjectStorageClient extends AbstractClient
         $limit = null,
         $page = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($uploadId != null)
-        {
+        if ($uploadId != null) {
             HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeParam($uploadId));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
@@ -1713,15 +1603,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listMultipartUploads':
     // path /n/{namespaceName}/b/{bucketName}/u
     public function listMultipartUploads($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1740,21 +1630,17 @@ class ObjectStorageClient extends AbstractClient
         $limit = null,
         $page = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
@@ -1772,15 +1658,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listObjectVersions':
     // path /n/{namespaceName}/b/{bucketName}/objectversions
     public function listObjectVersions($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1811,45 +1697,35 @@ class ObjectStorageClient extends AbstractClient
         $opcClientRequestId = null,
         $startAfter = null,
         $page = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($prefix != null)
-        {
+        if ($prefix != null) {
             HttpUtils::addToArray($__query, "prefix", HttpUtils::attemptEncodeParam($prefix));
         }
-        if ($start != null)
-        {
+        if ($start != null) {
             HttpUtils::addToArray($__query, "start", HttpUtils::attemptEncodeParam($start));
         }
-        if ($end != null)
-        {
+        if ($end != null) {
             HttpUtils::addToArray($__query, "end", HttpUtils::attemptEncodeParam($end));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
-        if ($delimiter != null)
-        {
+        if ($delimiter != null) {
             HttpUtils::addToArray($__query, "delimiter", HttpUtils::attemptEncodeParam($delimiter));
         }
-        if ($fields != null)
-        {
+        if ($fields != null) {
             HttpUtils::addToArray($__query, "fields", HttpUtils::attemptEncodeParam($fields));
         }
-        if ($startAfter != null)
-        {
+        if ($startAfter != null) {
             HttpUtils::addToArray($__query, "startAfter", HttpUtils::attemptEncodeParam($startAfter));
         }
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
@@ -1867,15 +1743,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listObjects':
     // path /n/{namespaceName}/b/{bucketName}/o
     public function listObjects($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1904,41 +1780,32 @@ class ObjectStorageClient extends AbstractClient
         $fields = null,
         $opcClientRequestId = null,
         $startAfter = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($prefix != null)
-        {
+        if ($prefix != null) {
             HttpUtils::addToArray($__query, "prefix", HttpUtils::attemptEncodeParam($prefix));
         }
-        if ($start != null)
-        {
+        if ($start != null) {
             HttpUtils::addToArray($__query, "start", HttpUtils::attemptEncodeParam($start));
         }
-        if ($end != null)
-        {
+        if ($end != null) {
             HttpUtils::addToArray($__query, "end", HttpUtils::attemptEncodeParam($end));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
-        if ($delimiter != null)
-        {
+        if ($delimiter != null) {
             HttpUtils::addToArray($__query, "delimiter", HttpUtils::attemptEncodeParam($delimiter));
         }
-        if ($fields != null)
-        {
+        if ($fields != null) {
             HttpUtils::addToArray($__query, "fields", HttpUtils::attemptEncodeParam($fields));
         }
-        if ($startAfter != null)
-        {
+        if ($startAfter != null) {
             HttpUtils::addToArray($__query, "startAfter", HttpUtils::attemptEncodeParam($startAfter));
         }
 
@@ -1956,15 +1823,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listPreauthenticatedRequests':
     // path /n/{namespaceName}/b/{bucketName}/p/
     public function listPreauthenticatedRequests($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -1985,25 +1852,20 @@ class ObjectStorageClient extends AbstractClient
         $limit = null,
         $page = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($objectNamePrefix != null)
-        {
+        if ($objectNamePrefix != null) {
             HttpUtils::addToArray($__query, "objectNamePrefix", HttpUtils::attemptEncodeParam($objectNamePrefix));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
@@ -2021,15 +1883,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listReplicationPolicies':
     // path /n/{namespaceName}/b/{bucketName}/replicationPolicies
     public function listReplicationPolicies($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2048,21 +1910,17 @@ class ObjectStorageClient extends AbstractClient
         $opcClientRequestId = null,
         $page = null,
         $limit = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
@@ -2080,15 +1938,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listReplicationSources':
     // path /n/{namespaceName}/b/{bucketName}/replicationSources
     public function listReplicationSources($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2107,21 +1965,17 @@ class ObjectStorageClient extends AbstractClient
         $opcClientRequestId = null,
         $page = null,
         $limit = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
@@ -2139,15 +1993,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listRetentionRules':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules
     public function listRetentionRules($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2162,13 +2016,11 @@ class ObjectStorageClient extends AbstractClient
         $namespaceName,
         $bucketName,
         $page = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
 
         $__query = [];
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
 
@@ -2186,15 +2038,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listWorkRequestErrors':
     // path /workRequests/{workRequestId}/errors
     public function listWorkRequestErrors($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2211,21 +2063,17 @@ class ObjectStorageClient extends AbstractClient
         $page = null,
         $limit = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
@@ -2242,15 +2090,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listWorkRequestLogs':
     // path /workRequests/{workRequestId}/logs
     public function listWorkRequestLogs($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2267,21 +2115,17 @@ class ObjectStorageClient extends AbstractClient
         $page = null,
         $limit = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
@@ -2298,15 +2142,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'listWorkRequests':
     // path /workRequests
     public function listWorkRequests($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2323,25 +2167,20 @@ class ObjectStorageClient extends AbstractClient
         $opcClientRequestId = null,
         $page = null,
         $limit = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($compartmentId != null)
-        {
+        if ($compartmentId != null) {
             HttpUtils::addToArray($__query, "compartmentId", HttpUtils::attemptEncodeParam($compartmentId));
         }
-        if ($page != null)
-        {
+        if ($page != null) {
             HttpUtils::addToArray($__query, "page", HttpUtils::attemptEncodeParam($page));
         }
-        if ($limit != null)
-        {
+        if ($limit != null) {
             HttpUtils::addToArray($__query, "limit", HttpUtils::attemptEncodeParam($limit));
         }
 
@@ -2357,15 +2196,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'makeBucketWritable':
     // path /n/{namespaceName}/b/{bucketName}/actions/makeBucketWritable
     public function makeBucketWritable($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2380,11 +2219,9 @@ class ObjectStorageClient extends AbstractClient
         $namespaceName,
         $bucketName,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -2404,15 +2241,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'putObject':
     // path /n/{namespaceName}/b/{bucketName}/o/{objectName}
     public function putObject($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2463,75 +2300,57 @@ class ObjectStorageClient extends AbstractClient
         $opcSseKmsKeyId = null,
         $storageTier = null,
         $opcMeta = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($ifNoneMatch != null)
-        {
+        if ($ifNoneMatch != null) {
             HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
-        if ($expect != null)
-        {
+        if ($expect != null) {
             HttpUtils::addToArray($__headers, "expect", HttpUtils::attemptEncodeParam($expect));
         }
-        if ($contentLength != null)
-        {
+        if ($contentLength != null) {
             HttpUtils::addToArray($__headers, "contentLength", HttpUtils::attemptEncodeParam($contentLength));
         }
-        if ($contentMD5 != null)
-        {
+        if ($contentMD5 != null) {
             HttpUtils::addToArray($__headers, "contentMD5", HttpUtils::attemptEncodeParam($contentMD5));
         }
-        if ($contentType != null)
-        {
+        if ($contentType != null) {
             HttpUtils::addToArray($__headers, "contentType", HttpUtils::attemptEncodeParam($contentType));
         }
-        if ($contentLanguage != null)
-        {
+        if ($contentLanguage != null) {
             HttpUtils::addToArray($__headers, "contentLanguage", HttpUtils::attemptEncodeParam($contentLanguage));
         }
-        if ($contentEncoding != null)
-        {
+        if ($contentEncoding != null) {
             HttpUtils::addToArray($__headers, "contentEncoding", HttpUtils::attemptEncodeParam($contentEncoding));
         }
-        if ($contentDisposition != null)
-        {
+        if ($contentDisposition != null) {
             HttpUtils::addToArray($__headers, "contentDisposition", HttpUtils::attemptEncodeParam($contentDisposition));
         }
-        if ($cacheControl != null)
-        {
+        if ($cacheControl != null) {
             HttpUtils::addToArray($__headers, "cacheControl", HttpUtils::attemptEncodeParam($cacheControl));
         }
-        if ($opcSseCustomerAlgorithm != null)
-        {
+        if ($opcSseCustomerAlgorithm != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
-        if ($opcSseCustomerKey != null)
-        {
+        if ($opcSseCustomerKey != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
-        if ($opcSseCustomerKeySha256 != null)
-        {
+        if ($opcSseCustomerKeySha256 != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
-        if ($opcSseKmsKeyId != null)
-        {
+        if ($opcSseKmsKeyId != null) {
             HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
-        if ($storageTier != null)
-        {
+        if ($storageTier != null) {
             HttpUtils::addToArray($__headers, "storageTier", HttpUtils::attemptEncodeParam($storageTier));
         }
-        if ($opcMeta != null)
-        {
+        if ($opcMeta != null) {
             HttpUtils::encodeMap($__headers, "opcMeta", "", $opcMeta);
         }
 
@@ -2554,15 +2373,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'putObjectLifecyclePolicy':
     // path /n/{namespaceName}/b/{bucketName}/l
     public function putObjectLifecyclePolicy($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2583,19 +2402,15 @@ class ObjectStorageClient extends AbstractClient
         $opcClientRequestId = null,
         $ifMatch = null,
         $ifNoneMatch = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($ifNoneMatch != null)
-        {
+        if ($ifNoneMatch != null) {
             HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
 
@@ -2617,15 +2432,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'reencryptBucket':
     // path /n/{namespaceName}/b/{bucketName}/actions/reencrypt
     public function reencryptBucket($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2640,11 +2455,9 @@ class ObjectStorageClient extends AbstractClient
         $namespaceName,
         $bucketName,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -2664,15 +2477,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'reencryptObject':
     // path /n/{namespaceName}/b/{bucketName}/actions/reencrypt/{objectName}
     public function reencryptObject($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2693,17 +2506,14 @@ class ObjectStorageClient extends AbstractClient
         $reencryptObjectDetails,
         $versionId = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
         $__query = [];
-        if ($versionId != null)
-        {
+        if ($versionId != null) {
             HttpUtils::addToArray($__query, "versionId", HttpUtils::attemptEncodeParam($versionId));
         }
 
@@ -2724,15 +2534,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'renameObject':
     // path /n/{namespaceName}/b/{bucketName}/actions/renameObject
     public function renameObject($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2749,11 +2559,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $renameObjectDetails,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -2775,15 +2583,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'restoreObjects':
     // path /n/{namespaceName}/b/{bucketName}/actions/restoreObjects
     public function restoreObjects($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2800,11 +2608,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $restoreObjectsDetails,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -2826,15 +2632,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'updateBucket':
     // path /n/{namespaceName}/b/{bucketName}/
     public function updateBucket($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2853,15 +2659,12 @@ class ObjectStorageClient extends AbstractClient
         $updateBucketDetails,
         $ifMatch = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -2883,15 +2686,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'updateNamespaceMetadata':
     // path /n/{namespaceName}
     public function updateNamespaceMetadata($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2906,11 +2709,9 @@ class ObjectStorageClient extends AbstractClient
         $namespaceName,
         $updateNamespaceMetadataDetails,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -2931,15 +2732,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'updateObjectStorageTier':
     // path /n/{namespaceName}/b/{bucketName}/actions/updateObjectStorageTier
     public function updateObjectStorageTier($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -2956,11 +2757,9 @@ class ObjectStorageClient extends AbstractClient
         $bucketName,
         $updateObjectStorageTierDetails,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -2982,15 +2781,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'updateRetentionRule':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}
     public function updateRetentionRule($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -3011,15 +2810,12 @@ class ObjectStorageClient extends AbstractClient
         $updateRetentionRuleDetails,
         $ifMatch = null,
         $opcClientRequestId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
 
@@ -3042,15 +2838,15 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
 
     // Operation 'uploadPart':
     // path /n/{namespaceName}/b/{bucketName}/u/{objectName}
     public function uploadPart($params=[])
     {
-        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1))
-        {
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
@@ -3091,57 +2887,44 @@ class ObjectStorageClient extends AbstractClient
         $opcSseCustomerKey = null,
         $opcSseCustomerKeySha256 = null,
         $opcSseKmsKeyId = null
-    )
-    {
+    ) {
         $__headers = ['Content-Type' => 'application/json', 'User-Agent' => UserAgent::getUserAgent()];
-        if ($opcClientRequestId != null)
-        {
+        if ($opcClientRequestId != null) {
             HttpUtils::addToArray($__headers, "opcClientRequestId", HttpUtils::attemptEncodeParam($opcClientRequestId));
         }
-        if ($ifMatch != null)
-        {
+        if ($ifMatch != null) {
             HttpUtils::addToArray($__headers, "ifMatch", HttpUtils::attemptEncodeParam($ifMatch));
         }
-        if ($ifNoneMatch != null)
-        {
+        if ($ifNoneMatch != null) {
             HttpUtils::addToArray($__headers, "ifNoneMatch", HttpUtils::attemptEncodeParam($ifNoneMatch));
         }
-        if ($expect != null)
-        {
+        if ($expect != null) {
             HttpUtils::addToArray($__headers, "expect", HttpUtils::attemptEncodeParam($expect));
         }
-        if ($contentLength != null)
-        {
+        if ($contentLength != null) {
             HttpUtils::addToArray($__headers, "contentLength", HttpUtils::attemptEncodeParam($contentLength));
         }
-        if ($contentMD5 != null)
-        {
+        if ($contentMD5 != null) {
             HttpUtils::addToArray($__headers, "contentMD5", HttpUtils::attemptEncodeParam($contentMD5));
         }
-        if ($opcSseCustomerAlgorithm != null)
-        {
+        if ($opcSseCustomerAlgorithm != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerAlgorithm", HttpUtils::attemptEncodeParam($opcSseCustomerAlgorithm));
         }
-        if ($opcSseCustomerKey != null)
-        {
+        if ($opcSseCustomerKey != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKey", HttpUtils::attemptEncodeParam($opcSseCustomerKey));
         }
-        if ($opcSseCustomerKeySha256 != null)
-        {
+        if ($opcSseCustomerKeySha256 != null) {
             HttpUtils::addToArray($__headers, "opcSseCustomerKeySha256", HttpUtils::attemptEncodeParam($opcSseCustomerKeySha256));
         }
-        if ($opcSseKmsKeyId != null)
-        {
+        if ($opcSseKmsKeyId != null) {
             HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
 
         $__query = [];
-        if ($uploadId != null)
-        {
+        if ($uploadId != null) {
             HttpUtils::addToArray($__query, "uploadId", HttpUtils::attemptEncodeParam($uploadId));
         }
-        if ($uploadPartNum != null)
-        {
+        if ($uploadPartNum != null) {
             HttpUtils::addToArray($__query, "uploadPartNum", HttpUtils::attemptEncodeParam($uploadPartNum));
         }
 
@@ -3162,8 +2945,7 @@ class ObjectStorageClient extends AbstractClient
             $__response->getStatusCode(),
             $__response->getHeaders(),
             null,
-            json_decode($__response->getBody()));
+            json_decode($__response->getBody())
+        );
     }
-
 }
-?>

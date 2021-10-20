@@ -5,7 +5,7 @@ namespace Oracle\Oci\Common;
 use DateTime;
 use InvalidArgumentException;
 
-class HttpUtils 
+class HttpUtils
 {
     public static function addToArray(&$queryMap, $paramName, /*string*/ $value)
     {
@@ -14,25 +14,20 @@ class HttpUtils
             if (is_array($oldValue)) {
                 $oldValue[] = $value;
                 $queryMap[$paramName] = $oldValue;
-            }
-            else {
+            } else {
                 $queryMap[$paramName] = [$oldValue, $value];
             }
-        }
-        else
-        {
+        } else {
             $queryMap[$paramName] = $value;
         }
     }
 
     public static function encodeArray(&$queryMap, /*string*/ $paramName, $array, /*string*/ $collectionFormat)
     {
-        if ($array == null || empty($array))
-        {
+        if ($array == null || empty($array)) {
             return;
         }
-        switch($collectionFormat)
-        {
+        switch ($collectionFormat) {
             case "csv":
                 $sep = ',';
                 break;
@@ -49,20 +44,14 @@ class HttpUtils
                 $collectionFormat = "multi";
                 break;
         }
-        if ($collectionFormat == "multi") 
-        {
-            foreach($array as $item)
-            {
+        if ($collectionFormat == "multi") {
+            foreach ($array as $item) {
                 HttpUtils::addToArray($queryMap, $paramName, HttpUtils::attemptEncodeParam($item));
-            }    
-        }
-        else 
-        {
+            }
+        } else {
             $result = "";
-            foreach($array as $item)
-            {
-                if (strlen($result) > 0)
-                {
+            foreach ($array as $item) {
+                if (strlen($result) > 0) {
                     $result = $result . $sep;
                 }
                 $result = $result . HttpUtils::attemptEncodeParam($item);
@@ -86,21 +75,17 @@ class HttpUtils
     public static function encodeMapParamValue(&$queryMap, /*string*/ $prefixedKey, $value)
     {
         if (is_array($value)) {
-            foreach($value as $item)
-            {
+            foreach ($value as $item) {
                 HttpUtils::addToArray($queryMap, $prefixedKey, HttpUtils::attemptEncodeParam($item));
             }
-        }
-        else
-        {
+        } else {
             HttpUtils::addToArray($queryMap, $prefixedKey, HttpUtils::attemptEncodeParam($value));
         }
     }
 
     public static function attemptEncodeParam($value) // : string
     {
-        if ($value instanceof DateTime)
-        {
+        if ($value instanceof DateTime) {
             return $value->format(HttpUtils::$RFC3339_EXTENDED);
         }
         return strval($value);
@@ -111,12 +96,10 @@ class HttpUtils
     public static function orNull($params=[], $paramName, $required = false)
     {
         // PHP 5.6 does not have the ?? operator
-        if (array_key_exists($paramName, $params))
-        {
+        if (array_key_exists($paramName, $params)) {
             return $params[$paramName];
         }
-        if ($required)
-        {
+        if ($required) {
             throw new InvalidArgumentException("The parameter '$paramName' is required");
         }
         return null;
@@ -140,11 +123,9 @@ class HttpUtils
                 $str .= '&' . $key . '=' . $value;
             }
         }
-        if (strlen($str) > 0)
-        {
+        if (strlen($str) > 0) {
             $str[0] = '?';
         }
         return $str;
     }
 }
-?>

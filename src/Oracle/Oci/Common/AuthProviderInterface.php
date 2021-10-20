@@ -16,18 +16,24 @@ interface RegionProvider
 
 class UserAuthProvider implements AuthProviderInterface
 {
-    protected /*string*/ $tenancy_id;
-    protected /*string*/ $user_id;
-    protected /*string*/ $fingerprint;
-    protected /*string*/ $key_filename;
-    protected /*?string*/ $key_passphrase;
+    /*string*/ protected $tenancy_id;
+    /*string*/ protected $user_id;
+    /*string*/ protected $fingerprint;
+    /*string*/ protected $key_filename;
+    /*?string*/ protected $key_passphrase;
 
     public function __construct(
-        /*string*/ $tenancy_id,
-        /*string*/ $user_id,
-        /*string*/ $fingerprint,
-        /*string*/ $key_filename,
-        /*string*/ $key_passphrase = null)
+        /*string*/ 
+        $tenancy_id,
+        /*string*/ 
+        $user_id,
+        /*string*/ 
+        $fingerprint,
+        /*string*/ 
+        $key_filename,
+        /*string*/ 
+        $key_passphrase = null
+    )
     {
         $this->tenancy_id = $tenancy_id;
         $this->user_id = $user_id;
@@ -67,24 +73,20 @@ class UserAuthProvider implements AuthProviderInterface
 
 class ConfigFileAuthProvider implements AuthProviderInterface, RegionProvider
 {
-    protected /*ConfigFile*/ $cf;
-    protected /*string*/ $tenancy_id;
-    protected /*string*/ $user_id;
-    protected /*string*/ $fingerprint;
-    protected /*string*/ $key_filename;
-    protected /*?string*/ $key_passphrase;
-    protected /*?Region*/ $region;
+    /*ConfigFile*/ protected $cf;
+    /*string*/ protected $tenancy_id;
+    /*string*/ protected $user_id;
+    /*string*/ protected $fingerprint;
+    /*string*/ protected $key_filename;
+    /*?string*/ protected $key_passphrase;
+    /*?Region*/ protected $region;
 
     public function __construct(
         ConfigFile $cf = null
-    )
-    {
-        if ($cf != null)
-        {
+    ) {
+        if ($cf != null) {
             $this->cf = $cf;
-        }
-        else
-        {
+        } else {
             $this->cf = ConfigFile::loadDefault();
         }
         $this->tenancy_id = $this->cf->get("tenancy");
@@ -92,26 +94,20 @@ class ConfigFileAuthProvider implements AuthProviderInterface, RegionProvider
         $this->fingerprint = $this->cf->get("fingerprint");
 
         $filename = str_replace('/', DIRECTORY_SEPARATOR, $this->cf->get("key_file"));
-        if (strlen($filename) >= 2 && substr($filename, 0, 2) == "~" . DIRECTORY_SEPARATOR)
-        {
+        if (strlen($filename) >= 2 && substr($filename, 0, 2) == "~" . DIRECTORY_SEPARATOR) {
             $this->key_filename = "file://" . ConfigFile::getUserHome() . DIRECTORY_SEPARATOR . substr($filename, 2);
-        }
-        else 
-        {
+        } else {
             $this->key_filename = "file://" . $filename;
         }
-     
+
         $this->key_passphrase = $this->cf->get("pass_phrase");
 
         $regionStr = $this->cf->get("region");
-        if ($regionStr == null || strlen($regionStr) == 0)
-        {
+        if ($regionStr == null || strlen($regionStr) == 0) {
             $this->region = null;
-        }
-        else {
+        } else {
             $knownRegion = Region::getRegion($regionStr);
-            if ($knownRegion == null)
-            {
+            if ($knownRegion == null) {
                 // forward-compatibility for unknown regions
                 $realm = Realm::getRealmForUnknownRegion();
                 // echo "Region $regionStr is unknown, assuming it to be in realm $realm." . PHP_EOL;

@@ -81,13 +81,10 @@ $response = $c->getObject([
 
 $retrieved_body = $response->getBody();
 
-if ($body != $retrieved_body)
-{
+if ($body != $retrieved_body) {
     echo "ERROR: Retrieved body does not equal uploaded body!".PHP_EOL;
     die;
-}
-else
-{
+} else {
     echo "Retrieved body equals uploaded body!".PHP_EOL;
 }
 
@@ -115,13 +112,10 @@ $response = $c->headObject([
     'objectName' => $object_name2]);
 $retrieved_filesize = $response->getHeaders()['Content-Length'][0];
 $size = filesize("composer.json");
-if ($size != $retrieved_filesize)
-{
+if ($size != $retrieved_filesize) {
     echo "ERROR: Retrieved file size ($retrieved_filesize) does not equal uploaded file size ($size)!".PHP_EOL;
     die;
-}
-else
-{
+} else {
     echo "Retrieved file size ($retrieved_filesize) equals uploaded file size ($size)!".PHP_EOL;
 }
 
@@ -148,13 +142,10 @@ $response = $c->headObject([
     'objectName' => $object_name3]);
 $retrieved_filesize = $response->getHeaders()['Content-Length'][0];
 $size = filesize("composer.json");
-if ($size != $retrieved_filesize)
-{
+if ($size != $retrieved_filesize) {
     echo "ERROR: Retrieved file size ($retrieved_filesize) does not equal uploaded file size ($size)!".PHP_EOL;
     die;
-}
-else
-{
+} else {
     echo "Retrieved file size ($retrieved_filesize) equals uploaded file size ($size)!".PHP_EOL;
 }
 
@@ -170,8 +161,7 @@ $response = $c->listObjects([
     'prefix' => "dexreq-"]);
 
 echo "----- headObject for missing file -----".PHP_EOL;
-try
-{
+try {
     $response = $c->headObject([
         'namespaceName' => $namespace,
         'bucketName' => $bucket_name,
@@ -179,12 +169,9 @@ try
     // $response->echoResponse();
     echo "ERROR: Object was supposed to not exist!".PHP_EOL;
     die;
-}
-catch(ClientException $e)
-{
+} catch (ClientException $e) {
     $statusCode = $e->getResponse()->getStatusCode();
-    if ($statusCode != 404)
-    {
+    if ($statusCode != 404) {
         echo "ERROR: Returned $statusCode instead of 404!".PHP_EOL;
         die;
     }
@@ -211,13 +198,10 @@ $response = $c->headObject([
     'objectName' => $object_name4]);
 $retrieved_filesize = $response->getHeaders()['Content-Length'][0];
 $size = filesize("composer.json");
-if ($size != $retrieved_filesize)
-{
+if ($size != $retrieved_filesize) {
     echo "ERROR: Retrieved file size ($retrieved_filesize) does not equal uploaded file size ($size)!".PHP_EOL;
     die;
-}
-else
-{
+} else {
     echo "Retrieved file size ($retrieved_filesize) equals uploaded file size ($size)!".PHP_EOL;
 }
 
@@ -226,5 +210,3 @@ $response = $c->listBuckets([
     'namespaceName' => $namespace,
     'compartmentId' => "ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq",
     'fields' => ["tags", "tags"]]);
-
-?>

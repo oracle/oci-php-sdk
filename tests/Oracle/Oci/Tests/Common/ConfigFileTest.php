@@ -64,5 +64,3 @@ class ConfigFileTest extends TestCase
         $this->assertEquals("otherValue3", $cf->get("otherKey3"));
     }
 }
-
-?>

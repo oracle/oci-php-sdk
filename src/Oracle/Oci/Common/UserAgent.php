@@ -4,11 +4,11 @@ namespace Oracle\Oci\Common;
 
 class UserAgent
 {
-    static protected $ociPhpSdkVersion = "0.0.1";
-    static protected $userAgentTemplate = "Oracle-PhpSDK/{ociPhpSdkVersion} (PHP/{phpVersion}; {os}){additionalClientUserAgent}{additionalUserAgentFromEnvVar}";
-    protected static /*?string*/ $additionalClientUserAgent = null;
-    protected static /*string*/ $userAgent;
-    protected static /*bool*/ $wasInitialized = false;
+    protected static $ociPhpSdkVersion = "0.0.1";
+    protected static $userAgentTemplate = "Oracle-PhpSDK/{ociPhpSdkVersion} (PHP/{phpVersion}; {os}){additionalClientUserAgent}{additionalUserAgentFromEnvVar}";
+    /*?string*/ protected static $additionalClientUserAgent = null;
+    /*string*/ protected static $userAgent;
+    /*bool*/ protected static $wasInitialized = false;
 
     public static function getUserAgent() // : string
     {
@@ -18,8 +18,7 @@ class UserAgent
 
     public static function init(/*bool*/ $initializeAnyway = true)
     {
-        if (UserAgent::$wasInitialized && !$initializeAnyway)
-        {
+        if (UserAgent::$wasInitialized && !$initializeAnyway) {
             return;
         }
 
@@ -29,15 +28,13 @@ class UserAgent
         $str = str_replace("{phpVersion}", phpversion(), $str);
         $str = str_replace("{os}", php_uname("s") . " " . php_uname("r") . " " . php_uname("m"), $str);
         $value = "";
-        if (UserAgent::$additionalClientUserAgent != null)
-        {
+        if (UserAgent::$additionalClientUserAgent != null) {
             $value = " " . UserAgent::$additionalClientUserAgent;
         }
         $str = str_replace("{additionalClientUserAgent}", $value, $str);
         $additionalUserAgentFromEnvVar = getenv("OCI_SDK_APPEND_USER_AGENT");
         $value = "";
-        if ($additionalUserAgentFromEnvVar != null && $additionalUserAgentFromEnvVar != false)
-        {
+        if ($additionalUserAgentFromEnvVar != null && $additionalUserAgentFromEnvVar != false) {
             $value = " " . $additionalUserAgentFromEnvVar;
         }
         $str = str_replace("{additionalUserAgentFromEnvVar}", $value, $str);
@@ -48,12 +45,10 @@ class UserAgent
     public static function setAdditionalClientUserAgent(string $additionalClientUserAgent)
     {
         $str = trim($additionalClientUserAgent);
-        if ($str == "")
-        {
+        if ($str == "") {
             $str = null;
         }
         UserAgent::$additionalClientUserAgent = $str;
         UserAgent::init();
     }
 }
-?>

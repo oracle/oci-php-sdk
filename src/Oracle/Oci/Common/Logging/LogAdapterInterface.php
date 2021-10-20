@@ -14,7 +14,7 @@ class NoOpLogAdapter implements LogAdapterInterface
     {
     }
 
-    public function log($message, $priority = LOG_INFO, $extras = [], $logName = null) 
+    public function log($message, $priority = LOG_INFO, $extras = [], $logName = null)
     {
     }
 
@@ -31,7 +31,8 @@ abstract class AbstractLogAdapter implements LogAdapterInterface
 
     public function __construct(
         $debugLevel = LOG_INFO,
-        $perLogName = [])
+        $perLogName = []
+    )
     {
         $this->debugLevel = $debugLevel;
         $this->perLogName = $perLogName;
@@ -41,26 +42,20 @@ abstract class AbstractLogAdapter implements LogAdapterInterface
     {
         $levelToUse = $this->debugLevel;
         if ($logName != null) {
-            if (array_key_exists($logName, $this->perLogName))
-            {
+            if (array_key_exists($logName, $this->perLogName)) {
                 $levelToUse = $this->perLogName[$logName];
-            }
-            else
-            {
+            } else {
                 $components = explode('\\', $logName);
                 $str = "";
-                foreach($components as $c)
-                {
-                    if (strlen($str) > 0)
-                    {
+                foreach ($components as $c) {
+                    if (strlen($str) > 0) {
                         $str .= "\\";
                     }
                     $str .= $c;
-                    if (array_key_exists($str, $this->perLogName))
-                    {
+                    if (array_key_exists($str, $this->perLogName)) {
                         $levelToUse = $this->perLogName[$str];
                     }
-                }   
+                }
             }
         }
         return ($priority <= $levelToUse);
@@ -72,18 +67,18 @@ class EchoLogAdapter extends AbstractLogAdapter
 {
     public function __construct(
         $debugLevel = LOG_INFO,
-        $perLogName = [])
+        $perLogName = []
+    )
     {
         parent::__construct($debugLevel, $perLogName);
     }
 
-    public function log($message, $priority = LOG_INFO, $extras = [], $logName = null) {
-        if (!$this->isLogEnabled($priority, $logName))
-        {
+    public function log($message, $priority = LOG_INFO, $extras = [], $logName = null)
+    {
+        if (!$this->isLogEnabled($priority, $logName)) {
             return;
         }
-        switch($priority)
-        {
+        switch ($priority) {
             case LOG_ALERT:
                 $priorityStr = "[ALERT]";
                 break;
@@ -106,5 +101,3 @@ class EchoLogAdapter extends AbstractLogAdapter
         echo "$priorityStr ($logName) $message" . PHP_EOL;
     }
 }
-
-?>
