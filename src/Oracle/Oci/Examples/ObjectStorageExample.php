@@ -133,6 +133,39 @@ $response = $c->copyObject([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name,
     'copyObjectDetails' => $copy_object_details]);
+$workrequest_id = $response->getHeaders()['opc-work-request-id'][0];
+echo "Work request id: $workrequest_id".PHP_EOL;
+
+echo "----- Wait for Work Request to be Done (getWorkRequest) -----".PHP_EOL;
+$isDone = false;
+while(!$isDone)
+{
+    $response = $c->getWorkRequest([
+        'workRequestId' => $workrequest_id
+    ]);
+    $status = $response->getJson()->status;
+    $timeFinished = $response->getJson()->timeFinished;
+    if ($status == "COMPLETED" || $timeFinished != null) {
+        echo "Work request status: $status".PHP_EOL;
+        $isDone = true;
+    } else if ($timeFinished != null) {
+        echo "Work request status: $status, terminal state reached at $timeFinished".PHP_EOL;
+        $isDone = true;
+    } else {
+        echo "Work request status: $status, sleeping for 1 seconds..." . PHP_EOL;
+        sleep(1);
+    }
+}
+
+echo "----- listWorkRequestLogs -----".PHP_EOL;
+$c->listWorkRequestLogs([
+    'workRequestId' => $workrequest_id
+]);
+
+echo "----- listWorkRequestErrors -----".PHP_EOL;
+$c->listWorkRequestErrors([
+    'workRequestId' => $workrequest_id
+]);
 
 echo "----- headObject of copied file -----".PHP_EOL;
 $file_handle = fopen("composer.json", "rb");
