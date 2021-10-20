@@ -183,3 +183,4 @@ oracle.pem
 # PHP
 /vendor/
 .php_cs.cache
+.phplint-cache

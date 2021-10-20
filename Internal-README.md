@@ -38,6 +38,24 @@ vendor/bin/phpunit --bootstrap vendor/autoload.php tests
 ```
 
 
+# Formatting
+
+You can run the source formatter using:
+
+```
+tools/php-cs-fixer
+```
+
+
+# Linting
+
+You can run the linter using:
+
+```
+vendor/bin/phplint
+```
+
+
 # Running Examples
 
 You can run the examples using:
