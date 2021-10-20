@@ -19,6 +19,30 @@ class OciResponse
         $this->headers = $headers;
         $this->body = $body;
         $this->json = $json;
+
+        if (AbstractClient::getGlobalLogAdapter()->isLogEnabled(LOG_DEBUG, __CLASS__))
+        {
+            $str = "OciResponse:" . PHP_EOL;
+            $str .= "Status code: " . $this->getStatusCode() . PHP_EOL;
+            $str .= "Headers    : " . PHP_EOL;
+            foreach ($this->getHeaders() as $name => $values) {
+                if (is_array($values))
+                {
+                    $str .= $name . ': ' . implode(', ', $values) . PHP_EOL;
+                }
+                else
+                {
+                    $str .= $name . ': ' . $values . PHP_EOL;
+                }
+            }
+            if ($this->json == null)
+            {
+                $str .= "Body       : " . $this->getBody() . PHP_EOL;
+            } else {
+                $str .= "JSON Body  : " . json_encode($this->getJson(), JSON_PRETTY_PRINT) . PHP_EOL;
+            }
+            AbstractClient::getGlobalLogAdapter()->log($str, LOG_DEBUG, [], __CLASS__);
+        }
     }
 
     public function getStatusCode() // : int

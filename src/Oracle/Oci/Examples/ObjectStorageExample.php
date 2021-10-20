@@ -11,15 +11,20 @@ require 'src/Oracle/Oci/Common/UserAgent.php';
 require 'src/Oracle/Oci/Common/HttpUtils.php';
 require 'src/Oracle/Oci/ObjectStorage/ObjectStorageClient.php';
 
-use Oracle\Oci\Common\ConfigFile;
+use DateTime;
 use Oracle\Oci\Common\Region;
 use Oracle\Oci\Common\UserAgent;
 use Oracle\Oci\ObjectStorage\ObjectStorageClient;
 use GuzzleHttp\Exception\ClientException;
-use DateTime;
+use Oracle\Oci\Common\AbstractClient;
 use Oracle\Oci\Common\ConfigFileAuthProvider;
+use Oracle\Oci\Common\Logging\EchoLogAdapter;
 
 date_default_timezone_set('Europe/Istanbul');
+AbstractClient::setGlobalLogAdapter(new EchoLogAdapter(LOG_INFO, [
+    "Oracle\Oci\ObjectStorage\ObjectStorageClient\middleware\\uri" => LOG_DEBUG,
+    "Oracle\Oci\Common\OciResponse" => LOG_DEBUG
+]));
 
 echo "UserAgent: " . UserAgent::getUserAgent() . PHP_EOL;
 // UserAgent::setAdditionalClientUserAgent("Oracle-CloudShell");
@@ -53,7 +58,6 @@ $c = new ObjectStorageClient(
 
 echo "----- getNamespace -----".PHP_EOL;
 $response = $c->getNamespace();
-$response->echoResponse();
 $namespace = $response->getJson();
 
 echo "Namespace = '{$namespace}'".PHP_EOL;
@@ -68,14 +72,12 @@ $response = $c->putObject([
     'bucketName' => $bucket_name,
     'objectName' => $object_name,
     'putObjectBody' => $body]);
-$response->echoResponse();
 
 echo "----- getObject -----".PHP_EOL;
 $response = $c->getObject([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name,
     'objectName' => $object_name]);
-$response->echoResponse();
 
 $retrieved_body = $response->getBody();
 
@@ -94,7 +96,6 @@ $response = $c->headObject([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name,
     'objectName' => $object_name]);
-$response->echoResponse();
 
 $object_name2 = "php-test2.txt";
 
@@ -105,7 +106,6 @@ $response = $c->putObject([
     'bucketName' => $bucket_name,
     'objectName' => $object_name2,
     'putObjectBody' => $file_handle]);
-$response->echoResponse();
 
 echo "----- headObject of uploaded file -----".PHP_EOL;
 $file_handle = fopen("composer.json", "rb");
@@ -113,7 +113,6 @@ $response = $c->headObject([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name,
     'objectName' => $object_name2]);
-$response->echoResponse();
 $retrieved_filesize = $response->getHeaders()['Content-Length'][0];
 $size = filesize("composer.json");
 if ($size != $retrieved_filesize)
@@ -140,7 +139,6 @@ $response = $c->copyObject([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name,
     'copyObjectDetails' => $copy_object_details]);
-$response->echoResponse();
 
 echo "----- headObject of copied file -----".PHP_EOL;
 $file_handle = fopen("composer.json", "rb");
@@ -148,7 +146,6 @@ $response = $c->headObject([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name,
     'objectName' => $object_name3]);
-$response->echoResponse();
 $retrieved_filesize = $response->getHeaders()['Content-Length'][0];
 $size = filesize("composer.json");
 if ($size != $retrieved_filesize)
@@ -165,14 +162,12 @@ echo "----- listObjects -----".PHP_EOL;
 $response = $c->listObjects([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name]);
-$response->echoResponse();
 
 echo "----- listObjects with prefix -----".PHP_EOL;
 $response = $c->listObjects([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name,
     'prefix' => "dexreq-"]);
-$response->echoResponse();
 
 echo "----- headObject for missing file -----".PHP_EOL;
 try
@@ -181,7 +176,7 @@ try
         'namespaceName' => $namespace,
         'bucketName' => $bucket_name,
         'objectName' => "doesNotExist"]);
-    $response->echoResponse();
+    // $response->echoResponse();
     echo "ERROR: Object was supposed to not exist!".PHP_EOL;
     die;
 }
@@ -207,7 +202,6 @@ $response = $c->putObject([
         'header1' => new DateTime(),
         'header2' => ["2", "3"]
     ]]);
-$response->echoResponse();
 
 echo "----- headObject of uploaded file -----".PHP_EOL;
 $file_handle = fopen("composer.json", "rb");
@@ -215,7 +209,6 @@ $response = $c->headObject([
     'namespaceName' => $namespace,
     'bucketName' => $bucket_name,
     'objectName' => $object_name4]);
-$response->echoResponse();
 $retrieved_filesize = $response->getHeaders()['Content-Length'][0];
 $size = filesize("composer.json");
 if ($size != $retrieved_filesize)
@@ -233,6 +226,5 @@ $response = $c->listBuckets([
     'namespaceName' => $namespace,
     'compartmentId' => "ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq",
     'fields' => ["tags", "tags"]]);
-$response->echoResponse();
 
 ?>

@@ -8,10 +8,15 @@ use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
 use InvalidArgumentException;
+use Oracle\Oci\Common\Logging\LogAdapterInterface;
+use Oracle\Oci\Common\Logging\NoOpLogAdapter;
 
 abstract class AbstractClient 
 {
-    private /*AuthProviderInterface*/ $auth_provider;
+    protected static /*LogAdapterInterface*/ $globalLogAdapter;
+    protected /*LogAdapterInterface*/ $logAdapter;
+
+    protected /*AuthProviderInterface*/ $auth_provider;
     protected /*?Region*/ $region;
 
     protected /*string*/ $endpoint;
@@ -44,7 +49,12 @@ abstract class AbstractClient
                     $endpoint = str_replace('{region}', $region, $endpointTemplate);
                     $endpoint = str_replace('{secondLevelDomain}', $realm->getRealmDomainComponent(), $endpoint);
                     $this->region = null;
-                    // echo "Region $region is unknown, assuming it to be in realm $realm. Setting endpoint to $endpoint".PHP_EOL;
+                    $this->getLogAdapter()->log(
+                        "Region $region is unknown, assuming it to be in realm $realm. Setting endpoint to $endpoint",
+                        LOG_INFO,
+                        [],
+                        static::class
+                    );
                 }
                 else
                 {
@@ -64,14 +74,23 @@ abstract class AbstractClient
             $this->endpoint = str_replace('{region}', $this->region->getRegionId(), $endpointTemplate);
             $this->endpoint = str_replace('{secondLevelDomain}', $this->region->getRealm()->getRealmDomainComponent(), $this->endpoint);
         }
-        // echo "Final endpoint: {$this->endpoint}".PHP_EOL;
+        $this->getLogAdapter()->log(
+            "Final endpoint: {$this->endpoint}",
+            LOG_DEBUG,
+            [],
+            static::class);
 
         $handler = new CurlHandler();
         $stack = HandlerStack::create($handler);
 
         // place signing middleware after prepare-body so it can access Content-Length header
         $stack->after('prepare_body', Middleware::mapRequest(function (RequestInterface $request) {
-            echo "Request URI: " . $request->getUri() . PHP_EOL;
+            $this->getLogAdapter()->log(
+                "Request URI: " . $request->getUri(),
+                LOG_DEBUG,
+                [],
+                static::class . "\\middleware\\uri"
+            );
 
             // headers required for all HTTP verbs
             $headers = "date (request-target) host";
@@ -106,24 +125,37 @@ abstract class AbstractClient
                 $signing_string = $signing_string . "\ncontent-length: $content_length\ncontent-type: $content_type\nx-content-sha256: $content_sha256";
             }
 
-            // echo "Signing string:\n$signing_string".PHP_EOL;
+            $this->getLogAdapter()->log(
+                "Signing string:\n$signing_string",
+                LOG_DEBUG,
+                [],
+                static::class . "\\middleware\\signature"
+            );
 
             $signature = $this->sign_string($signing_string, $this->auth_provider->getKeyFilename(), $this->auth_provider->getKeyPassphrase());
 
             $authorization_header = "Signature version=\"1\",keyId=\"{$this->auth_provider->getKeyId()}\",algorithm=\"rsa-sha256\",headers=\"$headers\",signature=\"$signature\"";
             $request = $request->withHeader('Authorization', $authorization_header);
 
-            echo "\nRequest headers:".PHP_EOL;
-            foreach ($request->getHeaders() as $name => $values) {
-                if (is_array($values))
-                {
-                    foreach($values as $item)
+            if ($this->getLogAdapter()->isLogEnabled(LOG_DEBUG, static::class . "\\middleware\\requestHeaders")) {
+                $str = "Request headers:";
+                foreach ($request->getHeaders() as $name => $values) {
+                    if (is_array($values))
                     {
-                        echo $name . ': ' . $item . "\n";
+                        foreach($values as $item)
+                        {
+                            $str .= PHP_EOL . $name . ': ' . $item;
+                        }
+                    } else {
+                        $str .= PHP_EOL . $name . ': ' . $values;
                     }
-                } else {
-                    echo $name . ': ' . $values . "\n";
                 }
+                $this->getLogAdapter()->log(
+                    $str,
+                    LOG_DEBUG,
+                    [],
+                    static::class . "\\middleware\\requestHeaders"
+                );
             }
 
             return $request;
@@ -143,6 +175,34 @@ abstract class AbstractClient
         openssl_sign($data, $signature, $pkeyid, OPENSSL_ALGO_SHA256);
 
         return base64_encode($signature);
+    }
+
+    public static function getGlobalLogAdapter() // : LogAdapterInterface
+    {
+        if (AbstractClient::$globalLogAdapter == null)
+        {
+            AbstractClient::setGlobalLogAdapter(new NoOpLogAdapter());
+        }
+        return AbstractClient::$globalLogAdapter;
+    }
+
+    public static function setGlobalLogAdapter(LogAdapterInterface $logAdapter) 
+    {
+        AbstractClient::$globalLogAdapter = $logAdapter;
+    }
+
+    public function getLogAdapter() // : LogAdapterInterface
+    {
+        if ($this->logAdapter != null)
+        {
+            return $this->logAdapter;
+        }
+        return AbstractClient::getGlobalLogAdapter();
+    }
+
+    public function setLogAdapter(LogAdapterInterface $logAdapter) 
+    {
+        $this->globalLogAdapter = $logAdapter;
     }
 }
 ?>
