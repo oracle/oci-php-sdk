@@ -180,4 +180,6 @@ scripts/temp
 
 oracle.pem
 
-vendor/
+# PHP
+/vendor/
+.php_cs.cache
