@@ -1,5 +1,19 @@
 # This is the public PHP SDK for Oracle Cloud Infrastructure.
 
+# Testing, Linting, and Formatting
+
+Run the script `tools/verify.sh` script:
+
+```
+./tools/verify.sh
+```
+
+We recommend adding this as a pre-commit hook which can be done by running the following command:
+
+```
+git config core.hooksPath hooks
+```
+
 # Codegen
 
 You can run the codegen using:

@@ -27,8 +27,7 @@ abstract class AbstractClient
         AuthProviderInterface $auth_provider,
         $region=null,
         $endpoint=null
-    )
-    {
+    ) {
         $this->auth_provider = $auth_provider;
 
         if ($auth_provider instanceof RegionProvider) {
