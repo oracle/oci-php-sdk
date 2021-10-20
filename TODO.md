@@ -2,20 +2,9 @@
 
 ## For Kaltura
 
-### Misc
-- debug logging
-
 ### Requests
-- encode path parameters
-- encode header parameters
+- encode path parameters -- some special UTF-8 characters are not handled correctly by Guzzle
 - signing strategy
-- customRequestInterceptor?
-
-### Data Types
-- enums
-- top-level enums
-- enum-refs
-- inline enums
 
 ### Major Features
 - Upload Manager (uploads automatically broken into smaller parts)
@@ -30,6 +19,12 @@
 
 ## Later
 
+### Data Types
+- enums
+- top-level enums
+- enum-refs
+- inline enums
+
 ### Regions and Realms
 - IMDS
 - config file
@@ -37,9 +32,6 @@
 
 ### Data Types
 - models (?)
-
-### Clients
-- factor out common code into Oracle\Oci\Common\AbstractClient
 
 ### Convenience
 - waiters
