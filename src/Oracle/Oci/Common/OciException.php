@@ -44,9 +44,18 @@ class OciBadResponseException extends OciException
     {
         $this->response = $response;
         $this->statusCode = $response->getStatusCode();
-        $this->errorCode = $response->getReasonPhrase();
-        $this->message = $response->getBody()->getContents();
+        $bodyContents = $response->getBody()->getContents();
+        if ($bodyContents != null && strlen($bodyContents) > 0) {
+            $json = json_decode($response->getBody());
+            $this->errorCode = $json->code;
+            $this->message = $json->message;
+        } else {
+            $this->errorCode = null;
+            $this->message = "The service returned HTTP status code {$this->statusCode}.";
+        }
         $this->opcRequestId = $response->getHeader('opc-request-id')[0];
+
+        parent::__construct($this->message, $this->statusCode);
 
         # TODO
         $targetService = "";
@@ -58,8 +67,24 @@ class OciBadResponseException extends OciException
         $errorTroubleshootingLink = "";
     }
 
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
+    public function getErrorCode()
+    {
+        return $this->errorCode;
+    }
+
+    public function getOpcRequestId()
+    {
+        return $this->opcRequestId;
+    }
+
     public function __toString()
     {
-        return "Error returned by $this->targetService Service. Http Status Code: $this->statusCode. Error Code: $this->errorCode. Message: $this->message. Opc request id: $this->opcRequestId.\n";
+        $service = $this->targetService != null ? $this->targetService . " Service" : "Service";
+        return "Error returned by {$service}. Http Status Code: '{$this->statusCode}'. Error Code: '{$this->errorCode}'. Message: '{$this->message}'. Opc request id: '{$this->opcRequestId}'.";
     }
 }

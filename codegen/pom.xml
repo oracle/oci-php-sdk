@@ -17,7 +17,7 @@
     <codegen.preprocessed.dir>${project.build.directory}/preprocessed</codegen.preprocessed.dir>
     <codegen.swagger.spec>${codegen.preprocessed.dir}/${codegen.spec.name}</codegen.swagger.spec>
     <codegen.target.package.dir>${codegen.package.name}</codegen.target.package.dir>
-    <oci.codegen.version>1.165-SNAPSHOT</oci.codegen.version>
+    <oci.codegen.version>1.168-SNAPSHOT</oci.codegen.version>
     <oci.conditional.preprocessor.version>1.0.21</oci.conditional.preprocessor.version>
     <oci.get.spec.artifact.plugin.version>1.0.21</oci.get.spec.artifact.plugin.version>
   </properties>

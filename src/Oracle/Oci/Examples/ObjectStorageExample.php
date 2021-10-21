@@ -11,8 +11,8 @@ use Oracle\Oci\ObjectStorage\ObjectStorageClient;
 use GuzzleHttp\Exception\ClientException;
 use Oracle\Oci\Common\Auth\ConfigFileAuthProvider;
 use Oracle\Oci\Common\Logging\EchoLogAdapter;
-
-use function Oracle\Oci\Common\Logging\setGlobalLogAdapter;
+use Oracle\Oci\Common\Logging\Logger;
+use Oracle\Oci\Common\OciBadResponseException;
 
 // TODO: Update these to your own values
 $bucket_name = "mricken-test";
@@ -20,7 +20,8 @@ $file_to_upload = "composer.json";
 // END TODO: Update these to your own values
 
 date_default_timezone_set('Etc/UTC');
-setGlobalLogAdapter(new EchoLogAdapter(LOG_INFO, [
+Logger::setGlobalLogAdapter(new EchoLogAdapter(0, [
+    "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient" => LOG_DEBUG,
     "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\uri" => LOG_DEBUG,
     "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\signing\\strategy" => LOG_DEBUG,
     "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\signing\\strategy\\details" => LOG_INFO,
@@ -82,6 +83,9 @@ $response = $c->getObject([
     'objectName' => $object_name]);
 
 $retrieved_body = $response->getBody();
+
+echo "Sent: $body" . PHP_EOL;
+echo "Recv: $retrieved_body" . PHP_EOL;
 
 if ($body != $retrieved_body) {
     echo "ERROR: Retrieved body does not equal uploaded body!".PHP_EOL;
@@ -200,11 +204,11 @@ try {
         'namespaceName' => $namespace,
         'bucketName' => $bucket_name,
         'objectName' => "doesNotExist"]);
-    // $response->echoResponse();
     echo "ERROR: Object was supposed to not exist!".PHP_EOL;
     die;
-} catch (ClientException $e) {
-    $statusCode = $e->getResponse()->getStatusCode();
+} catch (OciBadResponseException $e) {
+    echo $e . PHP_EOL;
+    $statusCode = $e->getStatusCode();
     if ($statusCode != 404) {
         echo "ERROR: Returned $statusCode instead of 404!".PHP_EOL;
         die;

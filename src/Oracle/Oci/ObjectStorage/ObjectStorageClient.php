@@ -10,13 +10,12 @@ use Oracle\Oci\Common\HttpUtils;
 use Oracle\Oci\Common\OciResponse;
 use Oracle\Oci\Common\UserAgent;
 use Oracle\Oci\Common\AbstractClient;
-
-use function Oracle\Oci\Common\getPerOperationSigningStrategyNameHeaderName;
-use function Oracle\Oci\Common\getSigningStrategy;
+use Oracle\Oci\Common\Constants;
+use Oracle\Oci\Common\SigningStrategies;
 
 class ObjectStorageClient extends AbstractClient
 {
-    /*const*/ protected static $endpointTemplate = "https://objectstorage.{region}.{secondLevelDomain}";
+    const ENDPOINT_TEMPLATE = "https://objectstorage.{region}.{secondLevelDomain}";
 
     public function __construct(
         AuthProviderInterface $auth_provider,
@@ -24,9 +23,9 @@ class ObjectStorageClient extends AbstractClient
         $endpoint=null
     ) {
         parent::__construct(
-            ObjectStorageClient::$endpointTemplate,
+            ObjectStorageClient::ENDPOINT_TEMPLATE,
             $auth_provider,
-            getSigningStrategy("standard"),
+            SigningStrategies::get("standard"),
             $region,
             $endpoint
         );
@@ -1968,7 +1967,7 @@ class ObjectStorageClient extends AbstractClient
         }
 
         // set per-operation signing strategy
-        HttpUtils::addToArray($__headers, getPerOperationSigningStrategyNameHeaderName(), (string) getSigningStrategy("exclude_body"));
+        HttpUtils::addToArray($__headers, Constants::PER_OPERATION_SIGNING_STRATEGY_NAME_HEADER_NAME, (string) SigningStrategies::get("exclude_body"));
 
         $__query = [];
 
@@ -2437,7 +2436,7 @@ class ObjectStorageClient extends AbstractClient
         }
 
         // set per-operation signing strategy
-        HttpUtils::addToArray($__headers, getPerOperationSigningStrategyNameHeaderName(), (string) getSigningStrategy("exclude_body"));
+        HttpUtils::addToArray($__headers, Constants::PER_OPERATION_SIGNING_STRATEGY_NAME_HEADER_NAME, (string) SigningStrategies::get("exclude_body"));
 
         $__query = [];
         if ($uploadId != null) {

@@ -2,7 +2,7 @@
 
 namespace Oracle\Oci\Common;
 
-use function Oracle\Oci\Common\Logging\logger;
+use Oracle\Oci\Common\Logging\Logger;
 
 class OciResponse
 {
@@ -22,7 +22,7 @@ class OciResponse
         $json = null
     ) {
         if (OciResponse::$logger == null) {
-            OciResponse::$logger = logger(static::class);
+            OciResponse::$logger = Logger::logger(static::class);
         }
         $this->statusCode = $statusCode;
         $this->headers = $headers;

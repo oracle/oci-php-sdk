@@ -4,11 +4,6 @@ namespace Oracle\Oci\Common;
 
 use InvalidArgumentException;
 
-function getPerOperationSigningStrategyNameHeaderName()
-{
-    return "x-obmcs-internal-signing-strategy-name";
-}
-
 interface SigningStrategyInterface
 {
     public function getRequiredSigningHeaders($verb); // : string[]
@@ -16,19 +11,23 @@ interface SigningStrategyInterface
     public function skipContentHeadersForStreamingPutRequests(); // : bool
 }
 
-function getSigningStrategy($strategyName)
+class SigningStrategies
 {
-    switch (strtolower($strategyName)) {
-        case (string) StandardSigningStrategy::getSingleton(): return StandardSigningStrategy::getSingleton();
-        case (string) ExcludeBodySigningStrategy::getSingleton(): return ExcludeBodySigningStrategy::getSingleton();
-        case (string) ObjectStorageSigningStrategy::getSingleton(): return ObjectStorageSigningStrategy::getSingleton();
-        case (string) FederationSigningStrategy::getSingleton(): return FederationSigningStrategy::getSingleton();
+    public static function get($strategyName)
+    {
+        switch (strtolower($strategyName)) {
+            case (string) StandardSigningStrategy::NAME: return StandardSigningStrategy::getSingleton();
+            case (string) ExcludeBodySigningStrategy::NAME: return ExcludeBodySigningStrategy::getSingleton();
+            case (string) ObjectStorageSigningStrategy::NAME: return ObjectStorageSigningStrategy::getSingleton();
+            case (string) FederationSigningStrategy::NAME: return FederationSigningStrategy::getSingleton();
+        }
+        throw new InvalidArgumentException("Unknown signing strategy: $strategyName");
     }
-    throw new InvalidArgumentException("Unknown signing strategy: $strategyName");
 }
 
 class StandardSigningStrategy implements SigningStrategyInterface
 {
+    const NAME = "standard";
     public static $INSTANCE;
     public static function getSingleton()
     {
@@ -44,10 +43,10 @@ class StandardSigningStrategy implements SigningStrategyInterface
     public function __construct()
     {
         if (StandardSigningStrategy::$requiredHeadersToSign == null) {
-            StandardSigningStrategy::$requiredHeadersToSign = requiredHeadersToSign();
+            StandardSigningStrategy::$requiredHeadersToSign = SigningStrategyConstants::requiredHeadersToSign();
         }
         if (StandardSigningStrategy::$optionalSigningHeaders == null) {
-            StandardSigningStrategy::$optionalSigningHeaders = optionalSigningHeaders();
+            StandardSigningStrategy::$optionalSigningHeaders = SigningStrategyConstants::OPTIONAL_SIGNING_HEADERS;
         }
     }
 
@@ -68,12 +67,13 @@ class StandardSigningStrategy implements SigningStrategyInterface
 
     public function __toString()
     {
-        return "standard";
+        return StandardSigningStrategy::NAME;
     }
 }
 
 class ExcludeBodySigningStrategy implements SigningStrategyInterface
 {
+    const NAME = "exclude_body";
     public static $INSTANCE;
     public static function getSingleton()
     {
@@ -89,10 +89,10 @@ class ExcludeBodySigningStrategy implements SigningStrategyInterface
     public function __construct()
     {
         if (ExcludeBodySigningStrategy::$requiredHeadersToSign == null) {
-            ExcludeBodySigningStrategy::$requiredHeadersToSign = requiredExcludeBodyHeadersToSign();
+            ExcludeBodySigningStrategy::$requiredHeadersToSign = SigningStrategyConstants::requiredExcludeBodyHeadersToSign();
         }
         if (ExcludeBodySigningStrategy::$optionalSigningHeaders == null) {
-            ExcludeBodySigningStrategy::$optionalSigningHeaders = optionalSigningHeaders();
+            ExcludeBodySigningStrategy::$optionalSigningHeaders = SigningStrategyConstants::OPTIONAL_SIGNING_HEADERS;
         }
     }
 
@@ -113,12 +113,13 @@ class ExcludeBodySigningStrategy implements SigningStrategyInterface
 
     public function __toString()
     {
-        return "exclude_body";
+        return ExcludeBodySigningStrategy::NAME;
     }
 }
 
 class ObjectStorageSigningStrategy implements SigningStrategyInterface
 {
+    const NAME = "object_storage";
     public static $INSTANCE;
     public static function getSingleton()
     {
@@ -134,10 +135,10 @@ class ObjectStorageSigningStrategy implements SigningStrategyInterface
     public function __construct()
     {
         if (ObjectStorageSigningStrategy::$requiredHeadersToSign == null) {
-            ObjectStorageSigningStrategy::$requiredHeadersToSign = objectStorageHeadersToSign();
+            ObjectStorageSigningStrategy::$requiredHeadersToSign = SigningStrategyConstants::objectStorageHeadersToSign();
         }
         if (ObjectStorageSigningStrategy::$optionalSigningHeaders == null) {
-            ObjectStorageSigningStrategy::$optionalSigningHeaders = optionalSigningHeaders();
+            ObjectStorageSigningStrategy::$optionalSigningHeaders = SigningStrategyConstants::OPTIONAL_SIGNING_HEADERS;
         }
     }
 
@@ -158,12 +159,13 @@ class ObjectStorageSigningStrategy implements SigningStrategyInterface
 
     public function __toString()
     {
-        return "object_storage";
+        return ObjectStorageSigningStrategy::NAME;
     }
 }
 
 class FederationSigningStrategy implements SigningStrategyInterface
 {
+    const NAME = "federation";
     public static $INSTANCE;
     public static function getSingleton()
     {
@@ -179,16 +181,16 @@ class FederationSigningStrategy implements SigningStrategyInterface
     public function __construct()
     {
         if (FederationSigningStrategy::$requiredHeadersToSign == null) {
-            FederationSigningStrategy::$requiredHeadersToSign = objectStorageHeadersToSign();
+            FederationSigningStrategy::$requiredHeadersToSign = SigningStrategyConstants::objectStorageHeadersToSign();
         }
         if (FederationSigningStrategy::$optionalSigningHeaders == null) {
-            FederationSigningStrategy::$optionalSigningHeaders = optionalSigningHeaders();
+            FederationSigningStrategy::$optionalSigningHeaders = SigningStrategyConstants::OPTIONAL_SIGNING_HEADERS;
         }
     }
 
     public function getRequiredSigningHeaders($verb) // : string[]
     {
-        return federationRemoveHostHeader(FederationSigningStrategy::$requiredHeadersToSign->getHeaders(strtolower($verb)));
+        return SigningStrategyConstants::federationRemoveHostHeader(FederationSigningStrategy::$requiredHeadersToSign->getHeaders(strtolower($verb)));
     }
 
     public function getOptionalSigningHeaders() // : string[]
@@ -203,10 +205,9 @@ class FederationSigningStrategy implements SigningStrategyInterface
 
     public function __toString()
     {
-        return "federation";
+        return FederationSigningStrategy::NAME;
     }
 }
-
 
 class HeadersToSign
 {
@@ -228,66 +229,61 @@ class HeadersToSign
     }
 }
 
-function requiredHeadersToSign()
+class SigningStrategyConstants
 {
-    return new HeadersToSign([
-        "get" => generalSigningHeaders(),
-        "head" => generalSigningHeaders(),
-        "delete" => generalSigningHeaders(),
-        "put" => allSigningHeaders(),
-        "post" => allSigningHeaders(),
-        "patch" => allSigningHeaders()
-    ]);
-}
-
-function objectStorageHeadersToSign()
-{
-    return new HeadersToSign([
-        "get" => generalSigningHeaders(),
-        "head" => generalSigningHeaders(),
-        "delete" => generalSigningHeaders(),
-        "put" => generalSigningHeaders(), // PUT is a special case for Object Storage
-        "post" => allSigningHeaders(),
-        "patch" => allSigningHeaders()
-    ]);
-}
-
-function requiredExcludeBodyHeadersToSign()
-{
-    return new HeadersToSign([
-        "get" => generalSigningHeaders(),
-        "head" => generalSigningHeaders(),
-        "delete" => generalSigningHeaders(),
-        "put" => generalSigningHeaders(),
-        "post" => generalSigningHeaders(),
-        "patch" => generalSigningHeaders()
-    ]);
-}
-
-function generalSigningHeaders()
-{
-    return ["date", "(request-target)", "host"];
-}
-
-function bodySigningHeaders()
-{
-    return ["content-length", "content-type", "x-content-sha256"];
-}
-
-function allSigningHeaders()
-{
-    return array_merge(generalSigningHeaders(), bodySigningHeaders());
-}
-
-function federationRemoveHostHeader($headers)
-{
-    if (($key = array_search("host", $headers)) !== false) {
-        unset($headers[$key]);
+    public static function requiredHeadersToSign()
+    {
+        return new HeadersToSign([
+            "get" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "head" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "delete" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "put" => SigningStrategyConstants::allSigningHeaders(),
+            "post" => SigningStrategyConstants::allSigningHeaders(),
+            "patch" => SigningStrategyConstants::allSigningHeaders()
+        ]);
     }
-    return $headers;
-}
 
-function optionalSigningHeaders()
-{
-    return ["x-cross-tenancy-request", "x-subscription", "opc-obo-token"];
+    public static function objectStorageHeadersToSign()
+    {
+        return new HeadersToSign([
+            "get" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "head" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "delete" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "put" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS, // PUT is a special case for Object Storage
+            "post" => SigningStrategyConstants::allSigningHeaders(),
+            "patch" => SigningStrategyConstants::allSigningHeaders()
+        ]);
+    }
+
+    public static function requiredExcludeBodyHeadersToSign()
+    {
+        return new HeadersToSign([
+            "get" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "head" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "delete" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "put" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "post" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS,
+            "patch" => SigningStrategyConstants::GENERAL_SIGNING_HEADERS
+        ]);
+    }
+
+    const GENERAL_SIGNING_HEADERS = [Constants::DATE_HEADER_NAME, Constants::REQUEST_TARGET_HEADER_NAME, Constants::HOST_HEADER_NAME];
+    const BODY_SIGNING_HEADERS = [Constants::CONTENT_LENGTH_HEADER_NAME, Constants::CONTENT_TYPE_HEADER_NAME, Constants::X_CONTENT_SHA256_HEADER_NAME];
+
+    public static function allSigningHeaders()
+    {
+        // starting with PHP 7.4, we could declare another constant instead:
+        // const ALL_SIGNING_HEADERS = [...SigningStrategyConstants::GENERAL_SIGNING_HEADERS, ...SigningStrategyConstants::BODY_SIGNING_HEADERS];
+        return array_merge(SigningStrategyConstants::GENERAL_SIGNING_HEADERS, SigningStrategyConstants::BODY_SIGNING_HEADERS);
+    }
+
+    public static function federationRemoveHostHeader($headers)
+    {
+        if (($key = array_search(Constants::HOST_HEADER_NAME, $headers)) !== false) {
+            unset($headers[$key]);
+        }
+        return $headers;
+    }
+
+    const OPTIONAL_SIGNING_HEADERS = [Constants::X_CROSS_TENANCY_REQUEST_HEADER_NAME, Constants::X_SUBSCRIPTION_HEADER_NAME, Constants::OPC_OBO_TOKEN_HEADER_NAME];
 }

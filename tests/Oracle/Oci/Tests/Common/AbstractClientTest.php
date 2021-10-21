@@ -3,13 +3,10 @@
 use Oracle\Oci\Common\AbstractClient;
 use Oracle\Oci\Common\Auth\AuthProviderInterface;
 use Oracle\Oci\Common\Auth\RegionProviderInterface;
-use Oracle\Oci\Common\Logging\EchoLogAdapter;
+use Oracle\Oci\Common\Logging\Logger;
 use PHPUnit\Framework\TestCase;
 use Oracle\Oci\Common\Realm;
 use Oracle\Oci\Common\Region;
-
-use function Oracle\Oci\Common\Logging\logger;
-use function Oracle\Oci\Common\Logging\setGlobalLogAdapter;
 
 class AbstractClientTest extends TestCase
 {
@@ -20,8 +17,8 @@ class AbstractClientTest extends TestCase
      */
     public static function beforeClass()
     {
-        // setGlobalLogAdapter(new EchoLogAdapter(LOG_DEBUG));
-        AbstractClientTest::$logger = logger(static::class);
+        // Logger::setGlobalLogAdapter(new EchoLogAdapter(LOG_DEBUG));
+        AbstractClientTest::$logger = Logger::logger(static::class);
     }
 
     public function testDetermineRegion_WithRegion()

@@ -5,15 +5,23 @@ namespace Oracle\Oci\Common\Logging;
 interface LogAdapterInterface
 {
     public function log($message, $priority = LOG_INFO, $extras = [], $logName = null);
+
     public function error($message, $logName = null, $extras = []);
+
     public function warn($message, $logName = null, $extras = []);
+
     public function info($message, $logName = null, $extras = []);
+
     public function debug($message, $logName = null, $extras = []);
 
     public function isLogEnabled($priority = LOG_INFO, $logName = null);
+
     public function isErrorEnabled($logName = null);
+
     public function isWarnEnabled($logName = null);
+
     public function isInfoEnabled($logName = null);
+
     public function isDebugEnabled($logName = null);
 }
 
@@ -28,14 +36,6 @@ class NamedLogAdapterDecorator implements LogAdapterInterface
     ) {
         $this->logName = $logName;
         $this->decoratedLogger = $decoratedLogger;
-    }
-
-    private function append($logName)
-    {
-        if ($logName == null || strlen($logName) == 0) {
-            return $this->logName;
-        }
-        return $this->logName . "\\" . $logName;
     }
 
     public function log($message, $priority = LOG_INFO, $extras = [], $logName = null)
@@ -87,40 +87,93 @@ class NamedLogAdapterDecorator implements LogAdapterInterface
     {
         return $this->decoratedLogger->isDebugEnabled($this->append($logName));
     }
-}
 
-function logger($logName = null)
-{
-    if ($logName == null) {
-        return getGlobalLogAdapter();
-    } else {
-        return new NamedLogAdapterDecorator($logName, getGlobalLogAdapter());
+    public function scope($logName)
+    {
+        return new NamedLogAdapterDecorator($this->append($logName), $this->decoratedLogger);
+    }
+
+    private function append($logName)
+    {
+        if (null == $logName || 0 == strlen($logName)) {
+            return $this->logName;
+        }
+
+        return $this->logName.'\\'.$logName;
     }
 }
 
-function log($message, $priority = LOG_INFO, $extras = [], $logName = null)
+class RedactingLogAdapterDecorator implements LogAdapterInterface
 {
-    return logger()->log($message, $priority, $extras, $logName);
-}
+    private $decoratedLogger;
+    private $maskRegexes;
 
-function error($message, $logName = null, $extras = [])
-{
-    return logger()->error($message, $logName, $extras);
-}
+    public function __construct(
+        LogAdapterInterface $decoratedLogger,
+        $maskRegexes = ['/(?<=keyId=)"(.*?)"/']
+    ) {
+        $this->maskRegexes = $maskRegexes;
+        $this->decoratedLogger = $decoratedLogger;
+    }
 
-function warn($message, $logName = null, $extras = [])
-{
-    return logger()->warn($message, $logName, $extras);
-}
+    public function redact($message)
+    {
+        foreach ($this->maskRegexes as $maskRegex) {
+            $message = preg_replace($maskRegex, '<REDACTED>', $message);
+        }
 
-function info($message, $logName = null, $extras = [])
-{
-    return logger()->info($message, $logName, $extras);
-}
+        return $message;
+    }
 
-function debug($message, $logName = null, $extras = [])
-{
-    return logger()->debug($message, $logName, $extras);
+    public function log($message, $priority = LOG_INFO, $extras = [], $logName = null)
+    {
+        return $this->decoratedLogger->log($this->redact($message), $priority, $extras, $logName);
+    }
+
+    public function error($message, $logName = null, $extras = [])
+    {
+        return $this->decoratedLogger->error($this->redact($message), $logName, $extras);
+    }
+
+    public function warn($message, $logName = null, $extras = [])
+    {
+        return $this->decoratedLogger->warn($this->redact($message), $logName, $extras);
+    }
+
+    public function info($message, $logName = null, $extras = [])
+    {
+        return $this->decoratedLogger->info($this->redact($message), $logName, $extras);
+    }
+
+    public function debug($message, $logName = null, $extras = [])
+    {
+        return $this->decoratedLogger->debug($this->redact($message), $logName, $extras);
+    }
+
+    public function isLogEnabled($priority = LOG_INFO, $logName = null)
+    {
+        return $this->decoratedLogger->isLogEnabled($priority, $logName);
+    }
+
+    public function isErrorEnabled($logName = null)
+    {
+        return $this->decoratedLogger->isErrorEnabled($logName);
+    }
+
+    public function isWarnEnabled($logName = null)
+    {
+        return $this->decoratedLogger->isWarnEnabled($logName);
+    }
+
+    public function isInfoEnabled($logName = null)
+    {
+        return $this->decoratedLogger->isInfoEnabled($logName);
+    }
+
+    public function isDebugEnabled($logName = null)
+    {
+        return $this->decoratedLogger->isDebugEnabled($logName);
+    }
 }
 
 class NoOpLogAdapter implements LogAdapterInterface
@@ -142,14 +195,17 @@ class NoOpLogAdapter implements LogAdapterInterface
     {
         return false;
     }
+
     public function isWarnEnabled($logName = null)
     {
         return false;
     }
+
     public function isInfoEnabled($logName = null)
     {
         return false;
     }
+
     public function isDebugEnabled($logName = null)
     {
         return false;
@@ -158,12 +214,15 @@ class NoOpLogAdapter implements LogAdapterInterface
     public function error($message, $logName = null, $extras = [])
     {
     }
+
     public function warn($message, $logName = null, $extras = [])
     {
     }
+
     public function info($message, $logName = null, $extras = [])
     {
     }
+
     public function debug($message, $logName = null, $extras = [])
     {
     }
@@ -171,58 +230,78 @@ class NoOpLogAdapter implements LogAdapterInterface
 
 abstract class AbstractLogAdapter implements LogAdapterInterface
 {
+    const DEFAULT_LOG_NAME_REGEXES = [
+        '/\\\\sensitive/' => 0,
+        '/^sensitive/' => 0,
+        '/\\\\verbose/' => 0,
+        '/^verbose/' => 0,
+    ];
+
     protected $debugLevel = LOG_INFO;
     protected $perLogName = [];
+    protected $logNameRegexes = [];
 
     public function __construct(
         $debugLevel = LOG_INFO,
-        $perLogName = []
+        $perLogName = [],
+        $logNameRegexes = AbstractLogAdapter::DEFAULT_LOG_NAME_REGEXES
     ) {
         $this->debugLevel = $debugLevel;
         $this->perLogName = $perLogName;
+        $this->logNameRegexes = $logNameRegexes;
     }
 
     public function isLogEnabled($priority = LOG_INFO, $logName = null)
     {
         $levelToUse = $this->debugLevel;
-        if ($logName != null) {
+        if (null != $logName) {
             if (array_key_exists($logName, $this->perLogName)) {
                 $levelToUse = $this->perLogName[$logName];
             } else {
                 $components = explode('\\', $logName);
-                $str = "";
+                $str = '';
                 foreach ($components as $c) {
                     if (strlen($str) > 0) {
-                        $str .= "\\";
+                        $str .= '\\';
                     }
                     $str .= $c;
                     if (array_key_exists($str, $this->perLogName)) {
                         $levelToUse = $this->perLogName[$str];
                     }
                 }
+
+                // now check regexes and restrict logging
+                foreach ($this->logNameRegexes as $regex => $restrictedLogLevel) {
+                    if (preg_match($regex, $logName)) {
+                        if ($levelToUse > $restrictedLogLevel) {
+                            $levelToUse = $restrictedLogLevel;
+                        }
+                    }
+                }
             }
         }
-        return ($priority <= $levelToUse);
+
+        return $priority <= $levelToUse;
     }
 
     public function info($message, $logName = null, $extras = [])
     {
-        log($message, LOG_INFO, $extras, $logName);
+        $this->log($message, LOG_INFO, $extras, $logName);
     }
 
     public function debug($message, $logName = null, $extras = [])
     {
-        log($message, LOG_DEBUG, $extras, $logName);
+        $this->log($message, LOG_DEBUG, $extras, $logName);
     }
 
     public function warn($message, $logName = null, $extras = [])
     {
-        log($message, LOG_WARNING, $extras, $logName);
+        $this->log($message, LOG_WARNING, $extras, $logName);
     }
 
     public function error($message, $logName = null, $extras = [])
     {
-        log($message, LOG_ERR, $extras, $logName);
+        $this->log($message, LOG_ERR, $extras, $logName);
     }
 
     public function isErrorEnabled($logName = null)
@@ -232,28 +311,28 @@ abstract class AbstractLogAdapter implements LogAdapterInterface
 
     public function isWarnEnabled($logName = null)
     {
-        return $this->isLogEnabled(LOG_ERR, $logName);
+        return $this->isLogEnabled(LOG_WARNING, $logName);
     }
 
     public function isInfoEnabled($logName = null)
     {
-        return $this->isLogEnabled(LOG_ERR, $logName);
+        return $this->isLogEnabled(LOG_INFO, $logName);
     }
 
     public function isDebugEnabled($logName = null)
     {
-        return $this->isLogEnabled(LOG_ERR, $logName);
+        return $this->isLogEnabled(LOG_DEBUG, $logName);
     }
 }
-
 
 class EchoLogAdapter extends AbstractLogAdapter
 {
     public function __construct(
         $debugLevel = LOG_INFO,
-        $perLogName = []
+        $perLogName = [],
+        $logNameRegexes = AbstractLogAdapter::DEFAULT_LOG_NAME_REGEXES
     ) {
-        parent::__construct($debugLevel, $perLogName);
+        parent::__construct($debugLevel, $perLogName, $logNameRegexes);
     }
 
     public function log($message, $priority = LOG_INFO, $extras = [], $logName = null)
@@ -261,45 +340,146 @@ class EchoLogAdapter extends AbstractLogAdapter
         if (!$this->isLogEnabled($priority, $logName)) {
             return;
         }
+
         switch ($priority) {
             case LOG_ALERT:
-                $priorityStr = "[ALERT]";
+                $priorityStr = '[ALERT]';
+
                 break;
+
             case LOG_CRIT:
-                $priorityStr = "[CRIT]";
+                $priorityStr = '[CRIT]';
+
                 break;
+
             case LOG_ERR:
-                $priorityStr = "[ERR]";
+                $priorityStr = '[ERR]';
+
                 break;
+
             case LOG_WARNING:
-                $priorityStr = "[WARN]";
+                $priorityStr = '[WARN]';
+
                 break;
+
             case LOG_DEBUG:
-                $priorityStr = "[DEBUG]";
+                $priorityStr = '[DEBUG]';
+
                 break;
+
             default:
-                $priorityStr = "[INFO]";
+                $priorityStr = '[INFO]';
+
                 break;
         }
-        echo "$priorityStr ($logName) $message" . PHP_EOL;
+        echo "{$priorityStr} ({$logName}) {$message}".PHP_EOL;
     }
 }
 
-/*LogAdapterInterface*/ $globalLogAdapter = new NoOpLogAdapter();
-
-function getGlobalLogAdapter() // : LogAdapterInterface
+class StringBufferLogAdapter extends AbstractLogAdapter
 {
-    global $globalLogAdapter;
+    private $stringBuffer = '';
 
-    if ($globalLogAdapter == null) {
-        setGlobalLogAdapter(new NoOpLogAdapter());
+    public function __construct(
+        $debugLevel = LOG_INFO,
+        $perLogName = [],
+        $logNameRegexes = AbstractLogAdapter::DEFAULT_LOG_NAME_REGEXES
+    ) {
+        parent::__construct($debugLevel, $perLogName, $logNameRegexes);
     }
-    return $globalLogAdapter;
+
+    public function log($message, $priority = LOG_INFO, $extras = [], $logName = null)
+    {
+        if (!$this->isLogEnabled($priority, $logName)) {
+            return;
+        }
+
+        switch ($priority) {
+            case LOG_ALERT:
+                $priorityStr = '[ALERT]';
+
+                break;
+
+            case LOG_CRIT:
+                $priorityStr = '[CRIT]';
+
+                break;
+
+            case LOG_ERR:
+                $priorityStr = '[ERR]';
+
+                break;
+
+            case LOG_WARNING:
+                $priorityStr = '[WARN]';
+
+                break;
+
+            case LOG_DEBUG:
+                $priorityStr = '[DEBUG]';
+
+                break;
+
+            default:
+                $priorityStr = '[INFO]';
+
+                break;
+        }
+        $line = "{$priorityStr} ({$logName}) {$message}".PHP_EOL;
+        $this->stringBuffer .= $line;
+    }
+
+    public function getString()
+    {
+        return $this->stringBuffer;
+    }
 }
 
-function setGlobalLogAdapter(LogAdapterInterface $logAdapter)
+class Logger
 {
-    global $globalLogAdapter;
+    /*LogAdapterInterface*/ private static $globalLogAdapter;
 
-    $globalLogAdapter = $logAdapter;
+    public static function getGlobalLogAdapter() // : LogAdapterInterface
+    {
+        if (null == Logger::$globalLogAdapter) {
+            Logger::setGlobalLogAdapter(new NoOpLogAdapter());
+        }
+
+        return Logger::$globalLogAdapter;
+    }
+
+    public static function setGlobalLogAdapter(LogAdapterInterface $logAdapter)
+    {
+        Logger::$globalLogAdapter = $logAdapter;
+    }
+
+    public static function logger($logName = null)
+    {
+        return new NamedLogAdapterDecorator($logName, Logger::getGlobalLogAdapter());
+    }
+
+    public static function log($message, $priority = LOG_INFO, $extras = [], $logName = null)
+    {
+        return Logger::logger()->log($message, $priority, $extras, $logName);
+    }
+
+    public static function error($message, $logName = null, $extras = [])
+    {
+        return Logger::logger()->error($message, $logName, $extras);
+    }
+
+    public static function warn($message, $logName = null, $extras = [])
+    {
+        return Logger::logger()->warn($message, $logName, $extras);
+    }
+
+    public static function info($message, $logName = null, $extras = [])
+    {
+        return Logger::logger()->info($message, $logName, $extras);
+    }
+
+    public static function debug($message, $logName = null, $extras = [])
+    {
+        return Logger::logger()->debug($message, $logName, $extras);
+    }
 }
