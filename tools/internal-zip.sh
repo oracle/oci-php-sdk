@@ -7,4 +7,5 @@ zip -r oci-php-sdk-0.0.1-`date +"%Y-%m-%dT%H-%M-%S"`.zip \
     -not -path ./.git/\* \
     -not -path ./.php\*cache \
     -not -path ./tools/internal-zip.sh \
+    -not -path ./oci-phd-sdk\*.zip \
     `
