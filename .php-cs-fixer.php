@@ -9,7 +9,7 @@ $finder = PhpCsFixer\Finder::create()
 
 $config = new PhpCsFixer\Config();
 return $config->setRules([
-        // '@PSR12' => true,
+        '@PSR12' => true,
     ])
     ->setFinder($finder)
 ;

@@ -54,17 +54,17 @@ class NamedLogAdapterDecorator implements LogAdapterInterface
     {
         return $this->decoratedLogger->warn($message, $this->append($logName), $extras);
     }
-    
+
     public function info($message, $logName = null, $extras = [])
     {
         return $this->decoratedLogger->info($message, $this->append($logName), $extras);
     }
-    
+
     public function debug($message, $logName = null, $extras = [])
     {
         return $this->decoratedLogger->debug($message, $this->append($logName), $extras);
     }
-    
+
     public function isLogEnabled($priority = LOG_INFO, $logName = null)
     {
         return $this->decoratedLogger->isLogEnabled($priority, $this->append($logName));
@@ -74,17 +74,17 @@ class NamedLogAdapterDecorator implements LogAdapterInterface
     {
         return $this->decoratedLogger->isErrorEnabled($this->append($logName));
     }
-    
+
     public function isWarnEnabled($logName = null)
     {
         return $this->decoratedLogger->isWarnEnabled($this->append($logName));
     }
-    
+
     public function isInfoEnabled($logName = null)
     {
         return $this->decoratedLogger->isInfoEnabled($this->append($logName));
     }
-    
+
     public function isDebugEnabled($logName = null)
     {
         return $this->decoratedLogger->isDebugEnabled($this->append($logName));
