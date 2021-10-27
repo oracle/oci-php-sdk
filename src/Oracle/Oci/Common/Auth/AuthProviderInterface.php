@@ -6,6 +6,8 @@ use Oracle\Oci\Common\ConfigFile;
 use Oracle\Oci\Common\Realm;
 use Oracle\Oci\Common\Region;
 
+use function Oracle\Oci\Common\Logging\logger;
+
 interface AuthProviderInterface
 {
     /**
@@ -127,7 +129,7 @@ class ConfigFileAuthProvider implements AuthProviderInterface, RegionProviderInt
             if ($knownRegion == null) {
                 // forward-compatibility for unknown regions
                 $realm = Realm::getRealmForUnknownRegion();
-                // echo "Region $regionStr is unknown, assuming it to be in realm $realm." . PHP_EOL;
+                logger(static::class)->info("Region $regionStr is unknown, assuming it to be in realm $realm.");
                 $knownRegion = new Region($regionStr, $regionStr, $realm);
             }
             $this->region = $knownRegion;

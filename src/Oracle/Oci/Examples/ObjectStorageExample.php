@@ -41,6 +41,7 @@ $region = Region::getRegion("us-phoenix-1");
 echo "Region: $region".PHP_EOL;
 
 $auth_provider = new ConfigFileAuthProvider();
+echo "Region from config file: {$auth_provider->getRegion()}" . PHP_EOL;
 
 // $auth_provider = new UserAuthProvider(
 //     'ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq',
