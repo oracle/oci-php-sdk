@@ -20,7 +20,7 @@ class AbstractClientTest extends TestCase
      */
     public static function beforeClass()
     {
-        setGlobalLogAdapter(new EchoLogAdapter(LOG_DEBUG));
+        // setGlobalLogAdapter(new EchoLogAdapter(LOG_DEBUG));
         AbstractClientTest::$logger = logger(static::class);
     }
 
