@@ -42,7 +42,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->abortMultipartUpload_Helper(
+        return $this->abortMultipartUploadAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectName", true),
@@ -51,7 +51,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function abortMultipartUpload_Helper(
+    public function abortMultipartUploadAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectName,
@@ -96,13 +96,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->cancelWorkRequest_Helper(
+        return $this->cancelWorkRequestAsync_Helper(
             HttpUtils::orNull($params, "workRequestId", true),
             HttpUtils::orNull($params, "opcClientRequestId")
         );
     }
 
-    public function cancelWorkRequest_Helper(
+    public function cancelWorkRequestAsync_Helper(
         $workRequestId,
         $opcClientRequestId = null
     ) {
@@ -139,7 +139,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->commitMultipartUpload_Helper(
+        return $this->commitMultipartUploadAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectName", true),
@@ -151,7 +151,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function commitMultipartUpload_Helper(
+    public function commitMultipartUploadAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectName,
@@ -207,7 +207,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->copyObject_Helper(
+        return $this->copyObjectAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "copyObjectDetails", true),
@@ -222,7 +222,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function copyObject_Helper(
+    public function copyObjectAsync_Helper(
         $namespaceName,
         $bucketName,
         $copyObjectDetails,
@@ -292,14 +292,14 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->createBucket_Helper(
+        return $this->createBucketAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "createBucketDetails", true),
             HttpUtils::orNull($params, "opcClientRequestId")
         );
     }
 
-    public function createBucket_Helper(
+    public function createBucketAsync_Helper(
         $namespaceName,
         $createBucketDetails,
         $opcClientRequestId = null
@@ -339,7 +339,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->createMultipartUpload_Helper(
+        return $this->createMultipartUploadAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "createMultipartUploadDetails", true),
@@ -353,7 +353,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function createMultipartUpload_Helper(
+    public function createMultipartUploadAsync_Helper(
         $namespaceName,
         $bucketName,
         $createMultipartUploadDetails,
@@ -419,7 +419,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->createPreauthenticatedRequest_Helper(
+        return $this->createPreauthenticatedRequestAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "createPreauthenticatedRequestDetails", true),
@@ -427,7 +427,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function createPreauthenticatedRequest_Helper(
+    public function createPreauthenticatedRequestAsync_Helper(
         $namespaceName,
         $bucketName,
         $createPreauthenticatedRequestDetails,
@@ -469,7 +469,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->createReplicationPolicy_Helper(
+        return $this->createReplicationPolicyAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "createReplicationPolicyDetails", true),
@@ -477,7 +477,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function createReplicationPolicy_Helper(
+    public function createReplicationPolicyAsync_Helper(
         $namespaceName,
         $bucketName,
         $createReplicationPolicyDetails,
@@ -519,7 +519,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->createRetentionRule_Helper(
+        return $this->createRetentionRuleAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "createRetentionRuleDetails", true),
@@ -527,7 +527,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function createRetentionRule_Helper(
+    public function createRetentionRuleAsync_Helper(
         $namespaceName,
         $bucketName,
         $createRetentionRuleDetails,
@@ -569,7 +569,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->deleteBucket_Helper(
+        return $this->deleteBucketAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "ifMatch"),
@@ -577,7 +577,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function deleteBucket_Helper(
+    public function deleteBucketAsync_Helper(
         $namespaceName,
         $bucketName,
         $ifMatch = null,
@@ -620,7 +620,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->deleteObject_Helper(
+        return $this->deleteObjectAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectName", true),
@@ -630,7 +630,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function deleteObject_Helper(
+    public function deleteObjectAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectName,
@@ -679,7 +679,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->deleteObjectLifecyclePolicy_Helper(
+        return $this->deleteObjectLifecyclePolicyAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "opcClientRequestId"),
@@ -687,7 +687,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function deleteObjectLifecyclePolicy_Helper(
+    public function deleteObjectLifecyclePolicyAsync_Helper(
         $namespaceName,
         $bucketName,
         $opcClientRequestId = null,
@@ -730,7 +730,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->deletePreauthenticatedRequest_Helper(
+        return $this->deletePreauthenticatedRequestAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "parId", true),
@@ -738,7 +738,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function deletePreauthenticatedRequest_Helper(
+    public function deletePreauthenticatedRequestAsync_Helper(
         $namespaceName,
         $bucketName,
         $parId,
@@ -779,7 +779,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->deleteReplicationPolicy_Helper(
+        return $this->deleteReplicationPolicyAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "replicationId", true),
@@ -787,7 +787,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function deleteReplicationPolicy_Helper(
+    public function deleteReplicationPolicyAsync_Helper(
         $namespaceName,
         $bucketName,
         $replicationId,
@@ -828,7 +828,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->deleteRetentionRule_Helper(
+        return $this->deleteRetentionRuleAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "retentionRuleId", true),
@@ -837,7 +837,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function deleteRetentionRule_Helper(
+    public function deleteRetentionRuleAsync_Helper(
         $namespaceName,
         $bucketName,
         $retentionRuleId,
@@ -882,7 +882,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->getBucket_Helper(
+        return $this->getBucketAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "ifMatch"),
@@ -892,7 +892,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function getBucket_Helper(
+    public function getBucketAsync_Helper(
         $namespaceName,
         $bucketName,
         $ifMatch = null,
@@ -943,13 +943,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->getNamespace_Helper(
+        return $this->getNamespaceAsync_Helper(
             HttpUtils::orNull($params, "opcClientRequestId"),
             HttpUtils::orNull($params, "compartmentId")
         );
     }
 
-    public function getNamespace_Helper(
+    public function getNamespaceAsync_Helper(
         $opcClientRequestId = null,
         $compartmentId = null
     ) {
@@ -988,13 +988,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->getNamespaceMetadata_Helper(
+        return $this->getNamespaceMetadataAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "opcClientRequestId")
         );
     }
 
-    public function getNamespaceMetadata_Helper(
+    public function getNamespaceMetadataAsync_Helper(
         $namespaceName,
         $opcClientRequestId = null
     ) {
@@ -1031,7 +1031,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->getObject_Helper(
+        return $this->getObjectAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectName", true),
@@ -1052,7 +1052,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function getObject_Helper(
+    public function getObjectAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectName,
@@ -1145,14 +1145,14 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->getObjectLifecyclePolicy_Helper(
+        return $this->getObjectLifecyclePolicyAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "opcClientRequestId")
         );
     }
 
-    public function getObjectLifecyclePolicy_Helper(
+    public function getObjectLifecyclePolicyAsync_Helper(
         $namespaceName,
         $bucketName,
         $opcClientRequestId = null
@@ -1191,7 +1191,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->getPreauthenticatedRequest_Helper(
+        return $this->getPreauthenticatedRequestAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "parId", true),
@@ -1199,7 +1199,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function getPreauthenticatedRequest_Helper(
+    public function getPreauthenticatedRequestAsync_Helper(
         $namespaceName,
         $bucketName,
         $parId,
@@ -1240,7 +1240,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->getReplicationPolicy_Helper(
+        return $this->getReplicationPolicyAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "replicationId", true),
@@ -1248,7 +1248,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function getReplicationPolicy_Helper(
+    public function getReplicationPolicyAsync_Helper(
         $namespaceName,
         $bucketName,
         $replicationId,
@@ -1289,7 +1289,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->getRetentionRule_Helper(
+        return $this->getRetentionRuleAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "retentionRuleId", true),
@@ -1297,7 +1297,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function getRetentionRule_Helper(
+    public function getRetentionRuleAsync_Helper(
         $namespaceName,
         $bucketName,
         $retentionRuleId,
@@ -1338,13 +1338,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->getWorkRequest_Helper(
+        return $this->getWorkRequestAsync_Helper(
             HttpUtils::orNull($params, "workRequestId", true),
             HttpUtils::orNull($params, "opcClientRequestId")
         );
     }
 
-    public function getWorkRequest_Helper(
+    public function getWorkRequestAsync_Helper(
         $workRequestId,
         $opcClientRequestId = null
     ) {
@@ -1381,7 +1381,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->headBucket_Helper(
+        return $this->headBucketAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "ifMatch"),
@@ -1390,7 +1390,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function headBucket_Helper(
+    public function headBucketAsync_Helper(
         $namespaceName,
         $bucketName,
         $ifMatch = null,
@@ -1437,7 +1437,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->headObject_Helper(
+        return $this->headObjectAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectName", true),
@@ -1451,7 +1451,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function headObject_Helper(
+    public function headObjectAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectName,
@@ -1516,7 +1516,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listBuckets_Helper(
+        return $this->listBucketsAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "compartmentId", true),
             HttpUtils::orNull($params, "limit"),
@@ -1526,7 +1526,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listBuckets_Helper(
+    public function listBucketsAsync_Helper(
         $namespaceName,
         $compartmentId,
         $limit = null,
@@ -1579,7 +1579,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listMultipartUploadParts_Helper(
+        return $this->listMultipartUploadPartsAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectName", true),
@@ -1590,7 +1590,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listMultipartUploadParts_Helper(
+    public function listMultipartUploadPartsAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectName,
@@ -1643,7 +1643,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listMultipartUploads_Helper(
+        return $this->listMultipartUploadsAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "limit"),
@@ -1652,7 +1652,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listMultipartUploads_Helper(
+    public function listMultipartUploadsAsync_Helper(
         $namespaceName,
         $bucketName,
         $limit = null,
@@ -1699,7 +1699,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listObjectVersions_Helper(
+        return $this->listObjectVersionsAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "prefix"),
@@ -1714,7 +1714,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listObjectVersions_Helper(
+    public function listObjectVersionsAsync_Helper(
         $namespaceName,
         $bucketName,
         $prefix = null,
@@ -1785,7 +1785,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listObjects_Helper(
+        return $this->listObjectsAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "prefix"),
@@ -1799,7 +1799,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listObjects_Helper(
+    public function listObjectsAsync_Helper(
         $namespaceName,
         $bucketName,
         $prefix = null,
@@ -1866,7 +1866,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listPreauthenticatedRequests_Helper(
+        return $this->listPreauthenticatedRequestsAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectNamePrefix"),
@@ -1876,7 +1876,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listPreauthenticatedRequests_Helper(
+    public function listPreauthenticatedRequestsAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectNamePrefix = null,
@@ -1927,7 +1927,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listReplicationPolicies_Helper(
+        return $this->listReplicationPoliciesAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "opcClientRequestId"),
@@ -1936,7 +1936,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listReplicationPolicies_Helper(
+    public function listReplicationPoliciesAsync_Helper(
         $namespaceName,
         $bucketName,
         $opcClientRequestId = null,
@@ -1983,7 +1983,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listReplicationSources_Helper(
+        return $this->listReplicationSourcesAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "opcClientRequestId"),
@@ -1992,7 +1992,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listReplicationSources_Helper(
+    public function listReplicationSourcesAsync_Helper(
         $namespaceName,
         $bucketName,
         $opcClientRequestId = null,
@@ -2039,14 +2039,14 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listRetentionRules_Helper(
+        return $this->listRetentionRulesAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "page")
         );
     }
 
-    public function listRetentionRules_Helper(
+    public function listRetentionRulesAsync_Helper(
         $namespaceName,
         $bucketName,
         $page = null
@@ -2085,7 +2085,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listWorkRequestErrors_Helper(
+        return $this->listWorkRequestErrorsAsync_Helper(
             HttpUtils::orNull($params, "workRequestId", true),
             HttpUtils::orNull($params, "page"),
             HttpUtils::orNull($params, "limit"),
@@ -2093,7 +2093,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listWorkRequestErrors_Helper(
+    public function listWorkRequestErrorsAsync_Helper(
         $workRequestId,
         $page = null,
         $limit = null,
@@ -2138,7 +2138,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listWorkRequestLogs_Helper(
+        return $this->listWorkRequestLogsAsync_Helper(
             HttpUtils::orNull($params, "workRequestId", true),
             HttpUtils::orNull($params, "page"),
             HttpUtils::orNull($params, "limit"),
@@ -2146,7 +2146,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listWorkRequestLogs_Helper(
+    public function listWorkRequestLogsAsync_Helper(
         $workRequestId,
         $page = null,
         $limit = null,
@@ -2191,7 +2191,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->listWorkRequests_Helper(
+        return $this->listWorkRequestsAsync_Helper(
             HttpUtils::orNull($params, "compartmentId", true),
             HttpUtils::orNull($params, "opcClientRequestId"),
             HttpUtils::orNull($params, "page"),
@@ -2199,7 +2199,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function listWorkRequests_Helper(
+    public function listWorkRequestsAsync_Helper(
         $compartmentId,
         $opcClientRequestId = null,
         $page = null,
@@ -2246,14 +2246,14 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->makeBucketWritable_Helper(
+        return $this->makeBucketWritableAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "opcClientRequestId")
         );
     }
 
-    public function makeBucketWritable_Helper(
+    public function makeBucketWritableAsync_Helper(
         $namespaceName,
         $bucketName,
         $opcClientRequestId = null
@@ -2292,7 +2292,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->putObject_Helper(
+        return $this->putObjectAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectName", true),
@@ -2317,7 +2317,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function putObject_Helper(
+    public function putObjectAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectName,
@@ -2425,7 +2425,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->putObjectLifecyclePolicy_Helper(
+        return $this->putObjectLifecyclePolicyAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "putObjectLifecyclePolicyDetails", true),
@@ -2435,7 +2435,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function putObjectLifecyclePolicy_Helper(
+    public function putObjectLifecyclePolicyAsync_Helper(
         $namespaceName,
         $bucketName,
         $putObjectLifecyclePolicyDetails,
@@ -2485,14 +2485,14 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->reencryptBucket_Helper(
+        return $this->reencryptBucketAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "opcClientRequestId")
         );
     }
 
-    public function reencryptBucket_Helper(
+    public function reencryptBucketAsync_Helper(
         $namespaceName,
         $bucketName,
         $opcClientRequestId = null
@@ -2531,7 +2531,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->reencryptObject_Helper(
+        return $this->reencryptObjectAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectName", true),
@@ -2541,7 +2541,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function reencryptObject_Helper(
+    public function reencryptObjectAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectName,
@@ -2589,7 +2589,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->renameObject_Helper(
+        return $this->renameObjectAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "renameObjectDetails", true),
@@ -2597,7 +2597,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function renameObject_Helper(
+    public function renameObjectAsync_Helper(
         $namespaceName,
         $bucketName,
         $renameObjectDetails,
@@ -2639,7 +2639,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->restoreObjects_Helper(
+        return $this->restoreObjectsAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "restoreObjectsDetails", true),
@@ -2647,7 +2647,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function restoreObjects_Helper(
+    public function restoreObjectsAsync_Helper(
         $namespaceName,
         $bucketName,
         $restoreObjectsDetails,
@@ -2689,7 +2689,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->updateBucket_Helper(
+        return $this->updateBucketAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "updateBucketDetails", true),
@@ -2698,7 +2698,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function updateBucket_Helper(
+    public function updateBucketAsync_Helper(
         $namespaceName,
         $bucketName,
         $updateBucketDetails,
@@ -2744,14 +2744,14 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->updateNamespaceMetadata_Helper(
+        return $this->updateNamespaceMetadataAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "updateNamespaceMetadataDetails", true),
             HttpUtils::orNull($params, "opcClientRequestId")
         );
     }
 
-    public function updateNamespaceMetadata_Helper(
+    public function updateNamespaceMetadataAsync_Helper(
         $namespaceName,
         $updateNamespaceMetadataDetails,
         $opcClientRequestId = null
@@ -2791,7 +2791,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->updateObjectStorageTier_Helper(
+        return $this->updateObjectStorageTierAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "updateObjectStorageTierDetails", true),
@@ -2799,7 +2799,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function updateObjectStorageTier_Helper(
+    public function updateObjectStorageTierAsync_Helper(
         $namespaceName,
         $bucketName,
         $updateObjectStorageTierDetails,
@@ -2841,7 +2841,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->updateRetentionRule_Helper(
+        return $this->updateRetentionRuleAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "retentionRuleId", true),
@@ -2851,7 +2851,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function updateRetentionRule_Helper(
+    public function updateRetentionRuleAsync_Helper(
         $namespaceName,
         $bucketName,
         $retentionRuleId,
@@ -2899,7 +2899,7 @@ class ObjectStorageAsyncClient extends AbstractClient
             throw new InvalidArgumentException("The parameter to the operation should be an associative array");
         }
 
-        return $this->uploadPart_Helper(
+        return $this->uploadPartAsync_Helper(
             HttpUtils::orNull($params, "namespaceName", true),
             HttpUtils::orNull($params, "bucketName", true),
             HttpUtils::orNull($params, "objectName", true),
@@ -2919,7 +2919,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         );
     }
 
-    public function uploadPart_Helper(
+    public function uploadPartAsync_Helper(
         $namespaceName,
         $bucketName,
         $objectName,
