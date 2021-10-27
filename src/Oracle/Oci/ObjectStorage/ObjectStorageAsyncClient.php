@@ -19,8 +19,7 @@ class ObjectStorageAsyncClient extends AbstractClient
         AuthProviderInterface $auth_provider,
         $region=null,
         $endpoint=null
-    )
-    {
+    ) {
         parent::__construct(
             ObjectStorageAsyncClient::$endpointTemplate,
             $auth_provider,
@@ -79,13 +78,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'cancelWorkRequest':
@@ -122,13 +121,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'commitMultipartUpload':
@@ -190,13 +189,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'copyObject':
@@ -275,13 +274,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'createBucket':
@@ -322,13 +321,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'createMultipartUpload':
@@ -402,13 +401,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'createPreauthenticatedRequest':
@@ -452,13 +451,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'createReplicationPolicy':
@@ -502,13 +501,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'createRetentionRule':
@@ -552,13 +551,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'deleteBucket':
@@ -603,13 +602,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'deleteObject':
@@ -662,13 +661,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'deleteObjectLifecyclePolicy':
@@ -713,13 +712,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'deletePreauthenticatedRequest':
@@ -762,13 +761,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'deleteReplicationPolicy':
@@ -811,13 +810,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'deleteRetentionRule':
@@ -865,13 +864,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'getBucket':
@@ -926,13 +925,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'getNamespace':
@@ -971,13 +970,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'getNamespaceMetadata':
@@ -1014,13 +1013,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'getObject':
@@ -1128,13 +1127,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            $__response->getBody(),
-            null
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                $__response->getBody(),
+                null
+            );
+        });
     }
 
     // Operation 'getObjectLifecyclePolicy':
@@ -1174,13 +1173,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'getPreauthenticatedRequest':
@@ -1223,13 +1222,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'getReplicationPolicy':
@@ -1272,13 +1271,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'getRetentionRule':
@@ -1321,13 +1320,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'getWorkRequest':
@@ -1364,13 +1363,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'headBucket':
@@ -1420,13 +1419,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'headObject':
@@ -1499,13 +1498,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listBuckets':
@@ -1562,13 +1561,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listMultipartUploadParts':
@@ -1626,13 +1625,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listMultipartUploads':
@@ -1682,13 +1681,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listObjectVersions':
@@ -1768,13 +1767,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listObjects':
@@ -1849,13 +1848,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listPreauthenticatedRequests':
@@ -1910,13 +1909,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listReplicationPolicies':
@@ -1966,13 +1965,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listReplicationSources':
@@ -2022,13 +2021,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listRetentionRules':
@@ -2068,13 +2067,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listWorkRequestErrors':
@@ -2121,13 +2120,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listWorkRequestLogs':
@@ -2174,13 +2173,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'listWorkRequests':
@@ -2229,13 +2228,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'makeBucketWritable':
@@ -2275,13 +2274,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'putObject':
@@ -2408,13 +2407,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'putObjectLifecyclePolicy':
@@ -2468,13 +2467,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'reencryptBucket':
@@ -2514,13 +2513,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'reencryptObject':
@@ -2572,13 +2571,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'renameObject':
@@ -2622,13 +2621,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'restoreObjects':
@@ -2672,13 +2671,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'updateBucket':
@@ -2727,13 +2726,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'updateNamespaceMetadata':
@@ -2774,13 +2773,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'updateObjectStorageTier':
@@ -2824,13 +2823,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'updateRetentionRule':
@@ -2882,13 +2881,13 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 
     // Operation 'uploadPart':
@@ -2990,12 +2989,12 @@ class ObjectStorageAsyncClient extends AbstractClient
             "{$this->endpoint}{$__path}{$__queryStr}",
             [ 'headers' => $__headers, 'body' => $__body ]
         )->then(function ($__response) {
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
-    });
+            return new OciResponse(
+                $__response->getStatusCode(),
+                $__response->getHeaders(),
+                null,
+                json_decode($__response->getBody())
+            );
+        });
     }
 }
