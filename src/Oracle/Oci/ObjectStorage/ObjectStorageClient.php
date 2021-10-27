@@ -11,6 +11,9 @@ use Oracle\Oci\Common\OciResponse;
 use Oracle\Oci\Common\UserAgent;
 use Oracle\Oci\Common\AbstractClient;
 
+use function Oracle\Oci\Common\getPerOperationSigningStrategyNameHeaderName;
+use function Oracle\Oci\Common\getSigningStrategy;
+
 class ObjectStorageClient extends AbstractClient
 {
     /*const*/ protected static $endpointTemplate = "https://objectstorage.{region}.{secondLevelDomain}";
@@ -23,6 +26,7 @@ class ObjectStorageClient extends AbstractClient
         parent::__construct(
             ObjectStorageClient::$endpointTemplate,
             $auth_provider,
+            getSigningStrategy("standard"),
             $region,
             $endpoint
         );
@@ -2352,6 +2356,9 @@ class ObjectStorageClient extends AbstractClient
         if ($opcMeta != null) {
             HttpUtils::encodeMap($__headers, "opcMeta", "", $opcMeta);
         }
+
+        // set per-operation signing strategy
+        HttpUtils::addToArray($__headers, getPerOperationSigningStrategyNameHeaderName(), (string) getSigningStrategy("exclude_body"));
 
         $__query = [];
 

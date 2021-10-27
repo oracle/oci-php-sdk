@@ -4,6 +4,7 @@
 
 ### Requests
 - encode path parameters -- some special UTF-8 characters are not handled correctly by Guzzle
+- check if we should set JSON_UNESCAPED_SLASHES for all json_encode calls
 - signing strategy
 
 ### Major Features

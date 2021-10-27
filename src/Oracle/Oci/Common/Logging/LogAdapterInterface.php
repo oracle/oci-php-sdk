@@ -2,8 +2,6 @@
 
 namespace Oracle\Oci\Common\Logging;
 
-use Oracle\Oci\Common\AbstractClient;
-
 interface LogAdapterInterface
 {
     public function log($message, $priority = LOG_INFO, $extras = [], $logName = null);

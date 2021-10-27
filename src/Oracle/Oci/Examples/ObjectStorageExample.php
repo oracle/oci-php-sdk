@@ -21,8 +21,11 @@ $file_to_upload = "composer.json";
 
 date_default_timezone_set('Etc/UTC');
 setGlobalLogAdapter(new EchoLogAdapter(LOG_INFO, [
-    "Oracle\Oci\ObjectStorage\ObjectStorageClient\middleware\uri" => LOG_DEBUG,
-    "Oracle\Oci\Common\OciResponse" => LOG_DEBUG
+    "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\uri" => LOG_DEBUG,
+    "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\signing\\strategy" => LOG_DEBUG,
+    "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\signing\\strategy\\details" => LOG_INFO,
+    "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\requestHeaders" => LOG_DEBUG,
+    "Oracle\\Oci\\Common\\OciResponse" => LOG_DEBUG
 ]));
 
 echo "UserAgent: " . UserAgent::getUserAgent() . PHP_EOL;
