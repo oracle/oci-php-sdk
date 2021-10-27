@@ -22,7 +22,8 @@ class ObjectStorageClient extends AbstractClient
         AuthProviderInterface $auth_provider,
         $region=null,
         $endpoint=null
-    ) {
+    )
+    {
         parent::__construct(
             ObjectStorageClient::$endpointTemplate,
             $auth_provider,
@@ -2925,6 +2926,9 @@ class ObjectStorageClient extends AbstractClient
         if ($opcSseKmsKeyId != null) {
             HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
+
+        // set per-operation signing strategy
+        HttpUtils::addToArray($__headers, getPerOperationSigningStrategyNameHeaderName(), (string) getSigningStrategy("exclude_body"));
 
         $__query = [];
         if ($uploadId != null) {
