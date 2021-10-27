@@ -13,10 +13,9 @@ class ConfigFile
 
     private function __construct(
         $allProperties,
-        /*string*/ 
+        /*string*/
         $profileName
-    )
-    {
+    ) {
         $this->allProperties = $allProperties;
         $this->profileName = $profileName;
     }

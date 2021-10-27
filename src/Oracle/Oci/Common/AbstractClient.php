@@ -8,12 +8,15 @@ use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
 use InvalidArgumentException;
+use OpenSSLAsymmetricKey;
+use Oracle\Oci\Common\Auth\AuthProviderInterface;
+use Oracle\Oci\Common\Auth\RegionProviderInterface;
 use Oracle\Oci\Common\Logging\LogAdapterInterface;
-use Oracle\Oci\Common\Logging\NoOpLogAdapter;
+use Oracle\Oci\Common\Logging\NamedLogAdapterDecorator;
+use function Oracle\Oci\Common\Logging\getGlobalLogAdapter;
 
 abstract class AbstractClient
 {
-    /*LogAdapterInterface*/ protected static $globalLogAdapter;
     /*LogAdapterInterface*/ protected $logAdapter;
 
     /*AuthProviderInterface*/ protected $auth_provider;
@@ -30,7 +33,7 @@ abstract class AbstractClient
     ) {
         $this->auth_provider = $auth_provider;
 
-        if ($auth_provider instanceof RegionProvider) {
+        if ($auth_provider instanceof RegionProviderInterface) {
             $this->region = $auth_provider->getRegion();
         }
         if ($region != null) {
@@ -44,12 +47,7 @@ abstract class AbstractClient
                     $endpoint = str_replace('{region}', $region, $endpointTemplate);
                     $endpoint = str_replace('{secondLevelDomain}', $realm->getRealmDomainComponent(), $endpoint);
                     $this->region = null;
-                    $this->getLogAdapter()->log(
-                        "Region $region is unknown, assuming it to be in realm $realm. Setting endpoint to $endpoint",
-                        LOG_INFO,
-                        [],
-                        static::class
-                    );
+                    $this->logger()->info("Region $region is unknown, assuming it to be in realm $realm. Setting endpoint to $endpoint");
                 } else {
                     $this->region = $knownRegion;
                 }
@@ -65,24 +63,15 @@ abstract class AbstractClient
             $this->endpoint = str_replace('{region}', $this->region->getRegionId(), $endpointTemplate);
             $this->endpoint = str_replace('{secondLevelDomain}', $this->region->getRealm()->getRealmDomainComponent(), $this->endpoint);
         }
-        $this->getLogAdapter()->log(
-            "Final endpoint: {$this->endpoint}",
-            LOG_DEBUG,
-            [],
-            static::class
-        );
+        $this->logger()->debug("Final endpoint: {$this->endpoint}");
 
         $handler = new CurlHandler();
         $stack = HandlerStack::create($handler);
 
         // place signing middleware after prepare-body so it can access Content-Length header
         $stack->after('prepare_body', Middleware::mapRequest(function (RequestInterface $request) {
-            $this->getLogAdapter()->log(
-                "Request URI: " . $request->getUri(),
-                LOG_DEBUG,
-                [],
-                static::class . "\\middleware\\uri"
-            );
+            $middlewareLogger = $this->logger("middleware");
+            $middlewareLogger->debug("Request URI: " . $request->getUri(), "uri");
 
             // headers required for all HTTP verbs
             $headers = "date (request-target) host";
@@ -117,19 +106,14 @@ abstract class AbstractClient
                 $signing_string = $signing_string . "\ncontent-length: $content_length\ncontent-type: $content_type\nx-content-sha256: $content_sha256";
             }
 
-            $this->getLogAdapter()->log(
-                "Signing string:\n$signing_string",
-                LOG_DEBUG,
-                [],
-                static::class . "\\middleware\\signature"
-            );
+            $middlewareLogger->debug("Signing string:\n$signing_string", "signature");
 
-            $signature = $this->sign_string($signing_string, $this->auth_provider->getKeyFilename(), $this->auth_provider->getKeyPassphrase());
+            $signature = $this->sign_string($signing_string, $this->auth_provider->getPrivateKey(), $this->auth_provider->getKeyPassphrase());
 
             $authorization_header = "Signature version=\"1\",keyId=\"{$this->auth_provider->getKeyId()}\",algorithm=\"rsa-sha256\",headers=\"$headers\",signature=\"$signature\"";
             $request = $request->withHeader('Authorization', $authorization_header);
 
-            if ($this->getLogAdapter()->isLogEnabled(LOG_DEBUG, static::class . "\\middleware\\requestHeaders")) {
+            if ($middlewareLogger->isDebugEnabled(LOG_DEBUG, "requestHeaders")) {
                 $str = "Request headers:";
                 foreach ($request->getHeaders() as $name => $values) {
                     if (is_array($values)) {
@@ -140,12 +124,7 @@ abstract class AbstractClient
                         $str .= PHP_EOL . $name . ': ' . $values;
                     }
                 }
-                $this->getLogAdapter()->log(
-                    $str,
-                    LOG_DEBUG,
-                    [],
-                    static::class . "\\middleware\\requestHeaders"
-                );
+                $middlewareLogger->debug($str, LOG_DEBUG, [], "requestHeaders");
             }
 
             return $request;
@@ -156,37 +135,33 @@ abstract class AbstractClient
         ]);
     }
 
-    protected function sign_string($data, $key_path, $passphrase)
+    protected function sign_string($data, $private_key, $passphrase)
     {
-        $pkeyid = openssl_pkey_get_private($key_path, $passphrase);
-        if (!$pkeyid) {
-            exit('Error reading private key');
+        if ($private_key instanceof OpenSSLAsymmetricKey) {
+            $parsedKey = $private_key;
+        } else {
+            $parsedKey = openssl_pkey_get_private($private_key, $passphrase);
+            if (!$parsedKey) {
+                throw new InvalidArgumentException('Error reading private key');
+            }
         }
 
-        openssl_sign($data, $signature, $pkeyid, OPENSSL_ALGO_SHA256);
+        openssl_sign($data, $signature, $parsedKey, OPENSSL_ALGO_SHA256);
 
         return base64_encode($signature);
     }
 
-    public static function getGlobalLogAdapter() // : LogAdapterInterface
+    public function logger($logName = null) // : LogAdapterInterface
     {
-        if (AbstractClient::$globalLogAdapter == null) {
-            AbstractClient::setGlobalLogAdapter(new NoOpLogAdapter());
-        }
-        return AbstractClient::$globalLogAdapter;
-    }
-
-    public static function setGlobalLogAdapter(LogAdapterInterface $logAdapter)
-    {
-        AbstractClient::$globalLogAdapter = $logAdapter;
-    }
-
-    public function getLogAdapter() // : LogAdapterInterface
-    {
+        $logger = getGlobalLogAdapter();
         if ($this->logAdapter != null) {
-            return $this->logAdapter;
+            $logger = $this->logAdapter;
         }
-        return AbstractClient::getGlobalLogAdapter();
+        if ($logName == null || strlen($logName) == 0) {
+            return new NamedLogAdapterDecorator(static::class, $logger);
+        } else {
+            return new NamedLogAdapterDecorator(static::class . "\\" . $logName, $logger);
+        }
     }
 
     public function setLogAdapter(LogAdapterInterface $logAdapter)

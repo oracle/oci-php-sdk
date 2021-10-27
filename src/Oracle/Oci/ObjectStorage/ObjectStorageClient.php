@@ -5,7 +5,7 @@
 namespace Oracle\Oci\ObjectStorage;
 
 use InvalidArgumentException;
-use Oracle\Oci\Common\AuthProviderInterface;
+use Oracle\Oci\Common\Auth\AuthProviderInterface;
 use Oracle\Oci\Common\HttpUtils;
 use Oracle\Oci\Common\OciResponse;
 use Oracle\Oci\Common\UserAgent;
@@ -19,8 +19,7 @@ class ObjectStorageClient extends AbstractClient
         AuthProviderInterface $auth_provider,
         $region=null,
         $endpoint=null
-    )
-    {
+    ) {
         parent::__construct(
             ObjectStorageClient::$endpointTemplate,
             $auth_provider,

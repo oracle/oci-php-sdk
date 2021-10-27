@@ -12,12 +12,11 @@ class Realm
     protected static $unknownRegionRealm;
 
     public function __construct(
-        /*string*/ 
+        /*string*/
         $realmId,
-        /*string*/ 
+        /*string*/
         $realmDomainComponent
-    )
-    {
+    ) {
         $this->realmId = strtolower($realmId);
         $this->realmDomainComponent = $realmDomainComponent;
         Realm::$knownRealms[$realmId] = $this;
@@ -47,7 +46,7 @@ class Realm
     }
 
     public static function getRealm(
-        /*string*/ 
+        /*string*/
         $realmId
     ) // : ?Realm
     {
@@ -82,13 +81,12 @@ class Region
     protected static $knownRegionsByCode = [];
 
     public function __construct(
-        /*string*/ 
+        /*string*/
         $regionId,
-        /*string*/ 
+        /*string*/
         $regionCode,
         Realm $realm
-    )
-    {
+    ) {
         $this->regionId = strtolower($regionId);
         $this->regionCode = strtolower($regionCode);
         $this->realm = $realm;
@@ -162,7 +160,7 @@ class Region
     }
 
     public static function getRegion(
-        /*string*/ 
+        /*string*/
         $regionIdOrCode
     ) // : ?Region
     {
@@ -174,7 +172,7 @@ class Region
     }
 
     public static function getRegionById(
-        /*string*/ 
+        /*string*/
         $regionId
     ) // : ?Region
     {
@@ -187,7 +185,7 @@ class Region
     }
 
     public static function getRegionByCode(
-        /*string*/ 
+        /*string*/
         $regionCode
     ) // : ?Region
     {

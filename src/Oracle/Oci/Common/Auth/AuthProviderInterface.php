@@ -1,17 +1,31 @@
 <?php
 
-namespace Oracle\Oci\Common;
+namespace Oracle\Oci\Common\Auth;
+
+use Oracle\Oci\Common\ConfigFile;
+use Oracle\Oci\Common\Realm;
+use Oracle\Oci\Common\Region;
 
 interface AuthProviderInterface
 {
-    public function getKeyFilename(); //  : string;
+    /**
+     * Return the private key.
+     *
+     * @return OpenSSLAsymmetricKey|string either an already parsed OpenSSLAsymmetricKey, a filename in the format scheme://path/to/file.pem, or a PEM formatted private key as a string.
+     */
+    public function getPrivateKey(); //  : string;
     public function getKeyPassphrase(); // : ?string;
     public function getKeyId(); // : string;
 }
 
-interface RegionProvider
+interface RegionProviderInterface
 {
     public function getRegion(); // : Region;
+}
+
+interface RefreshableOnNotAuthenticatedInterface
+{
+    public function refresh();
 }
 
 class UserAuthProvider implements AuthProviderInterface
@@ -19,26 +33,29 @@ class UserAuthProvider implements AuthProviderInterface
     /*string*/ protected $tenancy_id;
     /*string*/ protected $user_id;
     /*string*/ protected $fingerprint;
-    /*string*/ protected $key_filename;
+
+    /**
+     * Either an already parsed OpenSSLAsymmetricKey, a filename in the format scheme://path/to/file.pem, or a PEM formatted private key as a string.
+     */
+    /*string*/ protected $private_key;
     /*?string*/ protected $key_passphrase;
 
     public function __construct(
-        /*string*/ 
+        /*string*/
         $tenancy_id,
-        /*string*/ 
+        /*string*/
         $user_id,
-        /*string*/ 
+        /*string*/
         $fingerprint,
-        /*string*/ 
-        $key_filename,
-        /*string*/ 
+        /*string*/
+        $private_key,
+        /*string*/
         $key_passphrase = null
-    )
-    {
+    ) {
         $this->tenancy_id = $tenancy_id;
         $this->user_id = $user_id;
         $this->fingerprint = $fingerprint;
-        $this->key_filename = $key_filename;
+        $this->private_key = $private_key;
         $this->key_passphrase = $key_passphrase;
     }
 
@@ -55,7 +72,7 @@ class UserAuthProvider implements AuthProviderInterface
         return $this->fingerprint;
     }
 
-    public function getKeyFilename() // : string
+    public function getPrivateKey() // : string
     {
         return $this->key_filename;
     }
@@ -71,13 +88,13 @@ class UserAuthProvider implements AuthProviderInterface
     }
 }
 
-class ConfigFileAuthProvider implements AuthProviderInterface, RegionProvider
+class ConfigFileAuthProvider implements AuthProviderInterface, RegionProviderInterface
 {
     /*ConfigFile*/ protected $cf;
     /*string*/ protected $tenancy_id;
     /*string*/ protected $user_id;
     /*string*/ protected $fingerprint;
-    /*string*/ protected $key_filename;
+    /*string*/ protected $private_key;
     /*?string*/ protected $key_passphrase;
     /*?Region*/ protected $region;
 
@@ -95,9 +112,9 @@ class ConfigFileAuthProvider implements AuthProviderInterface, RegionProvider
 
         $filename = str_replace('/', DIRECTORY_SEPARATOR, $this->cf->get("key_file"));
         if (strlen($filename) >= 2 && substr($filename, 0, 2) == "~" . DIRECTORY_SEPARATOR) {
-            $this->key_filename = "file://" . ConfigFile::getUserHome() . DIRECTORY_SEPARATOR . substr($filename, 2);
+            $this->private_key = "file://" . ConfigFile::getUserHome() . DIRECTORY_SEPARATOR . substr($filename, 2);
         } else {
-            $this->key_filename = "file://" . $filename;
+            $this->private_key = "file://" . $filename;
         }
 
         $this->key_passphrase = $this->cf->get("pass_phrase");
@@ -130,9 +147,9 @@ class ConfigFileAuthProvider implements AuthProviderInterface, RegionProvider
         return $this->fingerprint;
     }
 
-    public function getKeyFilename() // : string
+    public function getPrivateKey() // : string
     {
-        return $this->key_filename;
+        return $this->private_key;
     }
 
     public function getKeyPassphrase() // : ?string
