@@ -33,7 +33,7 @@ class SigningStrategyTest extends TestCase
     public function testFederationPost()
     {
         $ss = getSigningStrategy("federation");
-        
+
         $requiredHeaders = $ss->getRequiredSigningHeaders("post");
 
         $this->assertFalse(array_search("host", $requiredHeaders) !== false);
@@ -42,7 +42,7 @@ class SigningStrategyTest extends TestCase
     public function testObjectStoragePut()
     {
         $ss = getSigningStrategy("object_storage");
-        
+
         $requiredHeaders = $ss->getRequiredSigningHeaders("put");
 
         $this->assertTrue(array_search("host", $requiredHeaders) !== false);
@@ -54,7 +54,7 @@ class SigningStrategyTest extends TestCase
     public function testStandardPut()
     {
         $ss = getSigningStrategy("standard");
-        
+
         $requiredHeaders = $ss->getRequiredSigningHeaders("put");
 
         $this->assertTrue(array_search("host", $requiredHeaders) !== false);
@@ -66,7 +66,7 @@ class SigningStrategyTest extends TestCase
     public function testExcludeBodyPut()
     {
         $ss = getSigningStrategy("exclude_body");
-        
+
         $requiredHeaders = $ss->getRequiredSigningHeaders("put");
 
         $this->assertTrue(array_search("host", $requiredHeaders) !== false);
@@ -78,7 +78,7 @@ class SigningStrategyTest extends TestCase
     public function testObjectStoragePost()
     {
         $ss = getSigningStrategy("object_storage");
-        
+
         $requiredHeaders = $ss->getRequiredSigningHeaders("post");
 
         $this->assertTrue(array_search("host", $requiredHeaders) !== false);
@@ -90,7 +90,7 @@ class SigningStrategyTest extends TestCase
     public function testStandardPost()
     {
         $ss = getSigningStrategy("standard");
-        
+
         $requiredHeaders = $ss->getRequiredSigningHeaders("post");
 
         $this->assertTrue(array_search("host", $requiredHeaders) !== false);
@@ -102,7 +102,7 @@ class SigningStrategyTest extends TestCase
     public function testExcludeBodyPost()
     {
         $ss = getSigningStrategy("exclude_body");
-        
+
         $requiredHeaders = $ss->getRequiredSigningHeaders("post");
 
         $this->assertTrue(array_search("host", $requiredHeaders) !== false);

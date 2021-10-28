@@ -76,39 +76,39 @@ abstract class AbstractClient
             $middlewareLogger = $this->logger("middleware");
             $middlewareLogger->debug("Request URI: " . $request->getUri(), "uri");
 
-        $signingStrategyForOperation = $this->signingStrategy;
-        if ($request->hasHeader(getPerOperationSigningStrategyNameHeaderName())) {
-            $perOperationSigningStrategy = $request->getHeader(getPerOperationSigningStrategyNameHeaderName());
-            $c = count($perOperationSigningStrategy);
-            if ($c == 1) {
-                $signingStrategyForOperation = getSigningStrategy($perOperationSigningStrategy[0]);
-                $request = $request->withoutHeader(getPerOperationSigningStrategyNameHeaderName());
-                $middlewareLogger->debug("Using per-operation signing strategy '$signingStrategyForOperation'.", "signing\\strategy");
-            } elseif ($c > 1) {
-                throw new InvalidArgumentException("Should only have one value for the " . getPerOperationSigningStrategyNameHeaderName() . " header, had $c.");
+            $signingStrategyForOperation = $this->signingStrategy;
+            if ($request->hasHeader(getPerOperationSigningStrategyNameHeaderName())) {
+                $perOperationSigningStrategy = $request->getHeader(getPerOperationSigningStrategyNameHeaderName());
+                $c = count($perOperationSigningStrategy);
+                if ($c == 1) {
+                    $signingStrategyForOperation = getSigningStrategy($perOperationSigningStrategy[0]);
+                    $request = $request->withoutHeader(getPerOperationSigningStrategyNameHeaderName());
+                    $middlewareLogger->debug("Using per-operation signing strategy '$signingStrategyForOperation'.", "signing\\strategy");
+                } elseif ($c > 1) {
+                    throw new InvalidArgumentException("Should only have one value for the " . getPerOperationSigningStrategyNameHeaderName() . " header, had $c.");
+                }
+            } else {
+                $middlewareLogger->debug("Using per-client signing strategy '$signingStrategyForOperation'.", "signing\\strategy");
             }
-        } else {
-            $middlewareLogger->debug("Using per-client signing strategy '$signingStrategyForOperation'.", "signing\\strategy");
-        }
 
-        // headers required for signing
-        $method = strtolower($request->getMethod());
-        $headers = $signingStrategyForOperation->getRequiredSigningHeaders($method);
-        $middlewareLogger->debug("Required headers: '" . implode(" ", $headers) . "'.", "signing\\strategy\\details");
-        $optionalHeaders = $signingStrategyForOperation->getOptionalSigningHeaders();
-        $middlewareLogger->debug("Optional headers: '" . implode(" ", $optionalHeaders) . "'.", "signing\\strategy\\details");
-        foreach ($optionalHeaders as $oh) {
-            if ($request->hasHeader($oh)) {
-                $headers[] = $oh;
+            // headers required for signing
+            $method = strtolower($request->getMethod());
+            $headers = $signingStrategyForOperation->getRequiredSigningHeaders($method);
+            $middlewareLogger->debug("Required headers: '" . implode(" ", $headers) . "'.", "signing\\strategy\\details");
+            $optionalHeaders = $signingStrategyForOperation->getOptionalSigningHeaders();
+            $middlewareLogger->debug("Optional headers: '" . implode(" ", $optionalHeaders) . "'.", "signing\\strategy\\details");
+            foreach ($optionalHeaders as $oh) {
+                if ($request->hasHeader($oh)) {
+                    $headers[] = $oh;
+                }
             }
-        }
-        $headersString = implode(" ", $headers);
-        $middlewareLogger->debug("Headers used for signing: '$headersString'.", "signing\\strategy\\details");
-        
-        $signingParts = [];
-        foreach ($headers as $h) {
-            $lch = strtolower($h);
-            switch ($lch) {
+            $headersString = implode(" ", $headers);
+            $middlewareLogger->debug("Headers used for signing: '$headersString'.", "signing\\strategy\\details");
+
+            $signingParts = [];
+            foreach ($headers as $h) {
+                $lch = strtolower($h);
+                switch ($lch) {
                 case "date":
                     // example: Thu, 05 Jan 2014 21:31:40 GMT
                     $date = gmdate("D, d M Y H:i:s T", time());
@@ -156,25 +156,25 @@ abstract class AbstractClient
                         throw new InvalidArgumentException("Headers to be signed must be single values, did not find header '$h'.");
                     }
             }
-        }
+            }
 
-        $signing_string = implode("\n", $signingParts);
-        $middlewareLogger->debug("Signing string:\n$signing_string", "signing\\signature");
+            $signing_string = implode("\n", $signingParts);
+            $middlewareLogger->debug("Signing string:\n$signing_string", "signing\\signature");
 
-        $signature = $this->sign_string($signing_string, $this->auth_provider->getPrivateKey(), $this->auth_provider->getKeyPassphrase());
+            $signature = $this->sign_string($signing_string, $this->auth_provider->getPrivateKey(), $this->auth_provider->getKeyPassphrase());
 
-        $authorization_header = "Signature version=\"1\",keyId=\"{$this->auth_provider->getKeyId()}\",algorithm=\"rsa-sha256\",headers=\"$headers\",signature=\"$signature\"";
-        $request = $request->withHeader('Authorization', $authorization_header);
+            $authorization_header = "Signature version=\"1\",keyId=\"{$this->auth_provider->getKeyId()}\",algorithm=\"rsa-sha256\",headers=\"$headersString\",signature=\"$signature\"";
+            $request = $request->withHeader('Authorization', $authorization_header);
 
-        if ($middlewareLogger->isDebugEnabled(LOG_DEBUG, "requestHeaders")) {
-            $str = "Request headers:";
-            foreach ($request->getHeaders() as $name => $values) {
-                if (is_array($values)) {
-                    foreach ($values as $item) {
-                        $str .= PHP_EOL . $name . ': ' . $item;
-                    }
-                } else {
-                    $str .= PHP_EOL . $name . ': ' . $values;
+            if ($middlewareLogger->isDebugEnabled(LOG_DEBUG, "requestHeaders")) {
+                $str = "Request headers:";
+                foreach ($request->getHeaders() as $name => $values) {
+                    if (is_array($values)) {
+                        foreach ($values as $item) {
+                            $str .= PHP_EOL . $name . ': ' . $item;
+                        }
+                    } else {
+                        $str .= PHP_EOL . $name . ': ' . $values;
                     }
                 }
                 $middlewareLogger->debug($str, LOG_DEBUG, [], "requestHeaders");
