@@ -75,20 +75,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{objectName}', utf8_encode($objectName), $__path);
 
-        try {
-            $__response = $this->client->delete(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'cancelWorkRequest':
@@ -121,20 +108,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = "/workRequests/{workRequestId}";
         $__path = str_replace('{workRequestId}', utf8_encode($workRequestId), $__path);
 
-        try {
-            $__response = $this->client->delete(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'commitMultipartUpload':
@@ -192,20 +166,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($commitMultipartUploadDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'copyObject':
@@ -280,20 +241,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($copyObjectDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'createBucket':
@@ -330,20 +278,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($createBucketDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'createMultipartUpload':
@@ -413,20 +348,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($createMultipartUploadDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'createPreauthenticatedRequest':
@@ -466,20 +388,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($createPreauthenticatedRequestDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'createReplicationPolicy':
@@ -519,20 +428,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($createReplicationPolicyDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'createRetentionRule':
@@ -572,20 +468,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($createRetentionRuleDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'deleteBucket':
@@ -626,20 +509,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->delete(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'deleteObject':
@@ -688,20 +558,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{objectName}', utf8_encode($objectName), $__path);
 
-        try {
-            $__response = $this->client->delete(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'deleteObjectLifecyclePolicy':
@@ -742,20 +599,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->delete(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'deletePreauthenticatedRequest':
@@ -794,20 +638,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{parId}', utf8_encode($parId), $__path);
 
-        try {
-            $__response = $this->client->delete(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'deleteReplicationPolicy':
@@ -846,20 +677,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{replicationId}', utf8_encode($replicationId), $__path);
 
-        try {
-            $__response = $this->client->delete(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'deleteRetentionRule':
@@ -903,20 +721,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{retentionRuleId}', utf8_encode($retentionRuleId), $__path);
 
-        try {
-            $__response = $this->client->delete(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'getBucket':
@@ -967,20 +772,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'getNamespace':
@@ -1015,20 +807,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__path = "/n/";
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'getNamespaceMetadata':
@@ -1061,20 +840,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = "/n/{namespaceName}";
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'getObject':
@@ -1178,20 +944,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{objectName}', utf8_encode($objectName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            $__response->getBody(),
-            null
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'response_body_type' => 'binary' ]);
     }
 
     // Operation 'getObjectLifecyclePolicy':
@@ -1227,20 +980,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'getPreauthenticatedRequest':
@@ -1279,20 +1019,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{parId}', utf8_encode($parId), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'getReplicationPolicy':
@@ -1331,20 +1058,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{replicationId}', utf8_encode($replicationId), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'getRetentionRule':
@@ -1383,20 +1097,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{retentionRuleId}', utf8_encode($retentionRuleId), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'getWorkRequest':
@@ -1429,20 +1130,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = "/workRequests/{workRequestId}";
         $__path = str_replace('{workRequestId}', utf8_encode($workRequestId), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'headBucket':
@@ -1488,20 +1176,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->head(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("HEAD", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'headObject':
@@ -1570,20 +1245,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{objectName}', utf8_encode($objectName), $__path);
 
-        try {
-            $__response = $this->client->head(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("HEAD", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listBuckets':
@@ -1636,20 +1298,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = "/n/{namespaceName}/b/";
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listMultipartUploadParts':
@@ -1703,20 +1352,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{objectName}', utf8_encode($objectName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listMultipartUploads':
@@ -1762,20 +1398,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listObjectVersions':
@@ -1851,20 +1474,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listObjects':
@@ -1935,20 +1545,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listPreauthenticatedRequests':
@@ -1999,20 +1596,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listReplicationPolicies':
@@ -2058,20 +1642,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listReplicationSources':
@@ -2117,20 +1688,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listRetentionRules':
@@ -2166,20 +1724,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listWorkRequestErrors':
@@ -2222,20 +1767,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = "/workRequests/{workRequestId}/errors";
         $__path = str_replace('{workRequestId}', utf8_encode($workRequestId), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listWorkRequestLogs':
@@ -2278,20 +1810,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = "/workRequests/{workRequestId}/logs";
         $__path = str_replace('{workRequestId}', utf8_encode($workRequestId), $__path);
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'listWorkRequests':
@@ -2336,20 +1855,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__path = "/workRequests";
 
-        try {
-            $__response = $this->client->get(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'makeBucketWritable':
@@ -2385,20 +1891,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'putObject':
@@ -2521,20 +2014,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = $putObjectBody;
 
-        try {
-            $__response = $this->client->put(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("PUT", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'putObjectLifecyclePolicy':
@@ -2584,20 +2064,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($putObjectLifecyclePolicyDetails);
 
-        try {
-            $__response = $this->client->put(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("PUT", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'reencryptBucket':
@@ -2633,20 +2100,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{namespaceName}', utf8_encode($namespaceName), $__path);
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
 
     // Operation 'reencryptObject':
@@ -2694,20 +2148,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($reencryptObjectDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'renameObject':
@@ -2747,20 +2188,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($renameObjectDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'restoreObjects':
@@ -2800,20 +2228,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($restoreObjectsDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'updateBucket':
@@ -2858,20 +2273,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($updateBucketDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'updateNamespaceMetadata':
@@ -2908,20 +2310,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($updateNamespaceMetadataDetails);
 
-        try {
-            $__response = $this->client->put(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("PUT", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'updateObjectStorageTier':
@@ -2961,20 +2350,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($updateObjectStorageTierDetails);
 
-        try {
-            $__response = $this->client->post(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'updateRetentionRule':
@@ -3022,20 +2398,7 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = json_encode($updateRetentionRuleDetails);
 
-        try {
-            $__response = $this->client->put(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("PUT", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 
     // Operation 'uploadPart':
@@ -3133,19 +2496,6 @@ class ObjectStorageClient extends AbstractClient
 
         $__body = $uploadPartBody;
 
-        try {
-            $__response = $this->client->put(
-                "{$this->endpoint}{$__path}{$__queryStr}",
-                [ 'headers' => $__headers, 'body' => $__body ]
-            );
-        } catch (BadResponseException $e) {
-            $__response = $e->getResponse();
-        }
-        return new OciResponse(
-            $__response->getStatusCode(),
-            $__response->getHeaders(),
-            null,
-            json_decode($__response->getBody())
-        );
+        return $this->callApi("PUT", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
 }

@@ -7,6 +7,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Request;
 use InvalidArgumentException;
 use OpenSSLAsymmetricKey;
 use Oracle\Oci\Common\Auth\AuthProviderInterface;
@@ -273,5 +274,38 @@ abstract class AbstractClient
     public function setLogAdapter(LogAdapterInterface $logAdapter)
     {
         $this->globalLogAdapter = $logAdapter;
+    }
+
+    public function callApi($httpMethod, $endpoint, &$extras)
+    {
+        return $this->callApiAsync($httpMethod, $endpoint, $extras)->wait();
+    }
+
+    public function callApiAsync($httpMethod, $endpoint, &$extras)
+    {
+        $request = new Request($httpMethod, $endpoint, $extras['headers'], $extras['body']);
+        $responsePromise = $this->client->sendAsync($request)->then(
+            function ($__response) use ($extras) {
+                $__response->getBody();
+                if (isset($extras['response_body_type']) && $extras['response_body_type'] == 'binary') {
+                    return new OciResponse(
+                        $__response->getStatusCode(),
+                        $__response->getHeaders(),
+                        $__response->getBody(),
+                        null
+                    );
+                }
+                return new OciResponse(
+                    $__response->getStatusCode(),
+                    $__response->getHeaders(),
+                    null,
+                    json_decode($__response->getBody())
+                );
+            },
+            function ($__e) {
+                return HttpUtils::processBadResponseException($__e, false);
+            }
+        );
+        return $responsePromise;
     }
 }

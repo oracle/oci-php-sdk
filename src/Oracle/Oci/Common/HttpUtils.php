@@ -130,26 +130,12 @@ class HttpUtils
         return $str;
     }
 
-    public static function processBadResponseException(&$e, $hasBinaryBody)
+    public static function processBadResponseException(&$e)
     {
         // BadResponseException includes 4xx and 5xx exceptions
         if ($e instanceof BadResponseException) {
             $__response = $e->getResponse();
-            if ($hasBinaryBody) {
-                return new OciResponse(
-                    $__response->getStatusCode(),
-                    $__response->getHeaders(),
-                    $__response->getBody(),
-                    null
-                );
-            } else {
-                return new OciResponse(
-                    $__response->getStatusCode(),
-                    $__response->getHeaders(),
-                    null,
-                    json_decode($__response->getBody())
-                );
-            }
+            throw new OciBadResponseException($__response);
         }
         // We'll directly throw ConnectException, RequestException (excluding BadResponseException)
         throw $e;
