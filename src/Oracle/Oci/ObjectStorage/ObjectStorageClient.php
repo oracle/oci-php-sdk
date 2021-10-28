@@ -22,8 +22,7 @@ class ObjectStorageClient extends AbstractClient
         AuthProviderInterface $auth_provider,
         $region=null,
         $endpoint=null
-    )
-    {
+    ) {
         parent::__construct(
             ObjectStorageClient::$endpointTemplate,
             $auth_provider,
