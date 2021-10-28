@@ -44,12 +44,22 @@ class OciBadResponseException extends OciException
     {
         $this->response = $response;
         $this->statusCode = $response->getStatusCode();
-        $this->messgae = $response->getBody();
-        $this->opcRequestId = $response->getHeader('opc-request-id');
+        $this->errorCode = $response->getReasonPhrase();
+        $this->message = $response->getBody()->getContents();
+        $this->opcRequestId = $response->getHeader('opc-request-id')[0];
+
+        # TODO
+        $targetService = "";
+        $operationName = "";
+        $timestamp = "";
+        $requestEndpoint = "";
+        $clientVersion = "";
+        $operationReferenceLink = "";
+        $errorTroubleshootingLink = "";
     }
 
     public function __toString()
     {
-        return __CLASS__ . ": [{$this->statusCode}]: {$this->errorCode}\n";
+        return "Error returned by $this->targetService Service. Http Status Code: $this->statusCode. Error Code: $this->errorCode. Message: $this->message. Opc request id: $this->opcRequestId.\n";
     }
 }

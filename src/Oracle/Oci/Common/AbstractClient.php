@@ -27,6 +27,8 @@ abstract class AbstractClient
     /*string*/ protected $endpoint;
     protected $client;
 
+    const DEFAULT_HEADERS = [];
+
     public function __construct(
         $endpointTemplate,
         AuthProviderInterface $auth_provider,
@@ -276,16 +278,16 @@ abstract class AbstractClient
         $this->globalLogAdapter = $logAdapter;
     }
 
-    public function callApi($httpMethod, $endpoint, &$extras)
+    public function callApi($httpMethod, $endpoint, $opts)
     {
-        return $this->callApiAsync($httpMethod, $endpoint, $extras)->wait();
+        return $this->callApiAsync($httpMethod, $endpoint, $opts)->wait();
     }
 
-    public function callApiAsync($httpMethod, $endpoint, &$extras)
+    public function callApiAsync($httpMethod, $endpoint, $opts)
     {
-        $request = new Request($httpMethod, $endpoint, $extras['headers'], $extras['body']);
+        $request = $this->initRequest($httpMethod, $endpoint, $opts);
         $responsePromise = $this->client->sendAsync($request)->then(
-            function ($__response) use ($extras) {
+            function ($__response) use ($opts) {
                 $__response->getBody();
                 if (isset($extras['response_body_type']) && $extras['response_body_type'] == 'binary') {
                     return new OciResponse(
@@ -307,5 +309,12 @@ abstract class AbstractClient
             }
         );
         return $responsePromise;
+    }
+
+    private function initRequest($method, $endpoint, $opts)
+    {
+        $headers = isset($opts['headers']) ? $opts['headers'] + self::DEFAULT_HEADERS : self::DEFAULT_HEADERS;
+        $body = isset($opts['body']) ? $opts['body'] : null;
+        return new Request($method, $endpoint, $headers, $body);
     }
 }

@@ -11,6 +11,9 @@ use Oracle\Oci\Common\OciResponse;
 use Oracle\Oci\Common\UserAgent;
 use Oracle\Oci\Common\AbstractClient;
 
+use function Oracle\Oci\Common\getPerOperationSigningStrategyNameHeaderName;
+use function Oracle\Oci\Common\getSigningStrategy;
+
 class ObjectStorageClient extends AbstractClient
 {
     /*const*/ protected static $endpointTemplate = "https://objectstorage.{region}.{secondLevelDomain}";
@@ -19,11 +22,11 @@ class ObjectStorageClient extends AbstractClient
         AuthProviderInterface $auth_provider,
         $region=null,
         $endpoint=null
-    )
-    {
+    ) {
         parent::__construct(
             ObjectStorageClient::$endpointTemplate,
             $auth_provider,
+            getSigningStrategy("standard"),
             $region,
             $endpoint
         );
@@ -77,7 +80,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'cancelWorkRequest':
     // path /workRequests/{workRequestId}
     public function cancelWorkRequest($params=[])
@@ -110,7 +112,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'commitMultipartUpload':
     // path /n/{namespaceName}/b/{bucketName}/u/{objectName}
     public function commitMultipartUpload($params=[])
@@ -168,7 +169,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'copyObject':
     // path /n/{namespaceName}/b/{bucketName}/actions/copyObject
     public function copyObject($params=[])
@@ -243,7 +243,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'createBucket':
     // path /n/{namespaceName}/b/
     public function createBucket($params=[])
@@ -280,7 +279,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'createMultipartUpload':
     // path /n/{namespaceName}/b/{bucketName}/u
     public function createMultipartUpload($params=[])
@@ -350,7 +348,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'createPreauthenticatedRequest':
     // path /n/{namespaceName}/b/{bucketName}/p/
     public function createPreauthenticatedRequest($params=[])
@@ -390,7 +387,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'createReplicationPolicy':
     // path /n/{namespaceName}/b/{bucketName}/replicationPolicies
     public function createReplicationPolicy($params=[])
@@ -430,7 +426,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'createRetentionRule':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules
     public function createRetentionRule($params=[])
@@ -470,7 +465,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'deleteBucket':
     // path /n/{namespaceName}/b/{bucketName}/
     public function deleteBucket($params=[])
@@ -511,7 +505,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'deleteObject':
     // path /n/{namespaceName}/b/{bucketName}/o/{objectName}
     public function deleteObject($params=[])
@@ -560,7 +553,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'deleteObjectLifecyclePolicy':
     // path /n/{namespaceName}/b/{bucketName}/l
     public function deleteObjectLifecyclePolicy($params=[])
@@ -601,7 +593,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'deletePreauthenticatedRequest':
     // path /n/{namespaceName}/b/{bucketName}/p/{parId}
     public function deletePreauthenticatedRequest($params=[])
@@ -640,7 +631,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'deleteReplicationPolicy':
     // path /n/{namespaceName}/b/{bucketName}/replicationPolicies/{replicationId}
     public function deleteReplicationPolicy($params=[])
@@ -679,7 +669,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'deleteRetentionRule':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}
     public function deleteRetentionRule($params=[])
@@ -723,7 +712,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("DELETE", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'getBucket':
     // path /n/{namespaceName}/b/{bucketName}/
     public function getBucket($params=[])
@@ -774,7 +762,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'getNamespace':
     // path /n/
     public function getNamespace($params=[])
@@ -809,7 +796,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'getNamespaceMetadata':
     // path /n/{namespaceName}
     public function getNamespaceMetadata($params=[])
@@ -842,7 +828,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'getObject':
     // path /n/{namespaceName}/b/{bucketName}/o/{objectName}
     public function getObject($params=[])
@@ -944,9 +929,8 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{objectName}', utf8_encode($objectName), $__path);
 
-        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'response_body_type' => 'binary' ]);
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'getObjectLifecyclePolicy':
     // path /n/{namespaceName}/b/{bucketName}/l
     public function getObjectLifecyclePolicy($params=[])
@@ -982,7 +966,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'getPreauthenticatedRequest':
     // path /n/{namespaceName}/b/{bucketName}/p/{parId}
     public function getPreauthenticatedRequest($params=[])
@@ -1021,7 +1004,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'getReplicationPolicy':
     // path /n/{namespaceName}/b/{bucketName}/replicationPolicies/{replicationId}
     public function getReplicationPolicy($params=[])
@@ -1060,7 +1042,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'getRetentionRule':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}
     public function getRetentionRule($params=[])
@@ -1099,7 +1080,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'getWorkRequest':
     // path /workRequests/{workRequestId}
     public function getWorkRequest($params=[])
@@ -1132,7 +1112,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'headBucket':
     // path /n/{namespaceName}/b/{bucketName}/
     public function headBucket($params=[])
@@ -1178,7 +1157,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("HEAD", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'headObject':
     // path /n/{namespaceName}/b/{bucketName}/o/{objectName}
     public function headObject($params=[])
@@ -1247,7 +1225,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("HEAD", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listBuckets':
     // path /n/{namespaceName}/b/
     public function listBuckets($params=[])
@@ -1300,7 +1277,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listMultipartUploadParts':
     // path /n/{namespaceName}/b/{bucketName}/u/{objectName}
     public function listMultipartUploadParts($params=[])
@@ -1354,7 +1330,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listMultipartUploads':
     // path /n/{namespaceName}/b/{bucketName}/u
     public function listMultipartUploads($params=[])
@@ -1400,7 +1375,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listObjectVersions':
     // path /n/{namespaceName}/b/{bucketName}/objectversions
     public function listObjectVersions($params=[])
@@ -1476,7 +1450,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listObjects':
     // path /n/{namespaceName}/b/{bucketName}/o
     public function listObjects($params=[])
@@ -1547,7 +1520,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listPreauthenticatedRequests':
     // path /n/{namespaceName}/b/{bucketName}/p/
     public function listPreauthenticatedRequests($params=[])
@@ -1598,7 +1570,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listReplicationPolicies':
     // path /n/{namespaceName}/b/{bucketName}/replicationPolicies
     public function listReplicationPolicies($params=[])
@@ -1644,7 +1615,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listReplicationSources':
     // path /n/{namespaceName}/b/{bucketName}/replicationSources
     public function listReplicationSources($params=[])
@@ -1690,7 +1660,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listRetentionRules':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules
     public function listRetentionRules($params=[])
@@ -1726,7 +1695,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listWorkRequestErrors':
     // path /workRequests/{workRequestId}/errors
     public function listWorkRequestErrors($params=[])
@@ -1769,7 +1737,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listWorkRequestLogs':
     // path /workRequests/{workRequestId}/logs
     public function listWorkRequestLogs($params=[])
@@ -1812,7 +1779,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'listWorkRequests':
     // path /workRequests
     public function listWorkRequests($params=[])
@@ -1857,7 +1823,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'makeBucketWritable':
     // path /n/{namespaceName}/b/{bucketName}/actions/makeBucketWritable
     public function makeBucketWritable($params=[])
@@ -1893,7 +1858,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'putObject':
     // path /n/{namespaceName}/b/{bucketName}/o/{objectName}
     public function putObject($params=[])
@@ -2003,6 +1967,9 @@ class ObjectStorageClient extends AbstractClient
             HttpUtils::encodeMap($__headers, "opcMeta", "", $opcMeta);
         }
 
+        // set per-operation signing strategy
+        HttpUtils::addToArray($__headers, getPerOperationSigningStrategyNameHeaderName(), (string) getSigningStrategy("exclude_body"));
+
         $__query = [];
 
         $__queryStr = HttpUtils::queryMapToString($__query);
@@ -2016,7 +1983,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("PUT", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'putObjectLifecyclePolicy':
     // path /n/{namespaceName}/b/{bucketName}/l
     public function putObjectLifecyclePolicy($params=[])
@@ -2066,7 +2032,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("PUT", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'reencryptBucket':
     // path /n/{namespaceName}/b/{bucketName}/actions/reencrypt
     public function reencryptBucket($params=[])
@@ -2102,7 +2067,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
     }
-
     // Operation 'reencryptObject':
     // path /n/{namespaceName}/b/{bucketName}/actions/reencrypt/{objectName}
     public function reencryptObject($params=[])
@@ -2150,7 +2114,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'renameObject':
     // path /n/{namespaceName}/b/{bucketName}/actions/renameObject
     public function renameObject($params=[])
@@ -2190,7 +2153,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'restoreObjects':
     // path /n/{namespaceName}/b/{bucketName}/actions/restoreObjects
     public function restoreObjects($params=[])
@@ -2230,7 +2192,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'updateBucket':
     // path /n/{namespaceName}/b/{bucketName}/
     public function updateBucket($params=[])
@@ -2275,7 +2236,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'updateNamespaceMetadata':
     // path /n/{namespaceName}
     public function updateNamespaceMetadata($params=[])
@@ -2312,7 +2272,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("PUT", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'updateObjectStorageTier':
     // path /n/{namespaceName}/b/{bucketName}/actions/updateObjectStorageTier
     public function updateObjectStorageTier($params=[])
@@ -2352,7 +2311,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("POST", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'updateRetentionRule':
     // path /n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}
     public function updateRetentionRule($params=[])
@@ -2400,7 +2358,6 @@ class ObjectStorageClient extends AbstractClient
 
         return $this->callApi("PUT", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'body' => $__body ]);
     }
-
     // Operation 'uploadPart':
     // path /n/{namespaceName}/b/{bucketName}/u/{objectName}
     public function uploadPart($params=[])
@@ -2478,6 +2435,9 @@ class ObjectStorageClient extends AbstractClient
         if ($opcSseKmsKeyId != null) {
             HttpUtils::addToArray($__headers, "opcSseKmsKeyId", HttpUtils::attemptEncodeParam($opcSseKmsKeyId));
         }
+
+        // set per-operation signing strategy
+        HttpUtils::addToArray($__headers, getPerOperationSigningStrategyNameHeaderName(), (string) getSigningStrategy("exclude_body"));
 
         $__query = [];
         if ($uploadId != null) {
