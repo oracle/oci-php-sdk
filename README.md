@@ -25,6 +25,64 @@ for example: `php src/Oracle/Oci/Examples/ObjectStorageExample.php`
 
 TODO
 
+### Installing PHP 5.6 on Oracle Linux
+
+The following has worked for installing PHP 5.6 on Oracle Linux:
+
+    sudo yum -y remove oracle-epel-release-el7
+    sudo yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    sudo yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    sudo yum -y install yum-utils
+    sudo yum-config-manager --enable remi-php73
+    sudo yum -y install php56
+    sudo yum -y install php56-php-mbstring.x86_64
+    alias php=php56
+    php -v
+    mkdir ~/.oci
+
+### Installing Composer
+
+Install Composer as package manager for PHP:
+
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    php composer-setup.php
+    php -r "unlink('composer-setup.php');"
+    sudo mv composer.phar /usr/local/bin/composer
+
+### Running the Instance Principals Example
+
+The src/Oracle/Oci/Examples/InstancePrincipalsExample.php must be run on an OCI instance. To set it up, you can follow these steps:
+
+1. Create a dynamic group. You can use a matching rule like this to get all instances in a certain compartment:
+    ```
+    Any {instance.compartment.id = '<ocid-of-compartment>'}
+    ```
+
+2. Start an OCI instance. Make sure that it is matched by the dynamic group, e.g. by creating it in the correct compartment.
+3. Create a policy for the dynamic group that grants the desired permissions. For example:
+    ```
+    Allow dynamic-group <name-of-dynamic-group> to manage buckets in compartment <name-of-compartment>
+    Allow dynamic-group <name-of-dynamic-group> to manage objects in compartment <name-of-compartment>
+    Allow dynamic-group mricken-test-dg to manage objectstorage-namespaces in compartment mricken-test
+    ```
+4. Install PHP 5.6 on Oracle Linux. See above.
+5. Copy the OCI PHP SDK and this example to the OCI instance (using `scp` or `rsync`).
+6. Run Composer to download the required packages:
+    ```
+    composer update
+    composer install
+    ```
+7. SSH into the OCI instance.
+8. Run the example:
+    ```
+    php src/Oracle/Oci/Examples/InstancePrincipalsExample.php
+    ```
+9. Run the Instance Principal-specific unit tests:
+    ```
+    php vendor/bin/phpunit --group InstancePrincipalsRequired
+    ```
+
 ## Help
 
 TODO
