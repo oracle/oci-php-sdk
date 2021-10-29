@@ -288,8 +288,7 @@ abstract class AbstractClient
         $request = $this->initRequest($httpMethod, $endpoint, $opts);
         $responsePromise = $this->client->sendAsync($request)->then(
             function ($__response) use ($opts) {
-                $__response->getBody();
-                if (isset($extras['response_body_type']) && $extras['response_body_type'] == 'binary') {
+                if (isset($opts['response_body_type']) && $opts['response_body_type'] == 'binary') {
                     return new OciResponse(
                         $__response->getStatusCode(),
                         $__response->getHeaders(),

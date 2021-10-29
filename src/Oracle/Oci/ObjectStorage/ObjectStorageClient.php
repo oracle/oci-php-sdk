@@ -929,7 +929,7 @@ class ObjectStorageClient extends AbstractClient
         $__path = str_replace('{bucketName}', utf8_encode($bucketName), $__path);
         $__path = str_replace('{objectName}', utf8_encode($objectName), $__path);
 
-        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers ]);
+        return $this->callApi("GET", "{$this->endpoint}{$__path}{$__queryStr}", [ 'headers' => $__headers, 'response_body_type' => 'binary' ]);
     }
     // Operation 'getObjectLifecyclePolicy':
     // path /n/{namespaceName}/b/{bucketName}/l
