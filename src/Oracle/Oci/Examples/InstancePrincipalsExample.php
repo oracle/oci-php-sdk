@@ -6,11 +6,8 @@ require 'vendor/autoload.php';
 
 use DateTime;
 use GuzzleHttp\Exception\ServerException;
-use Oracle\Oci\Common\Region;
 use Oracle\Oci\ObjectStorage\ObjectStorageClient;
 use Oracle\Oci\Common\Auth\InstancePrincipalsAuthProvider;
-use Oracle\Oci\Common\Auth\SessionKeySupplierImpl;
-use Oracle\Oci\Common\Auth\X509FederationClient;
 use Oracle\Oci\Common\Logging\EchoLogAdapter;
 use Oracle\Oci\Common\Logging\Logger;
 use Oracle\Oci\Common\OciBadResponseException;
@@ -39,9 +36,7 @@ Logger::setGlobalLogAdapter(new EchoLogAdapter(0, [
 ]));
 
 try {
-    $sessionKeyProvider = new SessionKeySupplierImpl();
-    $fc = new X509FederationClient($sessionKeyProvider);
-    $auth_provider = new InstancePrincipalsAuthProvider($fc, $sessionKeyProvider, Region::US_PHOENIX_1());
+    $auth_provider = new InstancePrincipalsAuthProvider();
 } catch (ServerException $e) {
     if (strpos($e, "cannotconnect") !== false) {
         echo("This sample only works when running on an OCI instance. Are you sure you’re running on an OCI instance?" . PHP_EOL

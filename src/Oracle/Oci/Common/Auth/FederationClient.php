@@ -40,7 +40,7 @@ interface FederationClientInterface
 class X509FederationClient extends AbstractClient implements FederationClientInterface
 {
     const ALLOWED_PARAMS = [
-        "federationEndpoint", "tenancyId", "leafCertificateSupplier", "intermediateCertificateSuppliers", "purpose"];
+        "region", "federationEndpoint", "tenancyId", "leafCertificateSupplier", "intermediateCertificateSuppliers", "purpose"];
     
     const DEFAULT_PURPOSE = "DEFAULT";
     const DEFAULT_FINGERPRINT_ALGORITHM = "SHA256";
@@ -84,7 +84,7 @@ class X509FederationClient extends AbstractClient implements FederationClientInt
             "https://auth.{region}.oraclecloud.com/v1/x509",
             new X509AuthProvider($this->leafCertificateSupplier, $this->tenancyId),
             FederationSigningStrategy::getSingleton(),
-            null,
+            $this->region,
             $this->federationEndpoint
         );
     }
@@ -298,7 +298,7 @@ class X509FederationClient extends AbstractClient implements FederationClientInt
      */
     protected function autoDetectEndpointUsingMetadataUrl() // : string
     {
-        if ($this->federationEndpoint == null) {
+        if ($this->federationEndpoint == null && $this->region == null) {
             $client = new Client();
             $response = $client->get(
                 X509FederationClient::METADATA_SERVICE_BASE_URL . "instance/region",
@@ -310,14 +310,14 @@ class X509FederationClient extends AbstractClient implements FederationClientInt
 
             // Region.fromRegionId, and fall back to 'region' only for backwards compat.
             $region = Region::getRegion($regionStr);
-            $this->logger->debug("Using region {$region}.");
             if ($region == null) {
                 $this->logger->debug(
-                    "Region not supported by this version of the SDK, registering region '{$region}' under " . Realm::getRealmForUnknownRegion() . "."
+                    "Region not supported by this version of the SDK, registering region '{$regionStr}' under " . Realm::getRealmForUnknownRegion() . "."
                 );
                 // Proceed by assuming the region id belongs to the "unknown regions" realm.
                 $region = new Region($regionStr, $regionStr, Realm::getRealmForUnknownRegion());
             }
+            $this->logger->debug("Using region {$region}.");
 
             $this->federationEndpoint = "https://auth." . $region->getRegionId() . ".oraclecloud.com/v1/x509";
 
@@ -427,32 +427,6 @@ class X509FederationClient extends AbstractClient implements FederationClientInt
             return null;
         }
     }
-
-    // // really simple retry until the SDK supports internal retries
-    // @VisibleForTesting
-    // Response makeCall(Builder ib, URI requestUri, X509FederationRequest federationRequest) {
-    //     BmcException lastException = null;
-    //     // Keeping one instance of the WrappedInvocationBuilder in order to preserve the request ID on retries.
-    //     final WrappedInvocationBuilder wrappedIb = new WrappedInvocationBuilder(ib, requestUri);
-    //     for (int retry = 0; retry < 5; retry++) {
-    //         try {
-    //             return federationHttpClient.post(wrappedIb, federationRequest, new BmcRequest());
-    //         } catch (BmcException e) {
-    //             // retry in all cases right now
-    //             lastException = e;
-    //             try {
-    //                 Thread.sleep(250L);
-    //             } catch (InterruptedException e1) {
-    //                 LOG.debug(
-    //                         "Thread interrupted while waiting to make next call to federation service",
-    //                         e1);
-    //                 Thread.currentThread().interrupt();
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     throw lastException;
-    // }
 }
 
 class X509AuthProvider implements AuthProviderInterface

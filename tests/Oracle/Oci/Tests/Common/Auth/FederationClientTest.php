@@ -4,8 +4,6 @@ namespace Oracle\Oci\Common\Auth;
 
 use Exception;
 use InvalidArgumentException;
-use Oracle\Oci\Common\Logging\EchoLogAdapter;
-use Oracle\Oci\Common\Logging\Logger;
 use PHPUnit\Framework\TestCase;
 
 class FederationClientTest extends TestCase
@@ -101,6 +99,25 @@ class FederationClientTest extends TestCase
             FederationClientTest::$sessionKeyProvider,
             [
                 "federationEndpoint" => "https://auth.us-phoenix-1.oraclecloud.com/v1/x509",
+                "tenancyId" => "ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq",
+                "leafCertificateSupplier" => $ls,
+                "intermediateCertificateSuppliers" => $is
+            ]
+        );
+    }
+
+    /**
+     * @group InstancePrincipalsRequired
+     */
+    public function testFederationClient_AutoDetectNothing_RegionSet()
+    {
+        $ls = new TestX509CertificateSupplier();
+        $is = new TestX509CertificateSupplier();
+
+        $fc = new X509FederationClient(
+            FederationClientTest::$sessionKeyProvider,
+            [
+                "region" => "us-phoenix-1",
                 "tenancyId" => "ocid1.tenancy.oc1..aaaaaaaacqp432hpa5oc2kvxm4kpwbkodfru4okbw2obkcdob5zuegi4rwxq",
                 "leafCertificateSupplier" => $ls,
                 "intermediateCertificateSuppliers" => $is

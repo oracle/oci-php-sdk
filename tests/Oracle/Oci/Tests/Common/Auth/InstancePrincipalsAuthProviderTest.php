@@ -13,10 +13,10 @@ class InstancePrincipalsAuthProviderTest extends TestCase
      */
     public static function beforeClass()
     {
-        // Logger::setGlobalLogAdapter(new EchoLogAdapter(LOG_INFO, [
-        //     "Oracle\Oci\Common\Auth" => LOG_DEBUG,
-        //     "Oracle\Oci\ObjectStorage" => LOG_DEBUG
-        // ]));
+        \Oracle\Oci\Common\Logging\Logger::setGlobalLogAdapter(new \Oracle\Oci\Common\Logging\EchoLogAdapter(LOG_INFO, [
+            "Oracle\Oci\Common\Auth" => LOG_DEBUG,
+            "Oracle\Oci\ObjectStorage" => LOG_DEBUG
+        ]));
     }
 
     public function testSessionKeySupplierImpl()
@@ -47,11 +47,44 @@ class InstancePrincipalsAuthProviderTest extends TestCase
     /**
      * @group InstancePrincipalsRequired
      */
-    public function testInstancePrincipalsAuthProvider()
+    public function testInstancePrincipalsAuthProvider_Simplest()
     {
-        $sessionKeyProvider = new SessionKeySupplierImpl();
-        $fc = new X509FederationClient($sessionKeyProvider);
-        $ipap = new InstancePrincipalsAuthProvider($fc, $sessionKeyProvider, Region::US_PHOENIX_1());
+        $ipap = new InstancePrincipalsAuthProvider();
+        
+        $keyId = $ipap->getKeyId();
+        $this->assertTrue(strpos($keyId, "ST$") == 0);
+    }
+
+    /**
+     * @group InstancePrincipalsRequired
+     */
+    public function testInstancePrincipalsAuthProvider_AutoDetectEverything()
+    {
+        $sessionKeySupplier = new SessionKeySupplierImpl();
+        $fc = new X509FederationClient($sessionKeySupplier);
+        $ipap = new InstancePrincipalsAuthProvider([
+            InstancePrincipalsAuthProvider::FEDERATION_CLIENT => $fc,
+            InstancePrincipalsAuthProvider::SESSION_KEY_SUPPLIER => $sessionKeySupplier,
+        ]);
+        
+        $keyId = $ipap->getKeyId();
+        $this->assertTrue(strpos($keyId, "ST$") == 0);
+    }
+
+    /**
+     * @group InstancePrincipalsRequired
+     */
+    public function testInstancePrincipalsAuthProvider_RegionSet()
+    {
+        $sessionKeySupplier = new SessionKeySupplierImpl();
+        $fc = new X509FederationClient($sessionKeySupplier, [
+            'region' => Region::US_PHOENIX_1()
+        ]);
+        $ipap = new InstancePrincipalsAuthProvider([
+            InstancePrincipalsAuthProvider::FEDERATION_CLIENT => $fc,
+            InstancePrincipalsAuthProvider::SESSION_KEY_SUPPLIER => $sessionKeySupplier,
+            InstancePrincipalsAuthProvider::REGION => Region::US_PHOENIX_1()
+        ]);
         
         $keyId = $ipap->getKeyId();
         $this->assertTrue(strpos($keyId, "ST$") == 0);
@@ -62,9 +95,27 @@ class InstancePrincipalsAuthProviderTest extends TestCase
      */
     public function testObjectStorageWithInstancePrincipalsAuthProvider()
     {
-        $sessionKeyProvider = new SessionKeySupplierImpl();
-        $fc = new X509FederationClient($sessionKeyProvider);
-        $ipap = new InstancePrincipalsAuthProvider($fc, $sessionKeyProvider, Region::US_PHOENIX_1());
+        $sessionKeySupplier = new SessionKeySupplierImpl();
+        $fc = new X509FederationClient($sessionKeySupplier);
+        $ipap = new InstancePrincipalsAuthProvider([
+            InstancePrincipalsAuthProvider::FEDERATION_CLIENT => $fc,
+            InstancePrincipalsAuthProvider::SESSION_KEY_SUPPLIER => $sessionKeySupplier,
+        ]);
+
+        $c = new ObjectStorageClient($ipap);
+        
+        $response = $c->getNamespace();
+        $namespace = $response->getJson();
+        
+        $this->assertTrue(strlen($namespace) > 0);
+    }
+
+    /**
+     * @group InstancePrincipalsRequired
+     */
+    public function testObjectStorageWithInstancePrincipalsAuthProvider_Simplest()
+    {
+        $ipap = new InstancePrincipalsAuthProvider();
 
         $c = new ObjectStorageClient($ipap);
         

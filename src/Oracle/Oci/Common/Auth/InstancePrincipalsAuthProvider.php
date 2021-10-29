@@ -2,9 +2,12 @@
 
 namespace Oracle\Oci\Common\Auth;
 
+use GuzzleHttp\Client;
 use InvalidArgumentException;
 use OpenSSLAsymmetricKey;
+use Oracle\Oci\Common\Logging\LogAdapterInterface;
 use Oracle\Oci\Common\Logging\Logger;
+use Oracle\Oci\Common\Realm;
 use Oracle\Oci\Common\Region;
 use Oracle\Oci\Common\StringUtils;
 
@@ -150,8 +153,46 @@ class CachingSessionKeySupplier implements SessionKeySupplierInterface
 
 abstract class AbstractRequestingAuthenticationDetailsProvider implements AuthProviderInterface
 {
-    /*FederationClientInterface*/ private $federationClient;
-    /*SessionKeySupplierInterface*/ private $sessionKeySupplier;
+    const REGION = "region";
+    const FEDERATION_CLIENT = "federationClient";
+    const SESSION_KEY_SUPPLIER = "sessionKeySupplier";
+    const ALLOWED_PARAMS = [
+        AbstractRequestingAuthenticationDetailsProvider::REGION => [Region::class, "string"],
+        AbstractRequestingAuthenticationDetailsProvider::FEDERATION_CLIENT => FederationClientInterface::class,
+        AbstractRequestingAuthenticationDetailsProvider::SESSION_KEY_SUPPLIER => SessionKeySupplierInterface::class
+    ];
+    const REQUIRED_PARAMS = [];
+
+    /*LogAdapterInterface*/ protected $logger;
+    /*FederationClientInterface*/ protected $federationClient;
+    /*SessionKeySupplierInterface*/ protected $sessionKeySupplier;
+    /*Region*/ protected $region;
+
+    public function __construct($params = [])
+    {
+        $this->logger = Logger::logger(static::class);
+
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
+            throw new InvalidArgumentException("The parameter should be an associative array");
+        }
+
+        StringUtils::checkAllRequired($params, AbstractRequestingAuthenticationDetailsProvider::REQUIRED_PARAMS);
+
+        foreach ($params as $k => $v) {
+            $this->{$k} = StringUtils::checkType($k, $v, AbstractRequestingAuthenticationDetailsProvider::ALLOWED_PARAMS);
+        }
+
+        if ($this->sessionKeySupplier == null) {
+            $this->sessionKeySupplier = new SessionKeySupplierImpl();
+        }
+        if ($this->federationClient == null) {
+            $this->federationClient = new X509FederationClient($this->sessionKeySupplier);
+        }
+
+        $this->sessionKeySupplier = new CachingSessionKeySupplier($this->sessionKeySupplier);
+
+        $this->region = $this->autoDetectRegionUsingMetadataUrl();
+    }
 
     protected function getFederationClient()
     {
@@ -161,14 +202,6 @@ abstract class AbstractRequestingAuthenticationDetailsProvider implements AuthPr
     protected function getSessionKeySupplier()
     {
         return $this->sessionKeySupplier;
-    }
-
-    public function __construct(
-        FederationClientInterface $federationClient,
-        SessionKeySupplierInterface $sessionKeySupplier
-    ) {
-        $this->federationClient = $federationClient;
-        $this->sessionKeySupplier = new CachingSessionKeySupplier($sessionKeySupplier);
     }
 
     public function getKeyId() // : string
@@ -186,19 +219,63 @@ abstract class AbstractRequestingAuthenticationDetailsProvider implements AuthPr
     {
         return $this->sessionKeySupplier->getKeyPair()->getPrivateKey();
     }
+        
+    /**
+     * Auto detects the region that the instance runs in, if no region
+     * has been configured already.
+     * @return Region The auto-detected, or currently set, Region.
+     */
+    protected function autoDetectRegionUsingMetadataUrl() // : Region
+    {
+        if ($this->region == null) {
+            $client = new Client();
+            $response = $client->get(
+                X509FederationClient::METADATA_SERVICE_BASE_URL . "instance/region",
+                [ 'headers' => [ "Authorization" => "Bearer Oracle"] ]
+            );
+            
+            $regionStr = $response->getBody();
+            $this->logger->debug("Looking up region for {$regionStr}.");
+
+            // Region.fromRegionId, and fall back to 'region' only for backwards compat.
+            $this->region = Region::getRegion($regionStr);
+            if ($this->region == null) {
+                $this->logger->debug(
+                    "Region not supported by this version of the SDK, registering region '{$this->regionStr}' under " . Realm::getRealmForUnknownRegion() . "."
+                );
+                // Proceed by assuming the region id belongs to the "unknown regions" realm.
+                $this->region = new Region($regionStr, $regionStr, Realm::getRealmForUnknownRegion());
+            }
+            $this->logger->debug("Using region {$this->region}.");
+        }
+        return $this->region;
+    }
 }
 
 class InstancePrincipalsAuthProvider extends AbstractRequestingAuthenticationDetailsProvider implements AuthProviderInterface, RegionProviderInterface, RefreshableOnNotAuthenticatedInterface
 {
-    /*Region*/ private $region;
+    const ALLOWED_PARAMS = [];
+    const REQUIRED_PARAMS = [];
 
     public function __construct(
-        FederationClientInterface $federationClient,
-        SessionKeySupplierInterface $sessionKeySupplier,
-        Region $region
+        $params=[]
     ) {
-        parent::__construct($federationClient, $sessionKeySupplier);
-        $this->region = $region;
+        if (!is_array($params) || array_keys($params) === range(0, count($params) - 1)) {
+            throw new InvalidArgumentException("The parameter should be an associative array");
+        }
+
+        $parentParams = [];
+        foreach ($params as $k => $v) {
+            if (array_key_exists($k, InstancePrincipalsAuthProvider::ALLOWED_PARAMS)) {
+                $this->{$k} = StringUtils::checkType($k, $v, InstancePrincipalsAuthProvider::ALLOWED_PARAMS);
+            } elseif (array_key_exists($k, AbstractRequestingAuthenticationDetailsProvider::ALLOWED_PARAMS)) {
+                $parentParams[$k] = $v;
+            } else {
+                throw new InvalidArgumentException("Parameter '$k' invalid");
+            }
+        }
+
+        parent::__construct($parentParams);
     }
 
     public function getRegion() // : ?Region
@@ -206,13 +283,12 @@ class InstancePrincipalsAuthProvider extends AbstractRequestingAuthenticationDet
         return $this->region;
     }
 
-
     /**
      * Gets a security token from the federation endpoint. This will always retreive
      * a new token from the federation endpoint and does not use a cached token.
      * @return string A security token that can be used to authenticate requests.
      */
-    public function refresh() // : strin
+    public function refresh() // : string
     {
         return $this->getFederationClient()->refreshAndGetSecurityToken();
     }

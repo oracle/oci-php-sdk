@@ -3,6 +3,7 @@
 namespace Oracle\Oci\Common;
 
 use Exception;
+use InvalidArgumentException;
 
 class StringUtils
 {
@@ -58,5 +59,47 @@ class StringUtils
         }
     
         return "\t" . implode("\n\t", $result);
+    }
+
+    public static function checkType($k, $v, $allowedParams) // : returns $v
+    {
+        if (!array_key_exists($k, $allowedParams)) {
+            throw new InvalidArgumentException("Parameter '$k' invalid");
+        }
+        $allowedTypes = $allowedParams[$k];
+        if ($allowedTypes == null) {
+            // all allowed
+            return $v;
+        }
+        if (is_array($allowedTypes)) {
+            foreach ($allowedTypes as $at) {
+                if (StringUtils::isType($v, $at)) {
+                    return $v;
+                }
+            }
+            throw new InvalidArgumentException("Parameter '$k' must be one of [" . implode(", ", $allowedTypes) . "], was " . StringUtils::get_type_or_class($v) . ".");
+        } else {
+            if (!StringUtils::isType($v, $allowedTypes)) {
+                throw new InvalidArgumentException("Parameter '$k' must be a $allowedTypes, was " . StringUtils::get_type_or_class($v) . ".");
+            }
+            return $v;
+        }
+    }
+    
+    public static function isType($v, $allowedType) // : bool
+    {
+        if ($allowedType == "string") {
+            return is_string($v);
+        }
+        return is_a($v, $allowedType);
+    }
+
+    public static function checkAllRequired($params, $requiredParams)
+    {
+        foreach ($requiredParams as $k) {
+            if (!array_key_exists($k, $params)) {
+                throw new InvalidArgumentException("The parameter '$k' is required.");
+            }
+        }
     }
 }
