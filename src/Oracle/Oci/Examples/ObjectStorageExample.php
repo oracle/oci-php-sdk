@@ -8,7 +8,6 @@ use DateTime;
 use Oracle\Oci\Common\Region;
 use Oracle\Oci\Common\UserAgent;
 use Oracle\Oci\ObjectStorage\ObjectStorageClient;
-use GuzzleHttp\Exception\ClientException;
 use Oracle\Oci\Common\Auth\ConfigFileAuthProvider;
 use Oracle\Oci\Common\Logging\EchoLogAdapter;
 use Oracle\Oci\Common\Logging\Logger;
@@ -22,10 +21,6 @@ $file_to_upload = "composer.json";
 date_default_timezone_set('Etc/UTC');
 Logger::setGlobalLogAdapter(new EchoLogAdapter(0, [
     "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient" => LOG_DEBUG,
-    "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\uri" => LOG_DEBUG,
-    "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\signing\\strategy" => LOG_DEBUG,
-    "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\signing\\strategy\\details" => LOG_INFO,
-    "Oracle\\Oci\\ObjectStorage\\ObjectStorageClient\\middleware\\requestHeaders" => LOG_DEBUG,
     "Oracle\\Oci\\Common\\OciResponse" => LOG_DEBUG
 ]));
 

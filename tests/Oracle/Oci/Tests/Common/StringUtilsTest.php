@@ -27,9 +27,6 @@ class StringUtilsTest extends TestCase
         $input = "Night time shows us where they are.";
         $b64 = base64_encode($input);
         $output = base64_decode($b64, true);
-        echo $input . PHP_EOL;
-        echo $output . PHP_EOL;
-        echo $b64 . PHP_EOL;
         $this->assertEquals($input, $output);
     }
 }

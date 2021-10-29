@@ -42,7 +42,7 @@ class UserAgent
         UserAgent::$userAgent = $str;
     }
 
-    public static function setAdditionalClientUserAgent(string $additionalClientUserAgent)
+    public static function setAdditionalClientUserAgent(/*string*/ $additionalClientUserAgent)
     {
         $str = trim($additionalClientUserAgent);
         if ($str == "") {

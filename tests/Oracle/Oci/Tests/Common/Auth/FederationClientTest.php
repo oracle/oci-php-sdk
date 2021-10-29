@@ -19,9 +19,9 @@ class FederationClientTest extends TestCase
     public function beforeClass()
     {
         FederationClientTest::$sessionKeyProvider = new SessionKeySupplierImpl();
-        Logger::setGlobalLogAdapter(new EchoLogAdapter(LOG_INFO, [
-            "Oracle\Oci\Common\Auth" => LOG_DEBUG
-        ], []));
+        // Logger::setGlobalLogAdapter(new EchoLogAdapter(LOG_INFO, [
+        //     "Oracle\Oci\Common\Auth" => LOG_DEBUG
+        // ], []));
 
         FederationClientTest::$cert = "-----BEGIN CERTIFICATE-----" . PHP_EOL . PHP_EOL .
         "MIIH9zCCBd+gAwIBAgIQMpG/01d3at9GHSHZA3/wmTANBgkqhkiG9w0BAQsFADCB" . PHP_EOL .
