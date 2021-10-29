@@ -2,8 +2,6 @@
 
 namespace Oracle\Oci\Common\Auth;
 
-use Oracle\Oci\Common\Logging\EchoLogAdapter;
-use Oracle\Oci\Common\Logging\Logger;
 use Oracle\Oci\Common\Region;
 use Oracle\Oci\ObjectStorage\ObjectStorageClient;
 use PHPUnit\Framework\TestCase;
