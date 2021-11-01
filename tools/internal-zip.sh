@@ -27,7 +27,7 @@ zip -r $fileName \
     -not -path ./.git/\* \
     -not -path ./.php\*cache \
     -not -path ./tools/internal-zip.sh \
-    -not -path ./oci-phd-sdk\*.zip \
+    -not -path ./oci-php-sdk\*.zip \
     `
 
 echo "Created $fileName"
