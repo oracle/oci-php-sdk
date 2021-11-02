@@ -1,5 +1,6 @@
 {
     "name": "oracle/oci-php-sdk",
+    "version": "0.0.1",
     "homepage": "https://docs.oracle.com/en-us/iaas/Content/API/Concepts/devtoolslanding.htm",
     "description": "OCI SDK for PHP - Oracle Cloud Infrastructure services in your PHP project",
     "keywords": ["oci","oracle","sdk","objectstorage"],
@@ -30,6 +31,11 @@
         "files": [
             "src/Oracle/Oci/Common/Logging/LogAdapterInterface.php",
             "src/Oracle/Oci/Common/SigningStrategy.php"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
         ]
     }
 }
