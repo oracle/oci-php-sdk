@@ -11,6 +11,10 @@
 - Paginator (multi-page lists retrieved transparently to the customer)
 - PHP stream wrapper
 
+### Convenience
+- automatic retry on Instance Principals 401
+	- does that mean we need retries?
+
 ### Test
 - Multipart upload operations
 - Work request operations
