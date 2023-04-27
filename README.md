@@ -12,8 +12,6 @@ The project is open source and maintained by Oracle Corp. The home page for the 
 
 ## Installation
 
-TODO
-
 ### Consuming the oci-php-sdk from a zip file
 
 1. Create a directory, e.g. `/path/to/artifacts`
@@ -116,8 +114,6 @@ for example: `php tests/Oracle/Oci/Examples/ObjectStorageExample.php`
 
 ## Documentation
 
-TODO
-
 ### Installing PHP 8.0 on Oracle Linux 8
 
 The following has worked for installing PHP 8.0 on Oracle Linux 8:
@@ -166,10 +162,6 @@ The [`tests/Oracle/Oci/Examples/InstancePrincipalsExample.php`](/tests/Oracle/Oc
     ```
     php vendor/bin/phpunit --group InstancePrincipalsRequired
     ```
-
-## Help
-
-TODO
 
 ## Changes
 
