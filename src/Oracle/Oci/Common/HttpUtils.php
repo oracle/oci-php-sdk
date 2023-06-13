@@ -163,7 +163,7 @@ class HttpUtils
      * @return mixed|null the value indicated by the parameter name, or null if not found
      * @throws InvalidArgumentException if the parameter does not exist and $required is true
      */
-    public static function orNull($params=[], $paramName, $required = false)
+    public static function orNull($params, $paramName, $required = false)
     {
         if (array_key_exists($paramName, $params)) {
             return $params[$paramName];
