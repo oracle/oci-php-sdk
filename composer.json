@@ -17,7 +17,7 @@
         "issues": "https://community.oracle.com/mosc/"
     },
     "require": {
-        "guzzlehttp/guzzle": "^6.5",
+        "guzzlehttp/guzzle": "^6.5 || ^7",
         "php": ">=5.6",
         "cache/adapter-common": "^1.2"
     },
